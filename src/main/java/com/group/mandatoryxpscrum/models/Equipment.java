@@ -1,6 +1,6 @@
 package com.group.mandatoryxpscrum.models;
 
-public class Equipment extends ModelEntity{
+public class Equipment {
 
     private String name;
     private boolean available;
