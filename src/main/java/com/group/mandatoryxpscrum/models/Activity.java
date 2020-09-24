@@ -1,24 +1,47 @@
 package com.group.mandatoryxpscrum.models;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 
-public class Activity extends ModelEntity{
+@Entity
+@Table(name = "activity")
+public class Activity{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id_activity;
+
+    @Column(name = "name")
     private String name;
-    private String image;
-    private String description;
-    private Pricing pricing;
-    private Rules rules;
-    private ArrayList<Equipment> equipment;
 
-    public Activity(int id, String name, String image, String description, Pricing pricing, Rules rules, ArrayList<Equipment> equipment) {
-        super(id);
+    @Column(name = "image_url")
+    private String image_url;
+
+    @Column(name = "descr")
+    private String description;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "activity")
+    private Pricing pricing;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "activity")
+    private Rules rules;
+
+    public Activity() {
+
+    }
+
+    public Activity(String name, String image_url, String description, Pricing pricing) {
         this.name = name;
-        this.image = image;
+        this.image_url = image_url;
         this.description = description;
         this.pricing = pricing;
-        this.rules = rules;
-        this.equipment = equipment;
+    }
+
+    public int getId_activity() {
+        return id_activity;
+    }
+
+    public void setId_activity(int id_activity) {
+        this.id_activity = id_activity;
     }
 
     public String getName() {
@@ -29,12 +52,12 @@ public class Activity extends ModelEntity{
         this.name = name;
     }
 
-    public String getImage() {
-        return image;
+    public String getImage_url() {
+        return image_url;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImage_url(String image) {
+        this.image_url = image;
     }
 
     public String getDescription() {
@@ -45,11 +68,11 @@ public class Activity extends ModelEntity{
         this.description = description;
     }
 
-    public Pricing getPrice() {
+    public Pricing getPricing() {
         return pricing;
     }
 
-    public void setPrice(Pricing pricing) {
+    public void setPricing(Pricing pricing) {
         this.pricing = pricing;
     }
 
@@ -60,14 +83,5 @@ public class Activity extends ModelEntity{
     public void setRules(Rules rules) {
         this.rules = rules;
     }
-
-    public ArrayList<Equipment> getEquipment() {
-        return equipment;
-    }
-
-    public void setEquipment(ArrayList<Equipment> equipment) {
-        this.equipment = equipment;
-    }
-
 
 }
