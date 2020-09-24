@@ -1,16 +1,40 @@
 package com.group.mandatoryxpscrum.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "equipment")
 public class Equipment {
 
-    private String name;
-    private boolean available;
-    private String avail_desc;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id_equipment;
 
-    public Equipment(int id, String name, boolean available, String avail_desc) {
-        super(id);
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "available")
+    private boolean available;
+
+    @Column(name = "comment")
+    private String comment;
+
+    public Equipment() {
+
+    }
+
+    public Equipment(String name, boolean available, String comment, Activity activity) {
         this.name = name;
         this.available = available;
-        this.avail_desc = avail_desc;
+        this.comment = comment;
+    }
+
+    public int getId_equipment() {
+        return id_equipment;
+    }
+
+    public void setId_equipment(int id_equipment) {
+        this.id_equipment = id_equipment;
     }
 
     public String getName() {
@@ -29,11 +53,12 @@ public class Equipment {
         this.available = available;
     }
 
-    public String getAvail_desc() {
-        return avail_desc;
+    public String getComment() {
+        return comment;
     }
 
-    public void setAvail_desc(String avail_desc) {
-        this.avail_desc = avail_desc;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
+
 }

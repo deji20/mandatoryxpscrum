@@ -1,10 +1,12 @@
 package com.group.mandatoryxpscrum.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "activity")
-public class Activity{
+public class Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +26,11 @@ public class Activity{
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "activity")
     private Rules rules;
+
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_activity", referencedColumnName = "id_activity")
+    private List<Equipment> equipment = new ArrayList<>();
 
     public Activity() {
 
@@ -84,4 +91,11 @@ public class Activity{
         this.rules = rules;
     }
 
+    public List<Equipment> getEquipment() {
+        return equipment;
+    }
+
+    public void setEquipment(List<Equipment> equipment) {
+        this.equipment = equipment;
+    }
 }
