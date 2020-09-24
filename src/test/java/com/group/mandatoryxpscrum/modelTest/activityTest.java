@@ -1,33 +1,36 @@
 package com.group.mandatoryxpscrum.modelTest;
 
 import com.group.mandatoryxpscrum.models.Activity;
-import org.junit.jupiter.api.BeforeAll;
+import com.group.mandatoryxpscrum.models.Pricing;
+import com.group.mandatoryxpscrum.models.Rules;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class activityTest {
-    Activity activity = new Activity();
     int id = 0;
     String name = "hello";
-    String rules = "max: 10 \n other: rule";
     String description = "this is a description";
-    String price = "120, pr Person\n100, pr person if over 10";
+    String image = "this is an image url";
+    Rules rules = new Rules(10, 0, 0, 0);
+    Pricing pricing = new Pricing(100, 20, "");
+    Activity activity = new Activity(id, name, image, description, pricing, rules, null);
 
     //getter and setter test to see if we can pull information from this model
    @Test
    public void setterTest(){
        activity.setId(id);
        activity.setName(name);
-       activity.setRules(rules);
+       activity.setImage(image);
        activity.setDescription(description);
-       activity.setPrice(price);
+       activity.setRules(rules);
+       activity.setPrice(pricing);
 
        assertEquals(id, activity.getId());
        assertEquals(name, activity.getName());
        assertEquals(rules, activity.getRules());
        assertEquals(description, activity.getDescription());
-       assertEquals(price, activity.getPrice());
+       assertEquals(pricing, activity.getPrice());
    }
 }

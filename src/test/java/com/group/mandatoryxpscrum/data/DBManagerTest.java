@@ -11,7 +11,7 @@ class DBManagerTest {
     @Test
     void getConnectionTest() {
         Connection connection = DBManager.getConnection();
-        assertEquals(connection!=null, true);
+        assertNotNull(connection);
     }
 
 }
