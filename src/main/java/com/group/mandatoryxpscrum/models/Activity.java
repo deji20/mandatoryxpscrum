@@ -11,17 +11,6 @@ public class Activity extends ModelEntity{
     private Rules rules;
     private ArrayList<Equipment> equipment;
 
-//    public Activity(){
-//        super();
-//    }
-
-//    public Activity(int id, String name, String image, String description) {
-//        super(id);
-//        this.name = name;
-//        this.image = image;
-//        this.description = description;
-//    }
-
     public Activity(int id, String name, String image, String description, Pricing pricing, Rules rules, ArrayList<Equipment> equipment) {
         super(id);
         this.name = name;
