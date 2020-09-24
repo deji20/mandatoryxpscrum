@@ -3,12 +3,42 @@ package com.group.mandatoryxpscrum.models;
 import java.util.ArrayList;
 
 public class Activity extends ModelEntity{
-    private String image;
+
     private String name;
-    private String price;
-    private String rules;
+    private String image;
     private String description;
+    private Pricing pricing;
+    private Rules rules;
     private ArrayList<Equipment> equipment;
+
+//    public Activity(){
+//        super();
+//    }
+
+//    public Activity(int id, String name, String image, String description) {
+//        super(id);
+//        this.name = name;
+//        this.image = image;
+//        this.description = description;
+//    }
+
+    public Activity(int id, String name, String image, String description, Pricing pricing, Rules rules, ArrayList<Equipment> equipment) {
+        super(id);
+        this.name = name;
+        this.image = image;
+        this.description = description;
+        this.pricing = pricing;
+        this.rules = rules;
+        this.equipment = equipment;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getImage() {
         return image;
@@ -18,39 +48,37 @@ public class Activity extends ModelEntity{
         this.image = image;
     }
 
-    public String getPrice() {
-        return price;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getRules() {
+    public Pricing getPrice() {
+        return pricing;
+    }
+
+    public void setPrice(Pricing pricing) {
+        this.pricing = pricing;
+    }
+
+    public Rules getRules() {
         return rules;
     }
-    public void setRules(String rules) {
+
+    public void setRules(Rules rules) {
         this.rules = rules;
     }
 
     public ArrayList<Equipment> getEquipment() {
         return equipment;
     }
+
     public void setEquipment(ArrayList<Equipment> equipment) {
         this.equipment = equipment;
     }
 
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
