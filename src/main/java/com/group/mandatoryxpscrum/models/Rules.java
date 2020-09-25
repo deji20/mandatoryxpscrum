@@ -8,72 +8,76 @@ public class Rules{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_rules;
+    @Column(name = "id_rules")
+    private Integer id;
 
     @Column(name = "max_capacity")
-    private int max_capacity;
+    private Integer maxCapacity;
 
     @Column(name = "duration")
-    private int duration;
+    private Integer duration;
 
-    @Column(name = "min_age")
-    private int min_age;
+    @Column(name = "age_limit")
+    private Integer ageLimit;
 
-    @Column(name = "min_height")
-    private int min_height;
+    @Column(name = "height_limit")
+    private Integer heightLimit;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_activity")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "rules_activity_id", referencedColumnName = "id_activity")
     private Activity activity;
 
-    public Rules(){}
+    /** Constructors + getters og setters */
+    public Rules(){
 
-    public Rules(int max_capacity, int duration, int min_age, int min_height, Activity activity) {
-        this.max_capacity = max_capacity;
+    }
+
+    public Rules(Integer maxCapacity, Integer duration, Integer ageLimit, Integer heightLimit, Activity activity) {
+        this.maxCapacity = maxCapacity;
         this.duration = duration;
-        this.min_age = min_age;
-        this.min_height = min_height;
+        this.ageLimit = ageLimit;
+        this.heightLimit = heightLimit;
         this.activity = activity;
     }
 
-    public int getId_rules() {
-        return id_rules;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId_rules(int id) {
-        this.id_rules = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public int getMax_capacity() {
-        return max_capacity;
+    public Integer getMaxCapacity() {
+        return maxCapacity;
     }
 
-    public void setMax_capacity(int max_capacity) {
-        this.max_capacity = max_capacity;
+    public void setMaxCapacity(Integer maxCapacity) {
+        this.maxCapacity = maxCapacity;
     }
 
-    public int getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
-    public int getMin_age() {
-        return min_age;
+    public Integer getAgeLimit() {
+        return ageLimit;
     }
 
-    public void setMin_age(int min_age) {
-        this.min_age = min_age;
+    public void setAgeLimit(Integer ageLimit) {
+        this.ageLimit = ageLimit;
     }
 
-    public int getMin_height() {
-        return min_height;
+    public Integer getHeightLimit() {
+        return heightLimit;
     }
 
-    public void setMin_height(int min_height) {
-        this.min_height = min_height;
+    public void setHeightLimit(Integer heightLimit) {
+        this.heightLimit = heightLimit;
     }
 
     public Activity getActivity() {

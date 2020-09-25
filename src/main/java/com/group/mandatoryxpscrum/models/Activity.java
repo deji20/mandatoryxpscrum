@@ -4,51 +4,82 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Annoterer at dette er et table i databasen */
 @Entity
 @Table(name = "activity")
 public class Activity {
 
+    /** Annoterer at dette er primary key (@Id)
+     * med auto increment (@GeneratedValue)
+     * og hvad navnet på dens kolonne i table er (@Column)
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_activity;
+    @Column(name = "id_activity")
+    private Integer id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "image_url")
-    private String image_url;
+    @Column(name = "image")
+    private String image;
 
-    @Column(name = "descr")
+    @Column(name = "description")
     private String description;
 
+    /** Annoterer at der er et one to one relationship med Pricing objekter,
+     * dvs. at for hver activity er det en pricing vice versa.
+     * "mappedBy" fortæller navnet på Activity objektet i et Pricing objekt
+     */
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "activity")
     private Pricing pricing;
 
+    /** Samme som ovenstående */
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "activity")
     private Rules rules;
 
-
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_activity", referencedColumnName = "id_activity")
+    /** Annoterer at der er et one to many relationship med Equipment objekter,
+     * dvs. at for hver activity er der "uendeligt" meget equipment.
+     * "orphanRemoval" sørger for at et Equipment objekt altid har et tilhørende Activity objekt
+     * hvis ikke fjernes Equipment objektet fra databasen næste gang der bliver kaldt på databasen
+     */
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "activity")
     private List<Equipment> equipment = new ArrayList<>();
 
+    /** tilføjer et Equipment objekt til listen
+     * og linker denne activity til equipment objektet
+     */
+    public void addEquipment(Equipment newEquipment){
+        equipment.add(newEquipment);
+        newEquipment.setActivity(this);
+    }
+
+    /** fjerner et Equipment objekt fra listen
+     * og sætter activity i equipment objektet til null ("orphan")
+     */
+    public void removeEquipment(Equipment oldEquipment){
+        equipment.remove(oldEquipment);
+        oldEquipment.setActivity(null);
+    }
+
+    /** Constructors + getters og setters */
     public Activity() {
 
     }
 
-    public Activity(String name, String image_url, String description, Pricing pricing) {
+    public Activity(String name, String image, String description, Pricing pricing) {
         this.name = name;
-        this.image_url = image_url;
+        this.image = image;
         this.description = description;
         this.pricing = pricing;
     }
 
-    public int getId_activity() {
-        return id_activity;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId_activity(int id_activity) {
-        this.id_activity = id_activity;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -59,12 +90,12 @@ public class Activity {
         this.name = name;
     }
 
-    public String getImage_url() {
-        return image_url;
+    public String getImage() {
+        return image;
     }
 
-    public void setImage_url(String image) {
-        this.image_url = image;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getDescription() {
@@ -98,4 +129,5 @@ public class Activity {
     public void setEquipment(List<Equipment> equipment) {
         this.equipment = equipment;
     }
+
 }

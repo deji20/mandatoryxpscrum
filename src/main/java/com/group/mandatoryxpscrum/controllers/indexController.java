@@ -15,7 +15,7 @@ public class indexController {
     // Get mapping for startpage. Adds list of activities to model object.
     @GetMapping("/")
     public String home(Model model){
-        model.addAttribute("activities", activityService.selectAll());
+        model.addAttribute("activities", activityService.fetchAll());
         return "index";
     }
 

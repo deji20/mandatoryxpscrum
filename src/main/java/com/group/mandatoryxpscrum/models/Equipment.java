@@ -8,7 +8,8 @@ public class Equipment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_equipment;
+    @Column(name = "id_equipment")
+    private int id;
 
     @Column(name = "name")
     private String name;
@@ -19,6 +20,11 @@ public class Equipment {
     @Column(name = "comment")
     private String comment;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "equipment_activity_id")
+    private Activity activity;
+
+    /** Constructors + getters og setters */
     public Equipment() {
 
     }
@@ -27,14 +33,15 @@ public class Equipment {
         this.name = name;
         this.available = available;
         this.comment = comment;
+        this.activity = activity;
     }
 
-    public int getId_equipment() {
-        return id_equipment;
+    public int getId() {
+        return id;
     }
 
-    public void setId_equipment(int id_equipment) {
-        this.id_equipment = id_equipment;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -61,4 +68,11 @@ public class Equipment {
         this.comment = comment;
     }
 
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
 }

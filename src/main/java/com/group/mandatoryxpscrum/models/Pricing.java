@@ -8,60 +8,64 @@ public class Pricing{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_pricing;
+    @Column(name = "id_pricing")
+    private Integer id;
 
     @Column(name = "standard")
-    private int standard;
+    private Integer standard;
 
     @Column(name = "discount")
-    private int discount;
+    private Integer discount;
 
     @Column(name = "extra_info")
-    private String extra_info;
+    private String extraInfo;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_activity")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "pricing_activity_id", referencedColumnName = "id_activity")
     private Activity activity;
 
-    public Pricing() { }
+    /** Constructors + getters og setters */
+    public Pricing() {
 
-    public Pricing(int standard, int discount, String extra_info, Activity activity) {
+    }
+
+    public Pricing(Integer standard, Integer discount, String extraInfo, Activity activity) {
         this.standard = standard;
         this.discount = discount;
-        this.extra_info = extra_info;
+        this.extraInfo = extraInfo;
         this.activity = activity;
     }
 
-    public int getId_pricing() {
-        return id_pricing;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId_pricing(int id) {
-        this.id_pricing = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public int getStandard() {
+    public Integer getStandard() {
         return standard;
     }
 
-    public void setStandard(int standard) {
+    public void setStandard(Integer standard) {
         this.standard = standard;
     }
 
-    public int getDiscount() {
+    public Integer getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(Integer discount) {
         this.discount = discount;
     }
 
-    public String getExtra_info() {
-        return extra_info;
+    public String getExtraInfo() {
+        return extraInfo;
     }
 
-    public void setExtra_info(String extra_info) {
-        this.extra_info = extra_info;
+    public void setExtraInfo(String extraInfo) {
+        this.extraInfo = extraInfo;
     }
 
     public Activity getActivity() {
