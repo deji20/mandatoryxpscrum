@@ -1,18 +1,13 @@
 package com.group.mandatoryxpscrum.controllerTests;
 
-import com.group.mandatoryxpscrum.controllers.IndexController;
+import com.group.mandatoryxpscrum.controllers.indexController;
 import com.group.mandatoryxpscrum.data.services.ActivityService;
 import com.group.mandatoryxpscrum.models.Activity;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.repository.query.Param;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,7 +18,7 @@ public class IndexTest {
     @Autowired
     private ActivityService activityService;
     @Autowired
-    private IndexController controller;
+    private indexController controller;
 
     //edit activity rules prices and description and updates database
     @ParameterizedTest
