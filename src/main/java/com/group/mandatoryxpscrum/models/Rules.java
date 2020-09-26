@@ -28,10 +28,7 @@ public class Rules{
     private Activity activity;
 
     /** Constructors + getters og setters */
-    public Rules(){
-
-    }
-
+    public Rules(){}
     public Rules(Integer maxCapacity, Integer duration, Integer ageLimit, Integer heightLimit, Activity activity) {
         this.maxCapacity = maxCapacity;
         this.duration = duration;
@@ -88,4 +85,14 @@ public class Rules{
         this.activity = activity;
     }
 
+    @Override
+    public String toString() {
+        return "Rules{" +
+                "id=" + id +
+                ", maxCapacity=" + maxCapacity +
+                ", duration=" + duration +
+                ", ageLimit=" + ageLimit +
+                ", heightLimit=" + heightLimit +
+                '}';
+    }
 }

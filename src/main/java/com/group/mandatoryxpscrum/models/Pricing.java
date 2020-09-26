@@ -76,4 +76,13 @@ public class Pricing{
         this.activity = activity;
     }
 
+    @Override
+    public String toString() {
+        return "Pricing{" +
+                "id=" + id +
+                ", standard=" + standard +
+                ", discount=" + discount +
+                ", extraInfo='" + extraInfo + '\'' +
+                '}';
+    }
 }

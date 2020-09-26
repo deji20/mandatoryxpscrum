@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+
+<body style="background-image: url('/images/background.jpg');
+            background-repeat: no-repeat; background-size: cover">
+<div class="w3-container w3-center">
+    <img src="/images/logo.png" alt="Logo" style="width: 15%; height: 25%">
+</div>
+<div class="w3-container">
+    <form action="/update" method="post" >
+        <input type="hidden" name="id" th:value="${activity.getId()}">
+        <div class = "w3-cell-row">
+        <div class = "w3-container w3-cell">
+            <div class="w3-margin w3-card">
+                <header class="w3-container w3-blue"><h2>Rules</h2></header>
+                <ul class="w3-ul">
+                    <li>
+                        <label>Age Limit:</label>
+                        <input name="age" class="w3-input" type="number"  th:value="${activity.getRules().getAgeLimit()} ?: 0">
+                    </li>
+                    <li>
+                        <label>Height Limit:</label>
+                        <input name="height" class="w3-input" type="number"  th:value="${activity.getRules().getHeightLimit()} ?: 0">
+                    </li>
+                    <li>
+                        <label>Capacity:</label>
+                        <input name="capacity" class="w3-input" type="number"  th:value="${activity.getRules().getMaxCapacity()} ?: 0">
+                    </li>
+                    <li>
+                        <label>Duration:</label>
+                        <input name="duration" class="w3-input" type="number"  th:value="${activity.getRules().getDuration()} ?: 0">
+                    </li>
+                </ul>
+            </div>
+            <div class="w3-container w3-margin w3-center w3-cell-row">
+                <button class="w3-margin w3-large w3-cell-middle w3-btn w3-round-large w3-blue" style="padding: 20px 80px;">Update</button>
+                <button class="w3-margin w3-large w3-cell-middle w3-btn w3-round-large w3-red" style="padding: 20px 40px;">Back</button>
+            </div>
+        </div>
+        <div class="w3-container w3-cell">
+            <div class="w3-margin w3-card">
+                <header class="w3-container w3-blue"><h2>Pricing</h2></header>
+                <ul class="w3-ul">
+                    <li>
+                        <label>Standard Price:</label>
+                        <input name="standardPrice" class="w3-input" type="number"  th:value="${activity.getPricing().getStandard()} ?: 0">
+                    </li>
+                    <li>
+                        <label>Discount: (If Any)</label>
+                        <input name="discount" class="w3-input" type="number"  th:value="${activity.getPricing().getDiscount()} ?: 0">
+                    </li>
+                    <li>
+                        <label>Extra Charges: (If Any)</label>
+                        <input name="extraCharges" class="w3-input" type="text"  th:value="${activity.getPricing().getExtraInfo()}">
+                    </li>
+                </ul>
+            </div>
+            <div class="w3-margin w3-card">
+                <header class="w3-container w3-blue"><h2>Description</h2></header>
+                <textarea name="description" class="w3-input" rows="8" th:text="${activity.getDescription()}" style="resize: none"></textarea>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+</body>
+</html>

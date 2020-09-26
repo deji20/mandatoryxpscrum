@@ -64,11 +64,9 @@ public class Activity {
     }
 
     /** Constructors + getters og setters */
-    public Activity() {
-
-    }
-
-    public Activity(String name, String image, String description, Pricing pricing, Rules rules, List<Equipment> equipment) {
+    public Activity() {}
+    public Activity(int id, String name, String image, String description, Rules rules, Pricing pricing, ArrayList<Equipment> equipment) {
+        this.id = id;
         this.name = name;
         this.image = image;
         this.description = description;
@@ -80,7 +78,6 @@ public class Activity {
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -88,7 +85,6 @@ public class Activity {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -96,7 +92,6 @@ public class Activity {
     public String getImage() {
         return image;
     }
-
     public void setImage(String image) {
         this.image = image;
     }
@@ -104,7 +99,6 @@ public class Activity {
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -112,7 +106,6 @@ public class Activity {
     public Pricing getPricing() {
         return pricing;
     }
-
     public void setPricing(Pricing pricing) {
         this.pricing = pricing;
     }
@@ -120,7 +113,6 @@ public class Activity {
     public Rules getRules() {
         return rules;
     }
-
     public void setRules(Rules rules) {
         this.rules = rules;
     }
@@ -135,10 +127,20 @@ public class Activity {
                 .collect(Collectors.toList());
         return available.size();
     }
-
-
     public void setEquipment(List<Equipment> equipment) {
         this.equipment = equipment;
     }
 
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", description='" + description + '\'' +
+                ", pricing=" + pricing +
+                ", rules=" + rules +
+                ", equipment=" + equipment +
+                '}';
+    }
 }
