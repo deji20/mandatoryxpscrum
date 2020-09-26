@@ -26,6 +26,10 @@ public class indexController {
         return "index";
     }
 
+    /*-----------------------------------------------
+    Mapping for viewing equipment of chosen activity
+    @PathVariable used for getting id from url
+    -----------------------------------------------*/
     @GetMapping("/activity/{id}/equipment")
     public String equipment(Model model, @PathVariable String id) {
         Activity activity = activityService.fetchById(Integer.parseInt(id));
