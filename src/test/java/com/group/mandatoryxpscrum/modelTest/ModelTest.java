@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ModelTest {
-    int id = 0;
+   /* int id = 0;
     String name = "hello";
     String description = "this is a description";
     String image = "this is an image url";
@@ -33,5 +33,5 @@ public class ModelTest {
        assertEquals(description, activity.getDescription());
        assertEquals(pricing, activity.getPrice());
        assertEquals(equipment, activity.getEquipment());
-   }
+   }*/
 }
