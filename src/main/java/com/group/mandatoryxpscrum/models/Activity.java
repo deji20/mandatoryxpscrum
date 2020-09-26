@@ -3,6 +3,7 @@ package com.group.mandatoryxpscrum.models;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /** Annoterer at dette er et table i databasen */
 @Entity
@@ -125,6 +126,14 @@ public class Activity {
     public List<Equipment> getEquipment() {
         return equipment;
     }
+
+    public Integer availableEquipment() {
+        List<Equipment> available = equipment.stream()
+                .filter(Equipment::isAvailable)
+                .collect(Collectors.toList());
+        return available.size();
+    }
+
 
     public void setEquipment(List<Equipment> equipment) {
         this.equipment = equipment;

@@ -28,7 +28,7 @@
                             <p th:text="'Max capacity: ' + ${activity.getRules().maxCapacity}"></p>
                             <p th:text="'Price 0-10 persons: ' + ${activity.getPricing()?.standard}"></p>
                             <p th:text="'Price 10+ persons: ' + ${activity.getPricing()?.discount}"></p>
-                            <p th:text="'Available equipment: ' + ${activity.getEquipment()?.size()}"></p>
+                            <p th:text="'Available equipment: ' + ${activity.availableEquipment()} + '/' + ${activity.getEquipment()?.size()}"></p>
                             <a th:href="@{/activity/{id}/equipment(id=${activity.id})}" class="w3-btn w3-green">Edit equipment status</a>
                         </div>
                     </div>
