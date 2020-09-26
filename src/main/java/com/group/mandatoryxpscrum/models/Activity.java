@@ -67,11 +67,13 @@ public class Activity {
 
     }
 
-    public Activity(String name, String image, String description, Pricing pricing) {
+    public Activity(String name, String image, String description, Pricing pricing, Rules rules, List<Equipment> equipment) {
         this.name = name;
         this.image = image;
         this.description = description;
         this.pricing = pricing;
+        this.rules = rules;
+        this.equipment = equipment;
     }
 
     public Integer getId() {
