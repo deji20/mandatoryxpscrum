@@ -121,6 +121,10 @@ public class Activity {
         return equipment;
     }
 
+    /*-----------------------------------------------
+    This method loops the equipment list and returns
+    the number of available pieces of equipment
+    ------------------------------------------------*/
     public Integer availableEquipment() {
         List<Equipment> available = equipment.stream()
                 .filter(Equipment::isAvailable)
