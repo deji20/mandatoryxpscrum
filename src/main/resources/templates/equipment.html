@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body style="background-image: url('/images/background.jpg');
+            background-repeat: no-repeat; background-size: cover">
+    <div class="w3-container w3-center">
+        <img src="/images/logo.png" alt="Logo" style="width: 25%; height: 25%">
+    </div>
+    <div class="w3-container">
+        <table class="center">
+            <thead>
+            <tr>
+                <!-- Table header with tiles -->
+                <th> Equipment Name</th>
+                <th> Equipment Status</th>
+                <th> Equipment Description</th>
+            </tr>
+            </thead>
+            <!-- table content -->
+            <tbody>
+            <tr th:each="equip: ${equipment}">
+                <td th:text="${equip.name}"></td>
+                <td th:text="'Status: ' + ${equip.available}"></td>
+                <td th:text="'comment: ' + ${equip.comment}"></td>
+                <td>
+                    <!-- Trigger/Open The Modal -->
+                    <button id="myBtn">Open Modal</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
