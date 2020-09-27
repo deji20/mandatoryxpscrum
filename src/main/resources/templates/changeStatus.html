@@ -7,10 +7,24 @@
     <title>Title</title>
 </head>
 <body style="background-image: url('/images/background.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover">
-<form>
-    <label for="test">Test:</label>
-    <input type="text" id="test" th:value="${specificEquipment.getId()}"><br><br>
+<div class="w3-container">
+<form action="#" th:action="@{/activity/equipment/updateStatus}" th:object="${specificEquipment}" method="post">
+    <!--<input type="radio" id="0" name="Status" value="0">
+    <label for="0">Unavailable</label>
+    <input type="radio" id="1" name="Status" value="1">
+    <label for="1">Available</label>
+    <br/>-->
+    <label>Available: </label>
+    <input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{name}">
+    <input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{comment}">
+    <input type="hidden" th:field="*{activity}">
+
+    <input type="checkbox" name="nvm" th:field="*{available}" th:checked="${specificEquipment.available}">
+    <br/>
     <input type="submit" value="Submit">
 </form>
+</div>
 </body>
 </html>

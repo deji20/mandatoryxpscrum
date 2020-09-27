@@ -44,7 +44,18 @@ public class indexController {
         Activity activity = activityService.fetchById(Integer.parseInt(activityId));
         Equipment equipment = activity.getSpecificEquipment(equipmentId);
         model.addAttribute("specificEquipment", equipment);
+        //model.addAttribute("activity", activity);
         return "changeStatus";
+    }
+
+    /*------------------------------------------
+    Post mapping responsible for saving changed equipment status.
+    In order to use ModelAttribute, one has to pass all attributes through the html form
+     -------------------------------------------*/
+    @PostMapping("/activity/equipment/updateStatus")
+    public String changeEquipmentStatus(@ModelAttribute("specificEquipment") Equipment equipment) {
+        equipmentService.save(equipment);
+        return "redirect:/";
     }
 
     @GetMapping("/manager")
