@@ -2,7 +2,9 @@ package com.group.mandatoryxpscrum.models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /** Annoterer at dette er et table i databasen */
@@ -45,7 +47,7 @@ public class Activity {
      * hvis ikke fjernes Equipment objektet fra databasen næste gang der bliver kaldt på databasen
      */
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "activity")
-    private List<Equipment> equipment = new ArrayList<>();
+    private Set<Equipment> equipment = new HashSet<>();
 
     /** tilføjer et Equipment objekt til listen
      * og linker denne activity til equipment objektet
@@ -65,7 +67,7 @@ public class Activity {
 
     /** Constructors + getters og setters */
     public Activity() {}
-    public Activity(int id, String name, String image, String description, Rules rules, Pricing pricing, ArrayList<Equipment> equipment) {
+    public Activity(int id, String name, String image, String description, Rules rules, Pricing pricing, Set<Equipment> equipment) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -117,7 +119,7 @@ public class Activity {
         this.rules = rules;
     }
 
-    public List<Equipment> getEquipment() {
+    public Set<Equipment> getEquipment() {
         return equipment;
     }
 
@@ -126,12 +128,12 @@ public class Activity {
     the number of available pieces of equipment
     ------------------------------------------------*/
     public Integer availableEquipment() {
-        List<Equipment> available = equipment.stream()
+        Set<Equipment> available = equipment.stream()
                 .filter(Equipment::isAvailable)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
         return available.size();
     }
-    public void setEquipment(List<Equipment> equipment) {
+    public void setEquipment(Set<Equipment> equipment) {
         this.equipment = equipment;
     }
 
