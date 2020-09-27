@@ -3,6 +3,7 @@ package com.group.mandatoryxpscrum.controllers;
 import com.group.mandatoryxpscrum.data.services.ActivityService;
 import com.group.mandatoryxpscrum.data.services.EquipmentService;
 import com.group.mandatoryxpscrum.models.Activity;
+import com.group.mandatoryxpscrum.models.Equipment;
 import com.group.mandatoryxpscrum.models.Pricing;
 import com.group.mandatoryxpscrum.models.Rules;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,13 @@ public class indexController {
         Activity activity = activityService.fetchById(Integer.parseInt(id));
         model.addAttribute("equipment", activity.getEquipment());
         return "equipment";
+    }
+
+    @GetMapping("/updateStatus")
+    public String equipmentChange(Model model, @RequestParam ("id") int id) {
+        Equipment equipment = equipmentService.fetchById(id);
+        model.addAttribute("specificEquipment", equipment);
+        return "changeStatus";
     }
 
     @GetMapping("/manager")

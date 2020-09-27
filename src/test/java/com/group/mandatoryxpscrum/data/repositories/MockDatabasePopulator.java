@@ -5,9 +5,7 @@ import com.group.mandatoryxpscrum.models.Equipment;
 import com.group.mandatoryxpscrum.models.Pricing;
 import com.group.mandatoryxpscrum.models.Rules;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class MockDatabasePopulator {
 
@@ -44,7 +42,7 @@ public class MockDatabasePopulator {
         e3.setAvailable(true);
         e3.setComment("Test Comment");
 
-        List<Equipment> equipment = new ArrayList<>();
+        Set<Equipment> equipment = new HashSet<>();
         equipment.add(e1);
         equipment.add(e2);
         equipment.add(e3);

@@ -25,12 +25,14 @@
                 <tbody>
                 <tr th:each="equip: ${equipment}">
                     <td th:text="${equip.name}"></td>
+                    <td th:text="${equip.getId()}"></td>
                     <td th:text="'Status: ' + ${equip.available}"></td>
                     <td th:text="'comment: ' + ${equip.comment}"></td>
                     <td>
                         <!-- Trigger/Open The Modal -->
-                        <button id="myBtn">Open Modal</button>
+                        <a th:href="@{/updateStatus(id=${equip.id})}" class="w3-btn w3-green">Edit equipment status</a>
                     </td>
+
                 </tr>
                 </tbody>
             </table>
