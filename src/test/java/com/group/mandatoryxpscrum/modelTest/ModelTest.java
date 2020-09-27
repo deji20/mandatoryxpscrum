@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,7 +23,7 @@ public class ModelTest {
 
 
        //initializes the model classes and sets them into a new activity;
-       Set<Equipment> equipment = new HashSet<>();
+       List<Equipment> equipment = new ArrayList<>();
        equipment.add(new Equipment("sled", true, null,null));
        Rules rules = new Rules();
        Pricing pricing = new Pricing();

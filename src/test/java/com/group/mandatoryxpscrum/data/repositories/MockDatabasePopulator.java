@@ -42,7 +42,7 @@ public class MockDatabasePopulator {
         e3.setAvailable(true);
         e3.setComment("Test Comment");
 
-        Set<Equipment> equipment = new HashSet<>();
+        List<Equipment> equipment = new ArrayList<>();
         equipment.add(e1);
         equipment.add(e2);
         equipment.add(e3);
