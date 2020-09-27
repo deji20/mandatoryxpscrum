@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class indexController {
 
@@ -37,9 +39,10 @@ public class indexController {
         return "equipment";
     }
 
-    @GetMapping("/updateStatus")
-    public String equipmentChange(Model model, @RequestParam ("id") int id) {
-        Equipment equipment = equipmentService.fetchById(id);
+    @GetMapping("/activity/equipment/updateStatus")
+    public String equipmentChange(Model model, @RequestParam ("activityId") String activityId, @RequestParam ("equipmentId") int equipmentId) {
+        Activity activity = activityService.fetchById(Integer.parseInt(activityId));
+        Equipment equipment = activity.getSpecificEquipment(equipmentId);
         model.addAttribute("specificEquipment", equipment);
         return "changeStatus";
     }

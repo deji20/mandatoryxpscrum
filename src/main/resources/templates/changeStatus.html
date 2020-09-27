@@ -9,7 +9,7 @@
 <body style="background-image: url('/images/background.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover">
 <form>
     <label for="test">Test:</label>
-    <input type="text" id="test" value="test"><br><br>
+    <input type="text" id="test" th:value="${specificEquipment.getId()}"><br><br>
     <input type="submit" value="Submit">
 </form>
 </body>

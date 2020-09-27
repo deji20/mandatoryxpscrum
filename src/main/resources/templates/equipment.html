@@ -29,8 +29,8 @@
                     <td th:text="'Status: ' + ${equip.available}"></td>
                     <td th:text="'comment: ' + ${equip.comment}"></td>
                     <td>
-                        <!-- Trigger/Open The Modal -->
-                        <a th:href="@{/updateStatus(id=${equip.id})}" class="w3-btn w3-green">Edit equipment status</a>
+
+                        <a th:href="@{/activity/equipment/updateStatus(activityId=${equip.getActivity().id})(equipmentId=${equip.id})}" class="w3-btn w3-green">Edit equipment status</a>
                     </td>
 
                 </tr>

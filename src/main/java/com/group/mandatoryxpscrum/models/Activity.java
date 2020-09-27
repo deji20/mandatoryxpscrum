@@ -1,9 +1,7 @@
 package com.group.mandatoryxpscrum.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -148,5 +146,14 @@ public class Activity {
                 ", rules=" + rules +
                 ", equipment=" + equipment +
                 '}';
+    }
+
+    public Equipment getSpecificEquipment(int id) {
+        for( Equipment e : equipment) {
+           if(e.getId() == id) {
+               return e;
+           }
+        }
+        return null;
     }
 }
