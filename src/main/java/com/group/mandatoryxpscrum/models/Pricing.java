@@ -26,7 +26,6 @@ public class Pricing{
 
     /** Constructors + getters og setters */
     public Pricing() {
-
     }
 
     public Pricing(Integer standard, Integer discount, String extraInfo, Activity activity) {

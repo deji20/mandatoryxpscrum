@@ -78,12 +78,17 @@ public class indexController {
                              @RequestParam String extraCharges, @RequestParam String description){
         Activity activity = activityService.fetchById(id);
 
-        activity.setRules(new Rules(age, height, capacity, duration, activity));
-        activity.setPricing(new Pricing(standardPrice, discount, extraCharges, activity));
+        activity.getRules().setAgeLimit(age);
+        activity.getRules().setHeightLimit(height);
+        activity.getRules().setMaxCapacity(capacity);
+        activity.getRules().setDuration(duration);
+        activity.getPricing().setStandard(standardPrice);
+        activity.getPricing().setDiscount(discount);
+        activity.getPricing().setExtraInfo(extraCharges);
         activity.setDescription(description);
 
         activityService.save(activity);
-        return "index";
+        return "redirect:/manager";
     }
 
  }

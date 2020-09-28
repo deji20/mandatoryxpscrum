@@ -10,25 +10,46 @@
 <body style="background-image: url('/images/background.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover">
 <div class="w3-auto">
     <div class="w3-container w3-center">
-        <img src="/images/logo.png" alt="Logo" style="width: 50%; height: 50%">
+        <img src="/images/logo.png" alt="Logo" style="width: 15%; height: 15%">
     </div>
     <div class="w3-container">
         <div class="w3-row-padding">
-            <div th:each="activity: ${activities}" class="w3-third w3-padding">
-                <div class="w3-round w3-yellow">
+            <div th:each="activity: ${activities}" class="w3-col s4 w3-panel">
+                <div class="w3-pale-yellow w3-card w3-round-xlarge w3-ul">
                     <header class="w3-row">
-                        <img src="" th:src="@{${'/images/' + activity.image}}" class="w3-round w3-image" alt="Missing image">
+                        <img src="" th:src="@{${'/images/' + activity.image}}" class="w3-image" alt="Missing image">
                     </header>
-                    <div class="w3-container">
-                        <h3 class="w3-card w3-center" th:text="${activity.name}"></h3>
-                        <li th:text="'Min. age: ' + ${activity.getRules().ageLimit}"></li>
-                        <li th:text="'Min. height: ' + ${activity.getRules().heightLimit}"></li>
-                        <li th:text="'Duration: ' + ${activity.getRules().duration}"></li>
-                        <li th:text="'Max capacity: ' + ${activity.getRules().maxCapacity}"></li>
-                        <li th:text="'Price 0-10 persons: ' + ${activity.getPricing()?.standard}"></li>
-                        <li th:text="'Price 10+ persons: ' + ${activity.getPricing()?.discount}"></li>
-                        <li th:text="'Available equipment: ' + ${activity.availableEquipment()} + '/' + ${activity.getEquipment()?.size()}"></li>
-                        <a th:href="'/edit?id=' + ${activity.getId()}" class="w3-btn w3-bar w3-green">Edit</a>
+                    <div>
+                        <h3 class="w3-card w3-center w3-blue" style="margin-top: 0px;" th:text="${activity.name}"></h3>
+                        <li th:if="${activity.getRules().ageLimit} != null">
+                            <span class="">Min. age:</span>
+                            <span th:text="${activity.getRules().ageLimit}"></span>
+                        </li>
+                        <li th:if="${activity.getRules().heightLimit} != null">
+                            <span>Min. height:</span>
+                            <span th:text="${activity.getRules().heightLimit}"></span>
+                        </li>
+                        <li th:if="${activity.getRules().duration} != null">
+                            <span>Duration:</span>
+                            <span th:text="${activity.getRules().duration}"></span>
+                        </li>
+                        <li  th:if="${activity.getRules().maxCapacity} != null">
+                            <span>Max capacity:</span>
+                            <span th:text="${activity.getRules().maxCapacity}"></span>
+                        </li>
+                        <li th:if="${activity.getPricing()?.standard} != null">
+                            <span>Price 0-10 persons:</span>
+                            <span th:text="${activity.getPricing()?.standard}"></span>
+                        </li>
+                        <li th:if="${activity.getPricing()?.discount} != null">
+                            <span>Price 10+ persons: </span>
+                            <span th:text="${activity.getPricing()?.discount}"></span>
+                        </li>
+                        <li th:if="${activity.availableEquipment()} != null">
+                            <span>Available Equipment</span>
+                            <span th:text="${activity.availableEquipment()} + '/' + ${activity.getEquipment()?.size()}"></span>
+                        </li>
+                        <a th:href="'/edit?id=' + ${activity.getId()}" class="w3-btn w3-bar w3-blue-grey" style="width: 100%;">Edit</a>
                     </div>
                 </div>
             </div>
