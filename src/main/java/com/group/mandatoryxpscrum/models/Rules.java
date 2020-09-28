@@ -23,8 +23,8 @@ public class Rules{
     @Column(name = "height_limit")
     private Integer heightLimit;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "rules_activity_id", referencedColumnName = "id_activity")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rules_activity_id")
     private Activity activity;
 
     /** Constructors + getters og setters */

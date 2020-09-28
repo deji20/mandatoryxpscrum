@@ -34,11 +34,11 @@ public class Activity {
      * dvs. at for hver activity er det en pricing vice versa.
      * "mappedBy" fortæller navnet på Activity objektet i et Pricing objekt
      */
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "activity")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "activity")
     private Pricing pricing;
 
     /** Samme som ovenstående */
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "activity")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "activity")
     private Rules rules;
 
     /** Annoterer at der er et one to many relationship med Equipment objekter,

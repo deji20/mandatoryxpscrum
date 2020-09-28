@@ -20,8 +20,8 @@ public class Pricing{
     @Column(name = "extra_info")
     private String extraInfo;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "pricing_activity_id", referencedColumnName = "id_activity")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pricing_activity_id")
     private Activity activity;
 
     /** Constructors + getters og setters */
