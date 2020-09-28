@@ -78,6 +78,7 @@ public class indexController {
                              @RequestParam String extraCharges, @RequestParam String description){
         Activity activity = activityService.fetchById(id);
 
+        //changes all the rules
         activity.getRules().setAgeLimit(age);
         activity.getRules().setHeightLimit(height);
         activity.getRules().setMaxCapacity(capacity);
