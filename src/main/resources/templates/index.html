@@ -22,13 +22,24 @@
                     <div class="w3-row w3-panel">
                         <div class="w3-container">
                             <h3 th:text="${activity.name}"></h3>
-                            <p th:text="'Min. age: ' + ${activity.getRules().ageLimit}"></p>
-                            <p th:text="'Min. height: ' + ${activity.getRules().heightLimit}"></p>
+                            <!--Med mindre ageLimit i Rules er null skal ageLimit vises-->
+                            <p th:unless="${activity.getRules().ageLimit == null}" th:text="'Age requirement: ' + ${activity.getRules().ageLimit}"></p>
+                            <!--Med mindre heightLimit i Rules er null skal heightLimit vises-->
+                            <p th:unless="${activity.getRules().heightLimit == null}" th:text="'Height requiment: ' + ${activity.getRules().heightLimit}"></p>
                             <p th:text="'Duration: ' + ${activity.getRules().duration}"></p>
                             <p th:text="'Max capacity: ' + ${activity.getRules().maxCapacity}"></p>
-                            <p th:text="'Price 0-10 persons: ' + ${activity.getPricing()?.standard}"></p>
-                            <p th:text="'Price 10+ persons: ' + ${activity.getPricing()?.discount}"></p>
-                            <p th:text="'Available equipment: ' + ${activity.availableEquipment()} + '/' + ${activity.getEquipment()?.size()}"></p>
+                            <p th:text="'Price for 0-10 persons: ' + ${activity.getPricing().standard}"></p>
+                            <!--Med mindre discount i Pricing er null skal discount vises-->
+                            <p th:unless="${activity.getPricing().discount == null}" th:text="'Price for 10+ persons: ' + ${activity.getPricing().discount}"></p>
+                            <p th:text="'Available equipment: ' + ${activity.availableEquipment()} + '/' + ${activity.getEquipment().size()}"></p>
+
+                            <!---Hvis ageLimit er null = lav en tom linje/paragraph-->
+                            <p th:if="${activity.getRules().ageLimit == null}" >&nbsp;</p>
+                            <!---Hvis heightLimit er null = lav en tom linje/paragraph-->
+                            <p th:if="${activity.getRules().heightLimit == null}" >&nbsp;</p>
+                            <!---Hvis discount er null = lav en tom linje/paragraph-->
+                            <p th:if="${activity.getPricing().discount == null}">&nbsp;</p>
+
                             <a th:href="@{/activity/{id}/equipment(id=${activity.id})}" class="w3-btn w3-green">Edit equipment status</a>
                         </div>
                     </div>

@@ -16,20 +16,25 @@
                 <thead>
                 <tr>
                     <!-- Table header with tiles -->
-                    <th> Equipment Name</th>
-                    <th> Equipment Status</th>
-                    <th> Equipment Description</th>
+                    <th style="padding:0 15px 0 15px;">Name</th>
+                    <th style="padding:0 15px 0 15px;">ID</th>
+                    <th style="padding:0 15px 0 15px;">Available</th>
+                    <th style="padding:0 15px 0 15px;">Comment</th>
                 </tr>
                 </thead>
                 <!-- table content -->
                 <tbody>
-                <tr th:each="equip: ${equipment}">
-                    <td th:text="${equip.name}"></td>
-                    <td th:text="${equip.getId()}"></td>
-                    <td th:text="'Status: ' + ${equip.available}"></td>
-                    <td th:text="'comment: ' + ${equip.comment}"></td>
-                    <td>
-                        <a th:href="@{/activity/equipment/updateStatus(activityId=${equip.getActivity().id}, equipmentId=${equip.id})}" class="w3-btn w3-green">Edit equipment status</a>
+                <tr th:each="equip: ${equipment}" style="padding:0 15px 0 15px;">
+                    <td th:text="${equip.name}" style="padding:0 15px 0 15px;"></td>
+                    <td th:text="${equip.getId()}" style="padding:0 15px 0 15px;"></td>
+<!--                    <td th:text="'Available: ' + ${equip.available} ? '0' : 'YES'"></td>-->
+                    <td style="padding:0 15px 0 15px;">
+                        <p th:if="${equip.available == false}">no</p>
+                        <p th:unless="${equip.available == false}">yes</p>
+                    </td>
+                    <td th:text="'comment: ' + ${equip.comment}" style="padding:0 15px 0 15px;"></td>
+                    <td style="padding:0 15px 0 15px;">
+                        <a th:href="@{/activity/equipment/updateStatus(activityId=${equip.getActivity().id}, equipmentId=${equip.id})}" class="w3-btn w3-green">View equipment</a>
                     </td>
 
                 </tr>
