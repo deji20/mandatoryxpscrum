@@ -39,6 +39,11 @@ public class indexController {
         return "equipment";
     }
 
+    @GetMapping("/bookinginfo")
+    public String equipment() {
+        return "bookingInfo";
+    }
+
     @GetMapping("/activity/equipment/updateStatus")
     public String equipmentChange(Model model, @RequestParam ("activityId") String activityId, @RequestParam ("equipmentId") int equipmentId) {
         Activity activity = activityService.fetchById(Integer.parseInt(activityId));
