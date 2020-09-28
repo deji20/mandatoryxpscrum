@@ -46,7 +46,7 @@ public class Activity {
      * "orphanRemoval" sørger for at et Equipment objekt altid har et tilhørende Activity objekt
      * hvis ikke fjernes Equipment objektet fra databasen næste gang der bliver kaldt på databasen
      */
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "activity")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "activity")
     private List<Equipment> equipment = new ArrayList<>();
 
     /** tilføjer et Equipment objekt til listen

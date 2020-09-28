@@ -12,6 +12,7 @@
             <img src="/images/logo.png" alt="Logo" style="width: 50%; height: 50%">
         </div>
         <div class="w3-container">
+            <a class="w3-btn w3-green">Add new equipment</a>
             <table class="center">
                 <thead>
                 <tr>
@@ -34,7 +35,10 @@
                     </td>
                     <td th:text="'comment: ' + ${equip.comment}" style="padding:0 15px 0 15px;"></td>
                     <td style="padding:0 15px 0 15px;">
-                        <a th:href="@{/activity/equipment/updateStatus(activityId=${equip.getActivity().id}, equipmentId=${equip.id})}" class="w3-btn w3-green">View equipment</a>
+                        <a th:href="@{/activity/equipment/updateStatus(activityId=${equip.getActivity().id}, equipmentId=${equip.id})}" class="w3-btn w3-green">Change status</a>
+                    </td>
+                    <td style="padding:0 15px 0 15px;">
+                        <a th:href="@{/activity/equipment/delete(id=${equip.id})}" class="w3-btn w3-red">Delete</a>
                     </td>
 
                 </tr>

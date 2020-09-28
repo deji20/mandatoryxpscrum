@@ -20,7 +20,7 @@ public class Equipment {
     @Column(name = "comment")
     private String comment;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "equipment_activity_id")
     private Activity activity;
 

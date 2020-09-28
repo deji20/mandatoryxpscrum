@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -33,10 +34,17 @@ public class indexController {
     @PathVariable used for getting id from url
     -----------------------------------------------*/
     @GetMapping("/activity/{id}/equipment")
-    public String equipment(Model model, @PathVariable String id) {
-        Activity activity = activityService.fetchById(Integer.parseInt(id));
+    public String equipment(Model model, @PathVariable int id) {
+        Activity activity = activityService.fetchById(id);
         model.addAttribute("equipment", activity.getEquipment());
         return "equipment";
+    }
+
+    @GetMapping("/activity/equipment/delete")
+    public String deleteEquipment(@RequestParam("id") String id) {
+        Equipment equipment = equipmentService.fetchById(Integer.parseInt(id));
+        equipmentService.delete(equipment);
+        return "redirect:/";
     }
 
     @GetMapping("/activity/equipment/updateStatus")

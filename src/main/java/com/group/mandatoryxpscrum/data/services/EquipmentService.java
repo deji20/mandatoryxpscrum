@@ -39,7 +39,8 @@ public class EquipmentService {
 
     /** Sletter en equipment */
     public void delete(Equipment equipment){
-        equipmentRepository.deleteById(equipment.getId());
+        equipmentRepository.delete(equipment);
+        //equipmentRepository.deleteById(equipment.getId());
     }
 
 }
