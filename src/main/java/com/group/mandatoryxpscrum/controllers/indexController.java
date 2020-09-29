@@ -81,12 +81,11 @@ public class indexController {
     public String createActivty(Model model){
         //instantierer tomme activity, rules, pricing objekter
         Activity activity = new Activity();
-
+        //setter billede til at være default billede
         activity.setImage("default.jpg");
         Pricing pricing = new Pricing();
         Rules rules = new Rules();
-
-
+        //tilføjer objekter til model
         model.addAttribute("activity", activity);
         model.addAttribute("pricing", pricing);
         model.addAttribute("rules", rules);
