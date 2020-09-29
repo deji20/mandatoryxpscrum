@@ -124,6 +124,7 @@ public class indexController {
         activity.getRules().setHeightLimit(height);
         activity.getRules().setMaxCapacity(capacity);
         activity.getRules().setDuration(duration);
+        //changes the Pricing
         activity.getPricing().setStandard(standardPrice);
         activity.getPricing().setDiscount(discount);
         activity.getPricing().setExtraInfo(extraCharges);
