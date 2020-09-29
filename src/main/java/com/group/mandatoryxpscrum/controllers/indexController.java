@@ -76,21 +76,36 @@ public class indexController {
         model.addAttribute("activities", activityService.fetchAll());
         return "managerIndex";
     }
+
     @GetMapping("/create")
     public String createActivty(Model model){
+        //instantierer tomme activity, rules, pricing objekter
         Activity activity = new Activity();
+
+        activity.setImage("default.jpg");
         Pricing pricing = new Pricing();
         Rules rules = new Rules();
-        activity.setPricing(pricing);
-        activity.setRules(rules);
+
+
         model.addAttribute("activity", activity);
+        model.addAttribute("pricing", pricing);
+        model.addAttribute("rules", rules);
         return "createActivity";
     }
+
     @PostMapping("/create")
-    public String createActivty(@ModelAttribute("activity") Activity activity){
+    public String createActivty(@ModelAttribute("activity") Activity activity,
+                                @ModelAttribute("rules") Rules rules,
+                                @ModelAttribute("pricing") Pricing pricing){
         activityService.save(activity);
-        return "index";
+        rules.setActivity(activity);
+        pricing.setActivity(activity);
+        activity.setPricing(pricing);
+        activity.setRules(rules);
+        activityService.save(activity);
+        return "redirect:/";
     }
+
     @GetMapping("/edit")
     public String edit(Model model, @RequestParam int id){
         model.addAttribute("activity", activityService.fetchById(id));
