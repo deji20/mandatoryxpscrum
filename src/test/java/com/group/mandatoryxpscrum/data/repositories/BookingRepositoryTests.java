@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @SpringBootTest
-public class EquipmentRepositoryTests {
+public class BookingRepositoryTests {
 
     @Autowired
     ActivityService activityService;
@@ -29,7 +29,7 @@ public class EquipmentRepositoryTests {
         booking.setTime(LocalTime.now());
         booking.setInstructor("Jan Sumo");
         booking.setPhoneNumber("91492089");
-//        booking.setActivity(activityService.fetchAll().get(0));
+        booking.setActivity(activityService.fetchAll().get(0));
 
         System.out.println(bookingService.save(booking).getId());
 

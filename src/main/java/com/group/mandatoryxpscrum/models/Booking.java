@@ -85,13 +85,13 @@ public class Booking {
         this.customerName = customerName;
     }
 
-    /*public Activity getActivity() {
+    public Activity getActivity() {
         return activity;
     }
 
     public void setActivity(Activity activity) {
         this.activity = activity;
-    }*/
+    }
 
     public void setId(Integer id) {
         this.id = id;
