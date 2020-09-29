@@ -34,7 +34,7 @@ public class indexController {
     @PathVariable used for getting id from url
     -----------------------------------------------*/
     @GetMapping("/activity/{id}/equipment")
-    public String equipment(Model model, @PathVariable int id) {
+    public String viewEquipment(Model model, @PathVariable int id) {
         Activity activity = activityService.fetchById(id);
         model.addAttribute("equipment", activity.getEquipment());
         return "equipment";
