@@ -76,7 +76,21 @@ public class indexController {
         model.addAttribute("activities", activityService.fetchAll());
         return "managerIndex";
     }
-
+    @GetMapping("/create")
+    public String createActivty(Model model){
+        Activity activity = new Activity();
+        Pricing pricing = new Pricing();
+        Rules rules = new Rules();
+        activity.setPricing(pricing);
+        activity.setRules(rules);
+        model.addAttribute("activity", activity);
+        return "createActivity";
+    }
+    @PostMapping("/create")
+    public String createActivty(@ModelAttribute("activity") Activity activity){
+        activityService.save(activity);
+        return "index";
+    }
     @GetMapping("/edit")
     public String edit(Model model, @RequestParam int id){
         model.addAttribute("activity", activityService.fetchById(id));
