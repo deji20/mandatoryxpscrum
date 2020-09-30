@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body style="background-image: url('/images/background.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover">
+<div class="w3-auto">
+    <div class="w3-container w3-center">
+        <img src="/images/logo.png" alt="Logo" style="width: 15%; height: 25%">
+    </div>
+    <div class="w3-container">
+        <table class="center">
+            <thead>
+            <tr>
+                <!-- Table header with tiles -->
+                <th style="padding:0 15px 0 15px;">ID</th>
+                <th style="padding:0 15px 0 15px;">Amount</th>
+                <th style="padding:0 15px 0 15px;">Name</th>
+                <th style="padding:0 15px 0 15px;">Date</th>
+                <th style="padding:0 15px 0 15px;">Instructor</th>
+                <th style="padding:0 15px 0 15px;">Phone nr.</th>
+                <th style="padding:0 15px 0 15px;">Time</th>
+                <th style="padding:0 15px 0 15px;">Activity name</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <!-- table content -->
+            <tbody>
+                <tr th:each="book: ${booking}" style="padding:0 15px 0 15px;">
+                    <form action="/booking/updateBooking">
+                        <td th:text="${book.getId()}" style="padding:0 15px 0 15px;"></td>
+                        <td th:text="${book.getAmount()}" style="padding:0 15px 0 15px;"></td>
+                        <td th:text="${book.customerName}" style="padding:0 15px 0 15px;"></td>
+                        <td th:text="${book.date}" style="padding:0 15px 0 15px;"></td>
+                        <td th:text="${book.instructor}" style="padding:0 15px 0 15px;"></td>
+                        <td th:text="${book.phoneNumber}" style="padding:0 15px 0 15px;"></td>
+                        <td th:text="${book.time}" style="padding:0 15px 0 15px;"></td>
+<!--                        <td th:text="${book.getActivity().id}" style="padding:0 15px 0 15px;"></td>-->
+                        <td>
+
+                            <button type="submit" href="" class="w3-btn w3-bar w3-blue-grey">Update</button>
+                        </td>
+                    </form>
+                    <td>
+                    <!-- Trigger/Open The Modal -->
+                    <button th:onclick="'javascript:showFunctionModal();'" th:object="${book}"  id="myBtn">Open Modal</button>
+                    <!-- The Modal -->
+                    <div id="openModal" class="modal">
+                        <form action="/booking/updateBooking" th:object="${book}" id="editForm" method="post">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                           <label>Customer Name</label>
+                            <input type="hidden" th:value="*{id}">
+                            <input type="text" class="w3-input" th:value="*{customerName}">
+                            <input value="Save" type="submit" class="w3-btn w3-bar w3-blue-grey">
+                        </div>
+                        </form>
+                    </div>
+                    </td>
+                    <td>
+                        <form action="/booking/delete/" method="post">
+                            <input type="hidden" name="bookingId" th:value="${book.getId()}">
+                            <input value="Delete" type="submit" class="w3-btn w3-bar w3-blue-grey">
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    <script>
+    function showFunctionModal() {
+        $(document).ready(function () {
+            document.getElementById('openModal').style.display = "block";
+            var x = $("#myBtn").attr("object");
+            console.log(x.id);
+            $("#editForm").attr("object", x);
+        });
+    }
+</script>
+</body>
+</html>

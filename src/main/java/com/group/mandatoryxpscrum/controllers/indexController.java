@@ -1,12 +1,15 @@
 package com.group.mandatoryxpscrum.controllers;
 
+import com.group.mandatoryxpscrum.data.repositories.BookingRepository;
 import com.group.mandatoryxpscrum.data.services.ActivityService;
+import com.group.mandatoryxpscrum.data.services.BookingService;
 import com.group.mandatoryxpscrum.data.services.EquipmentService;
 import com.group.mandatoryxpscrum.models.Activity;
 import com.group.mandatoryxpscrum.models.Equipment;
 import com.group.mandatoryxpscrum.models.Pricing;
 import com.group.mandatoryxpscrum.models.Rules;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +24,20 @@ public class indexController {
     ActivityService activityService;
     @Autowired
     EquipmentService equipmentService;
+    @Autowired
+    BookingService bookingService;
 
     // Get mapping for startpage. Adds list of activities to model object.
     @GetMapping("/")
     public String home(Model model){
         model.addAttribute("activities", activityService.fetchAll());
         return "index";
+    }
+
+    @GetMapping("/activity/createActivity")
+    public String createActivity(Model model) {
+
+        return "equipment";
     }
 
     /*-----------------------------------------------
@@ -37,12 +48,14 @@ public class indexController {
     public String viewEquipment(Model model, @PathVariable int id) {
         Activity activity = activityService.fetchById(id);
         model.addAttribute("equipment", activity.getEquipment());
+        model.addAttribute("activity", activity);
+        model.addAttribute("newEquipment", new Equipment());
         return "equipment";
     }
 
     @GetMapping("/activity/equipment/delete")
-    public String deleteEquipment(@RequestParam("id") String id) {
-        Equipment equipment = equipmentService.fetchById(Integer.parseInt(id));
+    public String deleteEquipment(@RequestParam("id") String equipmentId) {
+        Equipment equipment = equipmentService.fetchById(Integer.parseInt(equipmentId));
         equipmentService.delete(equipment);
         return "redirect:/";
     }
@@ -51,26 +64,25 @@ public class indexController {
     public String addEquipment(@PathVariable String id, Model model) {
         model.addAttribute("equipment", new Equipment());
         model.addAttribute("activityId", id);
-        return "newActivity";
+        return "equipment";
     }
 
     @PostMapping("/activity/{id}/equipment/new")
-    public String addEquipment(@ModelAttribute("equipment") Equipment equipment) {
-
+    public String addEquipment(@ModelAttribute("equipment") Equipment equipment, @PathVariable("id") int id) {
+        Activity activity = activityService.fetchById(id);
+        equipment.setActivity(activity);
+        activity.addEquipment(equipment);
+        activityService.save(activity);
         return "redirect:/activity/{id}/equipment";
     }
 
-    @GetMapping("/bookinginfo")
-    public String equipment() {
-        return "bookingInfo";
-    }
+
 
     @GetMapping("/activity/equipment/updateStatus")
     public String equipmentChange(Model model, @RequestParam ("activityId") String activityId, @RequestParam ("equipmentId") int equipmentId) {
         Activity activity = activityService.fetchById(Integer.parseInt(activityId));
         Equipment equipment = activity.getSpecificEquipment(equipmentId);
         model.addAttribute("specificEquipment", equipment);
-        //model.addAttribute("activity", activity);
         return "changeStatus";
     }
 
@@ -118,6 +130,10 @@ public class indexController {
         return "redirect:/";
     }
 
+
+    /*------------------------------------------
+    Responsible for editing of activity
+     -------------------------------------------*/
     @GetMapping("/edit")
     public String edit(Model model, @RequestParam int id){
         model.addAttribute("activity", activityService.fetchById(id));
