@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
 <head>
     <meta charset="UTF-8">
@@ -43,7 +44,7 @@
                             <label>Name</label>
                             <input type="text" class="w3-input w3-border w3-round" th:field="*{name}" required>
                             <label>Available</label>
-                            <input type="checkbox" checked="checked" th:field="*{available}" class="w3-check">
+                            <input type="checkbox" th:field="*{available}" class="w3-check">
                             <p>
                                 <label>Comment</label>
                                 <input type="text" class="w3-input w3-border w3-round" th:field="*{comment}">
@@ -58,37 +59,47 @@
                     </div>
                 </form>
             </div>
-            <a href="#" onclick="document.getElementById('createModal').style.display='block'" class="w3-btn w3-green">Add new equipment</a>
-            <table class="center">
-                <thead>
-                <tr>
-                    <!-- Table header with tiles -->
-                    <th style="padding:0 15px 0 15px;">Name</th>
-                    <th style="padding:0 15px 0 15px;">ID</th>
-                    <th style="padding:0 15px 0 15px;">Available</th>
-                    <th style="padding:0 15px 0 15px;">Comment</th>
-                </tr>
-                </thead>
-                <!-- table content -->
-                <tbody>
-                <tr th:each="equip: ${equipment}" style="padding:0 15px 0 15px;">
-                    <td th:text="${equip.name}" style="padding:0 15px 0 15px;"></td>
-                    <td th:text="${equip.getId()}" style="padding:0 15px 0 15px;"></td>
-<!--                    <td th:text="'Available: ' + ${equip.available} ? '0' : 'YES'"></td>-->
-                    <td style="padding:0 15px 0 15px;">
-                        <p th:if="${equip.available == false}">no</p>
-                        <p th:unless="${equip.available == false}">yes</p>
-                    </td>
-                    <td th:text="'comment: ' + ${equip.comment}" style="padding:0 15px 0 15px;"></td>
-                    <td style="padding:0 15px 0 15px;">
-                        <a th:href="@{/activity/equipment/updateStatus(activityId=${equip.getActivity().id}, equipmentId=${equip.id})}" class="w3-btn w3-green">Change status</a>
-                    </td>
-                    <td style="padding:0 15px 0 15px;">
-                        <a href="#" th:onclick="'javascript:showFunctionModal(\'' + ${equip.id} + '\');'" id="deleteButton" class="w3-btn w3-red">Delete</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="w3-row">
+                <div class="w3-col w3-container" style="width: 20%"></div>
+                <div class="w3-col w3-container" style="width: 60%">
+                    <p>
+                        <a href="#" onclick="document.getElementById('createModal').style.display='block'" class="w3-btn w3-green">Add new equipment  <i class="fa fa-plus-square"></i></a>
+                    </p>
+                    <table class="w3-table-all w3-hoverable w3-small">
+                    <thead>
+                    <tr class="w3-blue">
+                        <!-- Table header with tiles -->
+                        <th>Name</th>
+                        <th>ID</th>
+                        <th>Available</th>
+                        <th>Comment</th>
+                        <th>Availability</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <!-- table content -->
+                    <tbody>
+                    <tr th:each="equip: ${equipment}">
+                        <td th:text="${equip.name}"></td>
+                        <td th:text="${equip.getId()}"></td>
+    <!--                    <td th:text="'Available: ' + ${equip.available} ? '0' : 'YES'"></td>-->
+                        <td>
+                            <span th:if="${equip.available == false}">no</span>
+                            <span th:unless="${equip.available == false}">yes</span>
+                        </td>
+                        <td th:text="${equip.comment}"></td>
+                        <td>
+                            <a th:href="@{/activity/equipment/updateStatus(activityId=${equip.getActivity().id}, equipmentId=${equip.id})}" class="w3-btn w3-green">Change status</a>
+                        </td>
+                        <td>
+                            <a href="#" th:onclick="'javascript:showFunctionModal(\'' + ${equip.id} + '\');'" id="deleteButton" class="w3-btn w3-red w3-tiny"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                <div class="w3-col w3-container"></div>
+            </div>
         </div>
     </div>
 </body>

@@ -15,7 +15,7 @@ public class Equipment {
     private String name;
 
     @Column(name = "available")
-    private boolean available;
+    private boolean available = true;
 
     @Column(name = "comment")
     private String comment;
