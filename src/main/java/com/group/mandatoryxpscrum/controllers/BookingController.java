@@ -36,8 +36,9 @@ public class BookingController {
     }
 
     @PostMapping("/updateBooking")
-    public String updateBooking() {
-        return "/booking/bookingInfo";
+    public String updateBooking(@ModelAttribute() Booking booking) {
+        bookingService.save(booking);
+        return "redirect:/booking/bookingInfo";
     }
 
     @GetMapping("/bookinginfo")
