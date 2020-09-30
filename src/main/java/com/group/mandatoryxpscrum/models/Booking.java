@@ -3,6 +3,7 @@ package com.group.mandatoryxpscrum.models;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "booking")
@@ -25,11 +26,14 @@ public class Booking {
     @Column(name="instructor")
     private String instructor;
 
-    @Column(name="phoneNumber")
+    @Column(name="phone_number")
     private String phoneNumber;
 
-    @Column(name="customerName")
+    @Column(name="customer_name")
     private String customerName;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Equipment> bookedEquipment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booking_activity_id", referencedColumnName = "id_activity")
@@ -91,6 +95,14 @@ public class Booking {
 
     public void setActivity(Activity activity) {
         this.activity = activity;
+    }
+
+    public List<Equipment> getBookedEquipment() {
+        return bookedEquipment;
+    }
+
+    public void setBookedEquipment(List<Equipment> bookedEquipment) {
+        this.bookedEquipment = bookedEquipment;
     }
 
     public void setId(Integer id) {
