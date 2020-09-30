@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Booking</title>
+
 </head>
-<body>
-<h1>Hello world!</h1>
+<body style="background-image: url('/images/background.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover">
+<div class="w3-auto">
+    <div class="w3-container w3-center">
+        <img src="/images/logo.png" alt="Logo" style="width: 15%; height: 25%">
+    </div>
+    <div class="w3-container">
+        <table class="center">
+            <thead>
+            <tr>
+                <!-- Table header with tiles -->
+                <th style="padding:0 15px 0 15px;">ID</th>
+                <th style="padding:0 15px 0 15px;">Amount</th>
+                <th style="padding:0 15px 0 15px;">Name</th>
+                <th style="padding:0 15px 0 15px;">Date</th>
+                <th style="padding:0 15px 0 15px;">Instructor</th>
+                <th style="padding:0 15px 0 15px;">Phone nr.</th>
+                <th style="padding:0 15px 0 15px;">Time</th>
+                <th style="padding:0 15px 0 15px;">Activity id</th>
+            </tr>
+            </thead>
+            <!-- table content -->
+            <tbody>
+            <tr th:each="book: ${booking}" style="padding:0 15px 0 15px;">
+                <td th:text="${book.getId()}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${book.amount}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${book.customerName}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${book.date}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${book.instructor}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${book.phoneNumber}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${book.time}" style="padding:0 15px 0 15px;"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>
