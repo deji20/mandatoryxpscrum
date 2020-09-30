@@ -1,9 +1,13 @@
 package com.group.mandatoryxpscrum.controllers;
 
+import com.group.mandatoryxpscrum.data.repositories.BookingRepository;
 import com.group.mandatoryxpscrum.data.services.ActivityService;
 import com.group.mandatoryxpscrum.data.services.BookingService;
 import com.group.mandatoryxpscrum.data.services.EquipmentService;
-import com.group.mandatoryxpscrum.models.*;
+import com.group.mandatoryxpscrum.models.Activity;
+import com.group.mandatoryxpscrum.models.Equipment;
+import com.group.mandatoryxpscrum.models.Pricing;
+import com.group.mandatoryxpscrum.models.Rules;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -72,11 +76,7 @@ public class indexController {
         return "redirect:/activity/{id}/equipment";
     }
 
-    @GetMapping("/bookinginfo")
-    public String viewBooking(Model model, @Param("keyword") String keyword) {
-        model.addAttribute("booking",bookingService.listAll(keyword));
-        return "bookingInfo";
-    }
+
 
     @GetMapping("/activity/equipment/updateStatus")
     public String equipmentChange(Model model, @RequestParam ("activityId") String activityId, @RequestParam ("equipmentId") int equipmentId) {

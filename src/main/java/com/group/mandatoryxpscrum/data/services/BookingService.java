@@ -8,26 +8,33 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class BookingService {
+
     @Autowired
     BookingRepository bookingRepository;
+
     public Booking save(Booking booking){
         return bookingRepository.save(booking);
     }
     public Booking fetchById(int id){
-        return bookingRepository.getOne(id);
+        Optional<Booking> optional = bookingRepository.findById(id);
+        return optional.get();
     }
+
     public List<Booking> fetchAll(){
         return bookingRepository.findAll();
     }
+
     public void delete(int id){
         bookingRepository.deleteById(id);
     }
+
     /** Sletter en booking */
    public void delete(Booking booking){
         bookingRepository.delete(booking);
