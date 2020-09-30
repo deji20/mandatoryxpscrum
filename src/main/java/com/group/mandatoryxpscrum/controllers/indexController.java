@@ -47,6 +47,19 @@ public class indexController {
         return "redirect:/";
     }
 
+    @GetMapping("/activity/{id}/equipment/new")
+    public String addEquipment(@PathVariable String id, Model model) {
+        model.addAttribute("equipment", new Equipment());
+        model.addAttribute("activityId", id);
+        return "newActivity";
+    }
+
+    @PostMapping("/activity/{id}/equipment/new")
+    public String addEquipment(@ModelAttribute("equipment") Equipment equipment) {
+
+        return "redirect:/activity/{id}/equipment";
+    }
+
     @GetMapping("/bookinginfo")
     public String equipment() {
         return "bookingInfo";
