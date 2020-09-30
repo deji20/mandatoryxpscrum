@@ -16,4 +16,6 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer>{
 
     Activity findByName(String name);
 
+
+
 }
