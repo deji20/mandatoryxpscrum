@@ -14,6 +14,14 @@
     </div>
     <div class="w3-container">
         <table class="center">
+            <div>
+                <form th:action="@{/bookinginfo}">
+                    Filter: <input type="text" name="keyword" required/>
+                    <input type="submit" value="Search"/>
+                    <input type="button" value="clear" onclick="clearFilter()"/>
+                </form>
+
+            </div>
             <thead>
             <tr>
                 <!-- Table header with tiles -->
@@ -40,6 +48,13 @@
             </tr>
             </tbody>
         </table>
+        <div>
+            <script type="text/javascript">
+                function clearFilter(){
+                    window.location = '/bookinginfo'
+                }
+            </script>
+        </div>
     </div>
 </div>
 </body>

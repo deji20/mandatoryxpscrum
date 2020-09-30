@@ -53,7 +53,7 @@ public class BookingRepositoryTests {
         Assert.assertNotNull(bookingService.fetchById(id));
 
         //delete the new Booking from the database
-        bookingService.delete(id);
+        //bookingService.delete(id);
         //check if it was deleted
         Assert.assertNull(bookingService.fetchById(id));
     }

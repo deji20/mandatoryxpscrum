@@ -5,6 +5,7 @@ import com.group.mandatoryxpscrum.data.services.BookingService;
 import com.group.mandatoryxpscrum.data.services.EquipmentService;
 import com.group.mandatoryxpscrum.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -67,8 +68,8 @@ public class indexController {
     }
 
     @GetMapping("/bookinginfo")
-    public String viewBooking(Model model) {
-        model.addAttribute("booking",bookingService.fetchAll());
+    public String viewBooking(Model model, @Param("keyword") String keyword) {
+        model.addAttribute("booking",bookingService.listAll(keyword));
         return "bookingInfo";
     }
 
