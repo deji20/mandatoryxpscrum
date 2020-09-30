@@ -13,4 +13,9 @@ public class BookingService {
     public Booking save(Booking booking){
         return bookingRepository.save(booking);
    }
+
+    /** Sletter en booking */
+   public void delete(Booking booking){
+        bookingRepository.delete(booking);
+   }
 }
