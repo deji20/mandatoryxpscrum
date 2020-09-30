@@ -37,12 +37,14 @@ public class indexController {
     public String viewEquipment(Model model, @PathVariable int id) {
         Activity activity = activityService.fetchById(id);
         model.addAttribute("equipment", activity.getEquipment());
+        model.addAttribute("activity", activity);
+        model.addAttribute("newEquipment", new Equipment());
         return "equipment";
     }
 
     @GetMapping("/activity/equipment/delete")
-    public String deleteEquipment(@RequestParam("id") String id) {
-        Equipment equipment = equipmentService.fetchById(Integer.parseInt(id));
+    public String deleteEquipment(@RequestParam("id") String equipmentId) {
+        Equipment equipment = equipmentService.fetchById(Integer.parseInt(equipmentId));
         equipmentService.delete(equipment);
         return "redirect:/";
     }
@@ -51,12 +53,15 @@ public class indexController {
     public String addEquipment(@PathVariable String id, Model model) {
         model.addAttribute("equipment", new Equipment());
         model.addAttribute("activityId", id);
-        return "newActivity";
+        return "equipment";
     }
 
     @PostMapping("/activity/{id}/equipment/new")
-    public String addEquipment(@ModelAttribute("equipment") Equipment equipment) {
-
+    public String addEquipment(@ModelAttribute("equipment") Equipment equipment, @PathVariable("id") int id) {
+        Activity activity = activityService.fetchById(id);
+        equipment.setActivity(activity);
+        activity.addEquipment(equipment);
+        activityService.save(activity);
         return "redirect:/activity/{id}/equipment";
     }
 
@@ -70,7 +75,6 @@ public class indexController {
         Activity activity = activityService.fetchById(Integer.parseInt(activityId));
         Equipment equipment = activity.getSpecificEquipment(equipmentId);
         model.addAttribute("specificEquipment", equipment);
-        //model.addAttribute("activity", activity);
         return "changeStatus";
     }
 
