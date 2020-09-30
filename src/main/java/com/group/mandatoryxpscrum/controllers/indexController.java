@@ -118,6 +118,10 @@ public class indexController {
         return "redirect:/";
     }
 
+
+    /*------------------------------------------
+    Responsible for editing of activity
+     -------------------------------------------*/
     @GetMapping("/edit")
     public String edit(Model model, @RequestParam int id){
         model.addAttribute("activity", activityService.fetchById(id));

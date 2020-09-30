@@ -18,15 +18,12 @@ public class BookingService {
     public Booking fetchById(int id){
         return bookingRepository.getOne(id);
     }
-
     public List<Booking> fetchAll(){
         return bookingRepository.findAll();
     }
-
     public void delete(int id){
         bookingRepository.deleteById(id);
     }
-
     /** Sletter en booking */
    public void delete(Booking booking){
         bookingRepository.delete(booking);
