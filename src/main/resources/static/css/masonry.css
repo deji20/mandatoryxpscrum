@@ -5,10 +5,11 @@ html, body
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-    background-image: url('/images/background.jpg');
-    background-repeat: no-repeat;
+    background-color: #36b6d6;
+    background-image: url('/images/newbackground3.png');
+    background-repeat: repeat;
     background-attachment: fixed;
-    background-size: cover;
+    background-size: initial;
 }
 .container
 {
