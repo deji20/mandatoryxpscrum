@@ -16,7 +16,7 @@ html, body
     width: 80%;
     margin: auto;
     padding: 10px;
-    columns: 5;
+    columns: 4;
     column-gap: 10px;
     justify-content: center;
     justify-items: center;
