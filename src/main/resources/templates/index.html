@@ -8,16 +8,24 @@
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
 </head>
 <body style="font-family: 'Poppins', sans-serif">
-<div class="w3-container w3-center">
-    <img src="/images/logo.png" alt="Logo" style="width: 15%; height: 15%">
+<div class="navbar">
+    <a href="/">
+        <img th:src="@{/images/logo.png}" alt="Logo">
+    </a>
+    <div class="subnav">
+        <div class="subnav-content">
+            <a href="/">Home</a>
+
+        </div>
+    </div>
 </div>
-<div class="container w3-center">
+<div class="container">
     <div th:each="activity: ${activities}" class="box">
-        <a  th:href="@{/activity/{id}/equipment(id=${activity.id})}">
+        <a th:href="@{/activity/{id}/equipment(id=${activity.id})}">
         <img src="" th:src="@{${'/images/' + activity.image}}" alt="Missing image">
         <h2 th:unless="${activity.name == null}" th:text="${activity.name}"></h2>
         <h2 th:if="${activity.name == null}" th:text="Missing Name"></h2>
-        <div style="padding: 2% 0 2% 0;">
+        <div style="padding: 2% 20% 5%">
             <p th:unless="${activity.getRules().ageLimit == null}" th:text="'Age requirement: ' + ${activity.getRules().ageLimit}"></p>
             <p th:unless="${activity.getRules().heightLimit == null}" th:text="'Height requiment: ' + ${activity.getRules().heightLimit}"></p>
             <p th:unless="${activity.getRules().duration} == null" th:text="'Duration: ' + ${activity.getRules().duration}"></p>
