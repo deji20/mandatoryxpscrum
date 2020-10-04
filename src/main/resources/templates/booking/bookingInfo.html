@@ -81,28 +81,40 @@
                         <td th:text="${book.instructor}" style="padding:0 15px 0 15px;"></td>
                         <td th:text="${book.phoneNumber}" style="padding:0 15px 0 15px;"></td>
                         <td th:text="${book.time}" style="padding:0 15px 0 15px;"></td>
-<!--                        <td th:text="${book.getActivity().id}" style="padding:0 15px 0 15px;"></td>-->
+                        <td th:text="${book.getActivity().name}" style="padding:0 15px 0 15px;"></td>
                         <td>
-
-                            <button type="submit" href="" class="w3-btn w3-bar w3-blue-grey">Update</button>
+                            <a th:href="@{/booking/editBookingInfo(bookingId=${book.id})}" class="w3-btn w3-green">Update</a>
+<!--                            <button type="submit" href="" class="w3-btn w3-bar w3-blue-grey">Update</button>-->
                         </td>
                     </form>
-                    <td>
-                    <!-- Trigger/Open The Modal -->
+                    <!--<td>
+                    &lt;!&ndash; Trigger/Open The Modal &ndash;&gt;
                     <button th:onclick="'javascript:showFunctionModal();'" th:object="${book}"  id="myBtn">Open Modal</button>
-                    <!-- The Modal -->
+                    &lt;!&ndash; The Modal &ndash;&gt;
                     <div id="openModal" class="modal">
-                        <form action="/booking/updateBooking" th:object="${book}" id="editForm" method="post">
-                        <!-- Modal content -->
+                        <form action="#" th:action="@{/booking/updateBooking}" th:object="${book}" id="editForm" method="post">
+                        &lt;!&ndash; Modal content &ndash;&gt;
                         <div class="modal-content">
-                           <label>Customer Name</label>
                             <input type="hidden" th:value="*{id}">
-                            <input type="text" class="w3-input" th:value="*{customerName}">
+                            <input type="hidden" th:value="*{activity}">
+                            <label>Customer Name</label>
+                                <input type="text" class="w3-input" th:value="*{customerName}">
+                            <label>Date</label>
+                                <input type="text" class="w3-input" th:value="*{date}">
+                            <label>Instructor</label>
+                                <input type="text" class="w3-input" th:value="*{instructor}">
+                            <label>Phone Number</label>
+                                <input type="text" class="w3-input" th:value="*{phoneNumber}">
+                            <label>Time</label>
+                                <input type="text" class="w3-input" th:value="*{time}">
+                            <label>Amount</label>
+                                <input type="text" class="w3-input" th:value="*{amount}">
                             <input value="Save" type="submit" class="w3-btn w3-bar w3-blue-grey">
                         </div>
                         </form>
                     </div>
-                    </td>
+                    </td>-->
+
                     <td>
                         <form action="/booking/delete/" method="post">
                             <input type="hidden" name="bookingId" th:value="${book.getId()}">

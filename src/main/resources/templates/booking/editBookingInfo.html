@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link type="text/css" href="/css/background.css" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="w3-container">
+    <form action="#" th:action="@{/booking/updateBooking}" th:object="${book}" method="post">
+
+        <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{activity}">
+
+        <label name="custName">Customer Name</label>
+            <input name="custName" type="text" class="w3-input" th:field="*{customerName}">
+        <label>Date</label>
+            <input type="text" class="w3-input" th:field="*{date}">
+        <label>Instructor</label>
+        <input type="text" class="w3-input" th:field="*{instructor}">
+        <label>Phone Number</label>
+        <input type="text" class="w3-input" th:field="*{phoneNumber}">
+        <label>Time</label>
+        <input type="text" class="w3-input" th:field="*{time}">
+        <label>Amount</label>
+        <input type="text" class="w3-input" th:field="*{amount}">
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+</body>
+</html>

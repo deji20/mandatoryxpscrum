@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.context.support.ResourceBundleThemeSource;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.SQLOutput;
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 
 
 @Controller
+
 @RequestMapping("/booking")
 public class BookingController {
 
@@ -73,11 +75,27 @@ public class BookingController {
         return "/booking/bookingInfo";
     }
 
-    @PostMapping("/updateBooking")
-    public String updateBooking(@ModelAttribute() Booking booking) {
-        bookingService.save(booking);
-        return "redirect:/booking/bookingInfo";
+    @GetMapping("/editBookingInfo")
+    public String editBookingInfo(Model model, @RequestParam ("bookingId") String bookingId){
+        Booking booking = bookingService.fetchById(Integer.parseInt(bookingId));
+        model.addAttribute("book", booking);
+        return "/booking/editBookingInfo";
     }
+
+    @PostMapping("/updateBooking")
+    public String updateBooking(Model model, @ModelAttribute("book") Booking booking) {
+        bookingService.save(booking);
+        model.addAttribute("booking", bookingService.fetchAll());
+        return "/booking/bookingInfo";
+    }
+
+//    @RequestMapping("/updateBooking/{id}")
+//    public ModelAndView showEditProductPage(@PathVariable(name = "id") int id) {
+//        ModelAndView mav = new ModelAndView("editBookingInfo");
+//        Booking booking = bookingService.fetchById(id);
+//        mav.addObject("book", booking);
+//        return mav;
+//    }
 
     @GetMapping("/bookinginfo")
     public String viewBooking(Model model) {
