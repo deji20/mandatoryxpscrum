@@ -23,17 +23,17 @@
     <div th:each="activity: ${activities}" class="box">
         <a th:href="@{/activity/{id}/equipment(id=${activity.id})}">
         <img src="" th:src="@{${'/images/' + activity.image}}" alt="Missing image">
-        <h2 th:unless="${activity.name == null}" th:text="${activity.name}"></h2>
-        <h2 th:if="${activity.name == null}" th:text="Missing Name"></h2>
-        <div style="padding: 2% 20% 5%">
-            <p th:unless="${activity.getRules().ageLimit == null}" th:text="'Age requirement: ' + ${activity.getRules().ageLimit}"></p>
-            <p th:unless="${activity.getRules().heightLimit == null}" th:text="'Height requiment: ' + ${activity.getRules().heightLimit}"></p>
-            <p th:unless="${activity.getRules().duration} == null" th:text="'Duration: ' + ${activity.getRules().duration}"></p>
-            <p th:unless="${activity.getRules().maxCapacity} == null" th:text="'Max capacity: ' + ${activity.getRules().maxCapacity}"></p>
-            <p th:unless="${activity.getPricing().standard} == null" th:text="'Price for 0-10 persons: ' + ${activity.getPricing().standard}"></p>
-            <p th:unless="${activity.getPricing().discount == null}" th:text="'Price for 10+ persons: ' + ${activity.getPricing().discount}"></p>
-            <p th:text="'Available equipment: ' + ${activity.availableEquipment()} + '/' + ${activity.getEquipment().size()}"></p>
-        </div>
+            <h2 th:unless="${activity.name == null}" th:text="${activity.name}"></h2>
+            <h2 th:if="${activity.name == null}" th:text="Missing Name"></h2>
+            <div style="padding: 2% 20% 5%">
+                <p th:unless="${activity.getRules().ageLimit == null}" th:text="'Age requirement: ' + ${activity.getRules().ageLimit}"></p>
+                <p th:unless="${activity.getRules().heightLimit == null}" th:text="'Height requiment: ' + ${activity.getRules().heightLimit}"></p>
+                <p th:unless="${activity.getRules().duration} == null" th:text="'Duration: ' + ${activity.getRules().duration}"></p>
+                <p th:unless="${activity.getRules().maxCapacity} == null" th:text="'Max capacity: ' + ${activity.getRules().maxCapacity}"></p>
+                <p th:unless="${activity.getPricing().standard} == null" th:text="'Price for 0-10 persons: ' + ${activity.getPricing().standard}"></p>
+                <p th:unless="${activity.getPricing().discount == null}" th:text="'Price for 10+ persons: ' + ${activity.getPricing().discount}"></p>
+                <p th:text="'Available equipment: ' + ${activity.availableEquipment()} + '/' + ${activity.getEquipment().size()}"></p>
+            </div>
         </a>
 <!--        <a th:href="@{/activity/{id}/equipment(id=${activity.id})}" class="w3-btn" style="width: 100%; height: 10%; backdrop-filter: blur(5px)">-->
 <!--            <div>-->

@@ -135,19 +135,6 @@ public class Activity {
         this.equipment = equipment;
     }
 
-    @Override
-    public String toString() {
-        return "Activity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", image='" + image + '\'' +
-                ", description='" + description + '\'' +
-                ", pricing=" + pricing +
-                ", rules=" + rules +
-                ", equipment=" + equipment +
-                '}';
-    }
-
     public Equipment getSpecificEquipment(int id) {
         for(Equipment e : equipment) {
            if(e.getId() == id) {

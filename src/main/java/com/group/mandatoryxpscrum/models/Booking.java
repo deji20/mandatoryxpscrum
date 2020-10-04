@@ -1,5 +1,7 @@
 package com.group.mandatoryxpscrum.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -18,6 +20,7 @@ public class Booking {
     private Integer amount;
 
     @Column(name = "date")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate date;
 
     @Column(name="time")
