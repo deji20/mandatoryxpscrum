@@ -76,8 +76,6 @@ public class indexController {
         return "redirect:/activity/{id}/equipment";
     }
 
-
-
     @GetMapping("/activity/equipment/updateStatus")
     public String equipmentChange(Model model, @RequestParam ("activityId") String activityId, @RequestParam ("equipmentId") int equipmentId) {
         Activity activity = activityService.fetchById(Integer.parseInt(activityId));
