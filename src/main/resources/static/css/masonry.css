@@ -32,7 +32,7 @@
     width: 100%;
     margin: 0 0;
     font-size: 20px;
-    backdrop-filter: blur(10px);
+    /*backdrop-filter: blur(10px);*/
 }
 .container .box p
 {
