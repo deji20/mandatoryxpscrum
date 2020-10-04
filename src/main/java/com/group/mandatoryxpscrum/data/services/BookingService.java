@@ -27,28 +27,24 @@ public class BookingService {
         Optional<Booking> optional = bookingRepository.findById(id);
         return optional.get();
     }
-
     public List<Booking> fetchAllByDay(LocalDate date){
         return bookingRepository.findBookingsByDate(date);
     }
-
     public List<Booking> fetchAll(){
         return bookingRepository.findAll();
     }
-
     public void delete(int id){
         bookingRepository.deleteById(id);
     }
-
     /** Sletter en booking */
    public void delete(Booking booking){
         bookingRepository.delete(booking);
    }
-
     public List<Booking> listAll(String keyword){
         if (keyword != null){
             return bookingRepository.findAll(keyword);
         }
         return bookingRepository.findAll();
     }
+
 }

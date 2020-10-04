@@ -20,6 +20,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -31,14 +32,26 @@ public class BookingController {
     @Autowired
     ActivityService activityService;
 
-    //returns create booking site and adds activities and ids
+    //returns create booking view and adds activities and ids
     @GetMapping("/book")
     public String book(Model model, @RequestParam int id){
         List<Activity> activities = activityService.fetchAll();
+
         HashMap<String, Integer> nameAndId= new HashMap<>();
         for (Activity activity:activities){ nameAndId.put(activity.getName(), activity.getId());}
         model.addAttribute("nameAndId", nameAndId);
         model.addAttribute("id", id);
+
+        List<Booking> allBookings = bookingService.fetchAll();
+
+        Booking booking = allBookings.get(0);
+        booking.setTime(booking.getTime().minusHours(2).minusMinutes(40));
+        allBookings.stream().forEach((book) ->
+                {
+                    System.out.println("Hour: " + (booking.getTime().getHour() - book.getTime().getHour()));
+                    System.out.println("Minutes: " + (booking.getTime().getMinute() - book.getTime().getMinute()));
+                }
+        );
 
         return "/booking/createBooking";
     }
@@ -95,13 +108,33 @@ public class BookingController {
         List<Booking> bookings = bookingService.fetchAllByDay(date);
         //get all equipment
         List<Equipment> equipmentList = activityService.fetchById(activityId).getEquipment();
-        //filter equipment so that no equipment overlaps in bookings
+        //filter out broken equipment
+        equipmentList = equipmentList.stream().filter((equipment) -> equipment.isAvailable()).collect(Collectors.toList());
+        //filter equipment so that no equipment overlaps in time
         for (Booking booking:bookings) {
             if(time.compareTo(booking.getTime()) > duration){
                 //removes Equipment from list if bookings overlap
                 equipmentList.removeAll(booking.getBookedEquipment());
             }
         }
+        return equipmentList;
+    }
+
+    private List<Equipment> getAvailEquipment(LocalDate date, LocalTime time, int activityId, int duration){
+        List<Booking> bookings = bookingService.fetchAllByDay(date);
+        //get all equipment
+        List<Equipment> equipmentList = activityService.fetchById(activityId).getEquipment();
+        //filter out broken equipment
+        equipmentList = equipmentList.stream().filter((equipment) -> equipment.isAvailable()).collect(Collectors.toList());
+        //filter equipment so that no equipment overlaps in time
+        int timeInMin = (time.getHour() * 60) + (time.getMinute());
+        for (Booking booking:bookings) {
+            int bookingTimeInMin = (booking.getTime().getHour() * 60) + (booking.getTime().getMinute());
+            //NOT WORKING need to filter based +/- on duration
+            if(timeInMin + bookingTimeInMin  > duration)
+                //removes Equipment from list if bookings overlap
+                equipmentList.removeAll(booking.getBookedEquipment());
+        };
         return equipmentList;
     }
 }
