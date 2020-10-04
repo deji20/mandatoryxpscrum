@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link type="text/css" href="/css/background.css" rel="stylesheet">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body style="background-image: url('/images/background.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover">
+<body>
 <div class="w3-container">
 <form action="#" th:action="@{/activity/equipment/updateStatus}" th:object="${specificEquipment}" method="post">
     <!--<input type="radio" id="0" name="Status" value="0">
