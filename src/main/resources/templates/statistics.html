@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" href="../css/background.css" rel="stylesheet">
+    <link type="text/css" href="/css/calendar.css" rel="stylesheet">
+<!--    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">-->
+</head>
+<body style="font-family: 'Poppins', sans-serif">
+<div class="navbar">
+    <a href="/">
+        <img th:src="@{/images/logo.png}" alt="Logo">
+    </a>
+    <div class="subnav">
+        <div class="subnav-content">
+            <a href="/">Home</a>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="box" th:each="stat: ${statistics}">
+        <p th:text="${stat.getBooking().getDate()}"></p>
+        <p th:text="${stat.getBooking().getTime()}"></p>
+        <p th:text="${stat.getBooking().getActivity().getName()}"></p>
+        <p th:text="'Equipment used: ' + ${stat.getBooking().getAmount()}"></p>
+        <div class="box" th:each="equipment: ${stat.getBooking().getBookedEquipment()}">
+            <p th:text="${equipment.getName()} + ' ' + ${equipment.getId()}"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
