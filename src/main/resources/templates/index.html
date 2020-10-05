@@ -9,10 +9,11 @@
     <link type="text/css" href="/css/navbar.css" rel="stylesheet">
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
 </head>
-<body style="font-family: 'Poppins', sans-serif">
-<div class="navbar">
+<body class="w3-row">
+<div class="w3-col s1" style="height:100px"></div>
+<div class="navbar w3-col s1">
     <a href="/">
-        <img th:src="@{/images/logo.png}" alt="Logo">
+        <img th:src="@{/images/logo.png}" class="w3-image" alt="Logo">
     </a>
     <div class="subnav">
         <div class="subnav-content">
@@ -21,8 +22,8 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <div th:each="activity: ${activities}" class="box w3-col">
+<div class="w3-col s11 w3-rest container">
+    <div th:each="activity: ${activities}" class="box w3-col s3">
 
         <img src="" th:src="@{${'/images/' + activity.image}}" alt="Missing image">
             <h2 th:unless="${activity.name == null}" th:text="${activity.name}"></h2>

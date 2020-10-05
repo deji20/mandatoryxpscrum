@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body class="w3-row w3-display-container">
-<div class="navbar w3-col s2 ">
+<body class="w3-row">
+<div class="w3-col s1" style="height:100px"></div>
+<div class="navbar w3-col s1">
     <a href="/">
-        <img th:src="@{/images/logo.png}" alt="Logo">
+        <img th:src="@{/images/logo.png}" class="w3-image" alt="Logo">
     </a>
     <div class="subnav">
         <div class="subnav-content">
@@ -21,7 +22,7 @@
         </div>
     </div>
 </div>
-<div class="w3-col w3-rest">
+<div class="w3-col s11 w3-rest">
     <div class="w3-container">
         <div class="w3-row-padding">
             <div th:each="activity: ${activities}" class="w3-col s4 w3-panel">
