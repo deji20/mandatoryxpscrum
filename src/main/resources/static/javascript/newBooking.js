@@ -20,8 +20,7 @@ function getActivity(id){
 }
 
 function getEquipment(){
-    text$("#activityId").text();
-    $("#activityId").text();
+
     $.post("/booking/returnBookings",
         {activityId: $("#activityId").text(), date: $("#date"), time: $("#time"), duration: $("#duration")},
         function(data){
