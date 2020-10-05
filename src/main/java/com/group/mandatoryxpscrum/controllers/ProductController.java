@@ -18,5 +18,9 @@ public class ProductController {
         return "product/index";
     }
 
-
+    @GetMapping("/manager/products/")
+    public String managerIndex(Model model) {
+        model.addAttribute("products", productService.findAll());
+        return "/manager/products";
+    }
 }
