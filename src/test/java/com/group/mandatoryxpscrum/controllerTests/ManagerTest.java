@@ -1,5 +1,7 @@
 package com.group.mandatoryxpscrum.controllerTests;
 
+import com.group.mandatoryxpscrum.controllers.ActivityController;
+import com.group.mandatoryxpscrum.controllers.ManagerController;
 import com.group.mandatoryxpscrum.controllers.indexController;
 import com.group.mandatoryxpscrum.data.services.ActivityService;
 import com.group.mandatoryxpscrum.models.Activity;
@@ -13,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class IndexTest {
+public class ManagerTest {
 
     @Autowired
     private ActivityService activityService;
     @Autowired
-    private indexController controller;
+    private ManagerController controller;
 
     //edit activity rules prices and description and updates database
     @ParameterizedTest

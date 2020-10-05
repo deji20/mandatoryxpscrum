@@ -3,6 +3,7 @@
 <link type="text/css" href="/css/background.css" rel="stylesheet">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+<script type="text/javascript">function clearFilter(){window.location = '/booking/bookinginfo'}</script>
 <style>
     /* The Modal (background) */
     .modal {
@@ -45,7 +46,7 @@
 </style>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Bookings</title>
 </head>
 
 <body>
@@ -53,8 +54,17 @@
     <div class="w3-container w3-center">
         <img src="/images/logo.png" alt="Logo" style="width: 15%; height: 25%">
     </div>
-    <div class="w3-container">
-        <table class="center">
+    <div class="w3-container row">
+        <div class="row">
+            <form action="/booking/bookinginfo" method="get">
+                <input type="submit" value="Search" class="w3-button col s2"/>
+                <input type="button" value="clear" onclick="clearFilter()" class="w3-button col s2"/>
+                <input type="text" name="keyword" placeholder="Filter" class="w3-button col w3-rest" required/>
+            </form>
+        </div>
+
+        <table class="center row">
+
             <thead>
             <tr>
                 <!-- Table header with tiles -->

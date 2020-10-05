@@ -4,6 +4,7 @@
 <link type="text/css" href="/css/background.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="../javascript/newBooking.js"></script>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script>
     getActivity([[${id}]])
@@ -13,7 +14,7 @@
     <title>Create</title>
 </head>
 <body class="w3-center w3-container">
-    <form action="/booking/create" method="post">
+    <form action="/booking/create" method="post" id="form">
         <div class="row w3-center w3-container" style="margin-top:25px;">
 
             <div class="w3-col s6 w3-container w3-left-align">
@@ -32,7 +33,7 @@
 
                     <div class="w3-row w3-section w3-container">
                         <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-user"></i></div>
-                        <div class="w3-rest"><input class="w3-input w3-border" name="instructor" type="text" placeholder="instructor" /></div>
+                        <div class="w3-rest"><input class="w3-input w3-border" name="instructor" type="text" placeholder="instructor" required></div>
                     </div>
                     <table class="w3-table-all">
                         <h3 class="w3-card w3-center w3-blue" id="name" style="margin: 0px;"></h3>
@@ -61,9 +62,9 @@
                             <td><strong>Price 10+ Persons: </strong></td>
                             <td><span id="discount"></span></td>
                         </tr>
-                        <tr>
-                            <td><strong>Available Equipment: </strong></td>
-                            <td><span id="availableEquipment"></span></td>
+                        <tr class="w3-light-blue">
+                            <td><strong style="color: white">Available Equipment: </strong></td>
+                            <td id="avail_container" style="color: white"><u><strong id="availableEquipment"></strong></u></td>
                         </tr>
                     </table>
                 </div>
@@ -76,22 +77,22 @@
                         
                         <div class="w3-row w3-section">
                             <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-user"></i></div>
-                            <div class="w3-rest"><input class="w3-input w3-border" name="customerName" type="text" placeholder="Name" /></div>
+                            <div class="w3-rest"><input class="w3-input w3-border" name="customerName" type="text" placeholder="Name" required></div>
                         </div>
 
                         <div class="w3-row w3-section">
                             <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-home"></i></div>
-                            <div class="w3-rest"><input class="w3-input w3-border" name="address" type="text" placeholder="Address"/></div>
+                            <div class="w3-rest"><input class="w3-input w3-border" name="address" type="text" placeholder="Address" required></div>
                         </div>
 
                         <div class="w3-row w3-section"> 
                             <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-phone"></i></div>
-                            <div class="w3-rest"><input class="w3-input w3-border" name="phoneNumber" type="text" placeholder="Phone Number"/></div>
+                            <div class="w3-rest"><input class="w3-input w3-border" name="phoneNumber" type="text" placeholder="Phone Number" required ></div>
                         </div>
 
                         <div class="w3-row w3-section">
                             <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-users"></i></div>
-                            <div class="w3-rest"><input class="w3-input w3-border" name="amount" type="number" placeholder="Participants"/></div>
+                            <div class="w3-rest"><input class="w3-input w3-border" name="amount" id="amount" type="number" placeholder="Participants" required></div>
                         </div>
                     </div>
                 </div>
@@ -101,12 +102,12 @@
                     <div class="w3-container w3-light-grey w3-text-blue">
                         <div class="w3-row w3-section">
                             <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-calendar"></i></div>
-                            <div class="w3-rest"><input class="w3-input w3-border" id="date" name="date" type="date" /></div>
+                            <div class="w3-rest"><input class="w3-input w3-border" id="date" name="date" type="date" required></div>
                         </div>
 
                         <div class="w3-row w3-section">
                             <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-clock-o"></i></div>
-                            <div class="w3-rest"><input class="w3-input w3-border" id="time" name="time" type="time"/></div>
+                            <div class="w3-rest"><input class="w3-input w3-border" id="time" name="time" type="time" required></div>
                         </div>
                     </div>
                 </div>

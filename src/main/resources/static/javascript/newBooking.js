@@ -1,4 +1,8 @@
+var icon;
+
 $(document).ready(function(){
+    icon = document.createElement("i");
+    icon.className = "fa fa-spinner fa-pulse";
     $("#time, #date, #activityId").change(function (){updateEquipment()});
 })
 
@@ -32,13 +36,27 @@ function getEquipment(){
 }
 
 function updateEquipment(){
+    var shower = $("#avail_container");
+    var availtext = $("#availableEquipment");
+
     var activity = $("#activityId")[0].value;
     var date = $("#date")[0].value;
     var time = $("#time")[0].value;
 
     if(activity && date && time){
+        shower.empty();
+        shower.append(icon)
+
         $.post("/booking/returnEquipment", {activityId: activity, date: date, time: time},
-            function(data){$("#availableEquipment").text(data.length);}
+            function(data){
+                availtext.text(data.length);
+                shower.empty();
+                shower.append(availtext);
+            }
             ,"json")
+    }
+
+    function validateForm(){
+        $($("#availableEquipment").text() < $("#a"))
     }
 }
