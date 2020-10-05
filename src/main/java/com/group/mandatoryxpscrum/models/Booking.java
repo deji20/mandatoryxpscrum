@@ -24,6 +24,7 @@ public class Booking {
     private LocalDate date;
 
     @Column(name="time")
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime time;
 
     @Column(name="instructor")
@@ -115,4 +116,6 @@ public class Booking {
     public Integer getId() {
         return id;
     }
+
+
 }

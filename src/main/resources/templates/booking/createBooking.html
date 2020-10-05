@@ -21,7 +21,7 @@
                     <h2 class="w3-card w3-blue w3-center" style="margin: 0;">Activity</h2>
                     <div class="w3-row">
                         <div class="w3-rest">
-                            <select class="w3-select w3-border" name="activityId" onChange="getActivity(this.value)">
+                            <select class="w3-select w3-border" name="activityId" id="activityId" onChange="getActivity(this.value)">
                                 <option selected th:value="${id}">Change Activity</option>
                                 <th:block th:each="name:${nameAndId.keySet()}">
                                     <option th:value="${nameAndId.get(name)}" th:text="${name}"></option>
@@ -101,12 +101,12 @@
                     <div class="w3-container w3-light-grey w3-text-blue">
                         <div class="w3-row w3-section">
                             <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-calendar"></i></div>
-                            <div class="w3-rest"><input class="w3-input w3-border" name="date" type="date" /></div>
+                            <div class="w3-rest"><input class="w3-input w3-border" id="date" name="date" type="date" /></div>
                         </div>
 
                         <div class="w3-row w3-section">
                             <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-clock-o"></i></div>
-                            <div class="w3-rest"><input class="w3-input w3-border" name="time" type="time"/></div>
+                            <div class="w3-rest"><input class="w3-input w3-border" id="time" name="time" type="time"/></div>
                         </div>
                     </div>
                 </div>

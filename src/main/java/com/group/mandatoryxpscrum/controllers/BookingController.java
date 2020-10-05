@@ -44,26 +44,18 @@ public class BookingController {
         model.addAttribute("nameAndId", nameAndId);
         model.addAttribute("id", id);
 
-        List<Booking> allBookings = bookingService.fetchAll();
-
-        Booking booking = allBookings.get(0);
-        booking.setTime(booking.getTime().minusHours(2).minusMinutes(40));
-        allBookings.stream().forEach((book) ->
-                {
-                    System.out.println("Hour: " + (booking.getTime().getHour() - book.getTime().getHour()));
-                    System.out.println("Minutes: " + (booking.getTime().getMinute() - book.getTime().getMinute()));
-                }
-        );
-
         return "/booking/createBooking";
     }
 
     //saves new booking to database adding activity and equipment
     @PostMapping("/create")
-    public String create(@ModelAttribute Booking booking, @RequestParam int activityId){
+    public String create(Model model, @ModelAttribute Booking booking, @RequestParam int activityId){
         booking.setActivity(activityService.fetchById(activityId));
-        System.out.println(booking);
-        return " ";
+        List<Equipment> availableEquipment = getAvailEquipment(booking);
+        booking.setBookedEquipment(availableEquipment.subList(0, booking.getAmount()));
+
+        bookingService.save(booking);
+        return "redirect:/booking/bookinginfo";
     }
 
 
@@ -117,41 +109,49 @@ public class BookingController {
     }
 
     //returns equipment based on booking
-    @GetMapping(value="/returnEquipment", produces=MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/returnEquipment", produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody()
-    public List<Equipment> returnEquipment(@RequestParam int activityId,
-                                @RequestParam LocalDate date,
-                                @RequestParam LocalTime time,
-                                @RequestParam int duration){
-        List<Booking> bookings = bookingService.fetchAllByDay(date);
-        //get all equipment
-        List<Equipment> equipmentList = activityService.fetchById(activityId).getEquipment();
-        //filter out broken equipment
-        equipmentList = equipmentList.stream().filter((equipment) -> equipment.isAvailable()).collect(Collectors.toList());
-        //filter equipment so that no equipment overlaps in time
-        for (Booking booking:bookings) {
-            if(time.compareTo(booking.getTime()) > duration){
-                //removes Equipment from list if bookings overlap
-                equipmentList.removeAll(booking.getBookedEquipment());
-            }
-        }
-        return equipmentList;
-    }
+    public List<Equipment> returnEquipment(@RequestParam int activityId, @ModelAttribute Booking booking){
+        System.out.println(booking);
+        booking.setActivity(activityService.fetchById(activityId));
+        List<Equipment> list = getAvailEquipment(booking);
 
-    private List<Equipment> getAvailEquipment(LocalDate date, LocalTime time, int activityId, int duration){
-        List<Booking> bookings = bookingService.fetchAllByDay(date);
-        //get all equipment
-        List<Equipment> equipmentList = activityService.fetchById(activityId).getEquipment();
+        //again removing circular dependency
+        for(Equipment equip: list){
+            equip.setActivity(null);
+        }
+        return list;
+        }
+
+    private List<Equipment> getAvailEquipment(Booking booking){
+        System.out.println(booking.getTime());
+        List<Booking> bookings = bookingService.fetchAllByDay(booking.getDate());
+        //get all equipment for this activity
+        List<Equipment> equipmentList = booking.getActivity().getEquipment();
         //filter out broken equipment
-        equipmentList = equipmentList.stream().filter((equipment) -> equipment.isAvailable()).collect(Collectors.toList());
+        equipmentList = equipmentList.stream().filter(Equipment::isAvailable).collect(Collectors.toList());
+
         //filter equipment so that no equipment overlaps in time
-        int timeInMin = (time.getHour() * 60) + (time.getMinute());
-        for (Booking booking:bookings) {
-            int bookingTimeInMin = (booking.getTime().getHour() * 60) + (booking.getTime().getMinute());
-            //NOT WORKING need to filter based +/- on duration
-            if(timeInMin + bookingTimeInMin  > duration)
-                //removes Equipment from list if bookings overlap
-                equipmentList.removeAll(booking.getBookedEquipment());
+        int bookingTime = (booking.getTime().getHour() * 60) + (booking.getTime().getMinute());
+        int duration = booking.getActivity().getRules().getDuration();
+        for (Booking b:bookings) {
+            int bTime = (b.getTime().getHour() * 60) + (b.getTime().getMinute());
+
+            //find time difference between parameter event and iterator event
+            int diff = 0;
+            if(bTime > bookingTime){ diff = bTime - bookingTime;}
+            else if(bTime < bookingTime){ diff = bookingTime - bTime;}
+            System.out.println("diff: " +diff);
+            System.out.println("duration: " + duration);
+
+            //removes available equipment from list if bookings overlap
+            if(diff < duration){
+                for(Equipment equip : b.getBookedEquipment()) {
+                    if(equipmentList.contains(equip)){
+                        equipmentList.remove(equip);
+                    }
+                }
+            }
         };
         return equipmentList;
     }

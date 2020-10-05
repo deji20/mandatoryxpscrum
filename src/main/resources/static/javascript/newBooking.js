@@ -1,4 +1,6 @@
-
+$(document).ready(function(){
+    $("#time, #date, #activityId").change(function (){updateEquipment()});
+})
 
 function getActivity(id){
     console.log(id);
@@ -27,4 +29,16 @@ function getEquipment(){
             }
         }
         ,"json");
+}
+
+function updateEquipment(){
+    var activity = $("#activityId")[0].value;
+    var date = $("#date")[0].value;
+    var time = $("#time")[0].value;
+
+    if(activity && date && time){
+        $.post("/booking/returnEquipment", {activityId: activity, date: date, time: time},
+            function(data){$("#availableEquipment").text(data.length);}
+            ,"json")
+    }
 }
