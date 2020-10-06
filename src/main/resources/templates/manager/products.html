@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <title>Products</title>
 </head>
@@ -12,7 +13,7 @@
         <img src="/images/logo.png" alt="Logo" style="width: 15%; height: 25%">
         </a>
     </div>
-    <button type="button" class="w3-btn w3-green">Add new product</button>
+    <button type="button" class="w3-btn w3-green">Add new product  <i class="fa fa-plus-square"></i></button>
         <div th:each="product: ${products}" class="w3-container w3-cell">
             <div class="w3-row">
                 <img src="" class="w3-image" th:src="@{${'/images/product/' + product.image}}" alt="Missing image">
@@ -20,6 +21,13 @@
             <div class="w3-container w3-round w3-blue">
                 <p th:text="'Product: ' + ${product.name}"></p>
                 <p th:text="'Price: ' + ${product.price}"></p>
+
+                <div class="w3-center">
+                    <div class="w3-bar">
+                        <button class="w3-btn w3-round w3-green">Edit</button>
+                        <button class="w3-btn w3-round w3-red">Delete</button>
+                    </div>
+                </div>
             </div>
         </div>
 </div>
