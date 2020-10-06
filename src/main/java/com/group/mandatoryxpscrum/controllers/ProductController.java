@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ProductController {
@@ -29,8 +30,15 @@ public class ProductController {
     }
 
     @PostMapping("/manager/products/new")
-    public String addEquipment(@ModelAttribute Product product) {
+    public String addProduct(@ModelAttribute Product product) {
         productService.save(product);
+        return "redirect:/manager/products/";
+    }
+
+    @GetMapping("/manager/products/delete")
+    public String deleteProduct(@RequestParam("id") String productId){
+        Product product = productService.fetchById(Integer.parseInt(productId));
+        productService.delete(product);
         return "redirect:/manager/products/";
     }
 }
