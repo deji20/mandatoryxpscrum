@@ -13,14 +13,14 @@
         <img src="/images/logo.png" alt="Logo" style="width: 15%; height: 25%">
         </a>
     </div>
-    <button type="button" class="w3-btn w3-green">Add new product  <i class="fa fa-plus-square"></i></button>
+    <button type="button" onclick="document.getElementById('createModal').style.display='block'" class="w3-btn w3-green">Add new product   <i class="fa fa-plus-square"></i></button>
         <div th:each="product: ${products}" class="w3-container w3-cell">
             <div class="w3-row">
                 <img src="" class="w3-image" th:src="@{${'/images/product/' + product.image}}" alt="Missing image">
             </div>
             <div class="w3-container w3-round w3-blue">
                 <p th:text="'Product: ' + ${product.name}"></p>
-                <p th:text="'Price: ' + ${product.price}"></p>
+                <p th:text="'Price: ' + ${product.price} + 'DKK'"></p>
 
                 <div class="w3-center">
                     <div class="w3-bar">
@@ -31,5 +31,28 @@
             </div>
         </div>
 </div>
+<!--Modal starter her-->
+<div class="w3-modal" id="createModal">
+    <form action="#" th:action="@{/manager/products/new/}" th:object="${product}" method="post" class="w3-container">
+        <div class="w3-modal-content" style="width: 30%">
+            <header class="w3-container w3-blue">
+                <h2>Add new product</h2>
+            </header>
+            <div class="w3-panel">
+                <label>Name</label>
+                <input type="text" class="w3-input w3-border w3-round" th:field="*{name}" required>
+                <label>Price</label>
+                <input type="number" class="w3-input w3-border w3-round" th:field="*{price}">
+                <div class="w3-center">
+                    <div class="w3-bar">
+                        <button type="submit" class="w3-btn w3-green">Save</button>
+                        <button type="button" class="w3-btn w3-red" onclick="document.getElementById('createModal').style.display='none'">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
 </body>
 </html>
