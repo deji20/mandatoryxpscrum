@@ -18,7 +18,7 @@
             <div class = "w3-container w3-cell">
                 <div class="w3-margin w3-card">
                     <header class="w3-container w3-blue"><h2>New Activity</h2></header>
-                    <ul class="w3-ul">
+                    <ul class="w3-ul w3-light-grey">
                         <li>
                             <label>Name:</label>
                             <input class="w3-input" type="text"  th:field="${activity.name}" required>
@@ -36,7 +36,7 @@
             <div class = "w3-container w3-cell">
                 <div class="w3-margin w3-card">
                     <header class="w3-container w3-blue"><h2>Rules</h2></header>
-                    <ul class="w3-ul">
+                    <ul class="w3-ul w3-light-grey">
                         <li>
                             <label>Age Limit:</label>
                             <input class="w3-input" type="number"  th:field="${rules.ageLimit}">
@@ -63,7 +63,7 @@
             <div class="w3-container w3-cell">
                 <div class="w3-margin w3-card">
                     <header class="w3-container w3-blue"><h2>Pricing</h2></header>
-                    <ul class="w3-ul">
+                    <ul class="w3-ul w3-light-grey">
                         <li>
                             <label>Standard Price:</label>
                             <input class="w3-input" type="number"  th:field="${pricing.standard}" required>

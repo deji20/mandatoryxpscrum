@@ -9,19 +9,23 @@
     column-gap: 10px;
     text-align: left;
 }
-.container .box
-{
+
+.backg{
     border-radius: 15px 50px 30px;
     /*width: 100%;*/
-    margin: 0 0 10px;
     overflow: hidden;
     break-inside: avoid;
-    /*background: #4CAF50;*/
+    background: #4CAF50;
     box-shadow: 9px 0 4px 0 rgba(0,0,0,.3);
     background-image: url("/images/box/boxbackground6.png");
     background-repeat: no-repeat;
     background-size: cover;
 }
+    .backg .tData{
+        font-size: 1vw;
+        padding: 1px 8px;
+    }
+
 .container .box img {
     width: 100%;
     overflow: hidden;

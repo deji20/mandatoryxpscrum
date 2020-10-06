@@ -28,16 +28,4 @@ public class indexController {
         model.addAttribute("activities", activityService.fetchAll());
         return "index";
     }
-
-
-
-    /*------------------------------------------
-    Responsible for editing of activity
-     -------------------------------------------*/
-    @GetMapping("/edit")
-    public String edit(Model model, @RequestParam int id){
-        model.addAttribute("activity", activityService.fetchById(id));
-        return "activity/editActivity";
-    }
-
  }

@@ -9,7 +9,11 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body class="w3-row">
+<body class="w3-row w3-display-container">
+<a href="/activity/create"><button class="w3-button w3-btn w3-card w3-border w3-round-xxlarge w3-lime" style="font-size: 15px; color:white; position: fixed; bottom: 2%; right: 2%; padding: 0px 10px">
+    <i class="fa fa-plus-circle" aria-hidden="true" style="color: black"></i>
+    <p>Add Activity</p>
+</button></a>
 <div class="w3-col s1" style="height:100px"></div>
 <div class="navbar w3-col s1">
     <a href="/">
@@ -61,7 +65,7 @@
                             <span>Available Equipment</span>
                             <span th:text="${activity.availableEquipment()} + '/' + ${activity.getEquipment()?.size()}"></span>
                         </li>
-                        <a th:href="'/edit?id=' + ${activity.getId()}" class="w3-btn w3-bar w3-blue-grey" style="width: 100%;">Edit</a>
+                        <a th:href="'/manager/edit?id=' + ${activity.getId()}" class="w3-btn w3-bar w3-blue-grey" style="width: 100%;">Edit</a>
                     </div>
                 </div>
             </div>

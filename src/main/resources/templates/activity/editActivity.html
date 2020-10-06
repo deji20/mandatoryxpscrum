@@ -19,7 +19,7 @@
         <div class = "w3-container w3-cell">
             <div class="w3-margin w3-card">
                 <header class="w3-container w3-blue"><h2>Rules</h2></header>
-                <ul class="w3-ul">
+                <ul class="w3-ul w3-light-grey">
                     <li>
                         <label>Age Limit:</label>
                         <input name="age" class="w3-input" type="number"  th:value="${activity.getRules().getAgeLimit()} ?: 0">
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="w3-container w3-cell">
-            <div class="w3-margin w3-card">
+            <div class="w3-margin w3-card w3-light-grey">
                 <header class="w3-container w3-blue"><h2>Pricing</h2></header>
                 <ul class="w3-ul">
                     <li>
@@ -61,7 +61,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="w3-margin w3-card">
+            <div class="w3-margin w3-card w3-light-grey">
                 <header class="w3-container w3-blue"><h2>Description</h2></header>
                 <textarea name="description" class="w3-input" rows="8" th:text="${activity.getDescription()}" style="resize: none"></textarea>
             </div>

@@ -22,21 +22,6 @@ public class ManagerController {
         return "manager/managerIndex";
     }
 
-    @GetMapping("/create")
-    public String createActivty(Model model){
-        //instantierer tomme activity, rules, pricing objekter
-        Activity activity = new Activity();
-        //setter billede til at være default billede
-        activity.setImage("default.jpg");
-        Pricing pricing = new Pricing();
-        Rules rules = new Rules();
-        //tilføjer objekter til model
-        model.addAttribute("activity", activity);
-        model.addAttribute("pricing", pricing);
-        model.addAttribute("rules", rules);
-        return "activity/createActivity";
-    }
-
     @PostMapping("/create")
     public String createActivty(@ModelAttribute("activity") Activity activity,
                                 @ModelAttribute("rules") Rules rules,
@@ -71,5 +56,14 @@ public class ManagerController {
 
         activityService.save(activity);
         return "redirect:/manager";
+    }
+
+    /*------------------------------------------
+    Responsible for editing of activity
+     -------------------------------------------*/
+    @GetMapping("/edit")
+    public String edit(Model model, @RequestParam int id){
+        model.addAttribute("activity", activityService.fetchById(id));
+        return "activity/editActivity";
     }
 }

@@ -4,6 +4,8 @@ import com.group.mandatoryxpscrum.data.services.ActivityService;
 import com.group.mandatoryxpscrum.data.services.EquipmentService;
 import com.group.mandatoryxpscrum.models.Activity;
 import com.group.mandatoryxpscrum.models.Equipment;
+import com.group.mandatoryxpscrum.models.Pricing;
+import com.group.mandatoryxpscrum.models.Rules;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +20,22 @@ public class ActivityController {
     @Autowired
     EquipmentService equipmentService;
 
-    //
+
+    @GetMapping("/create")
+    public String createActivty(Model model){
+        //instantierer tomme activity, rules, pricing objekter
+        Activity activity = new Activity();
+        //setter billede til at være default billede
+        activity.setImage("default.jpg");
+        Pricing pricing = new Pricing();
+        Rules rules = new Rules();
+        //tilføjer objekter til model
+        model.addAttribute("activity", activity);
+        model.addAttribute("pricing", pricing);
+        model.addAttribute("rules", rules);
+        return "activity/createActivity";
+    }
+
     @GetMapping("/createActivity")
     public String createActivity(Model model) {
         return "equipment/equipment";
