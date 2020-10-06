@@ -1,21 +1,55 @@
 package com.group.mandatoryxpscrum.controllers;
 
 import com.group.mandatoryxpscrum.data.services.ProductService;
+import com.group.mandatoryxpscrum.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.*;
 
 @Controller
 public class ProductController {
+
+    List<Product> cart = new ArrayList<Product>();
 
     @Autowired
     ProductService productService;
 
     @GetMapping("/products")
     public String index(Model model){
+        model.addAttribute("cart", cart);
         model.addAttribute("products", productService.findAll());
-        return "product/index";
+        return "products/index";
+    }
+
+    @PostMapping("/products/addtocart")
+    public String addToCart(Product product, int amount){
+        for(int i = 0; i < amount; i++){
+            cart.add(product);
+        }
+        return "redirect:/products";
+    }
+
+    @GetMapping("/products/cart")
+    public String viewCart(Model model){
+        model.addAttribute("cart", cart);
+        Map<Product, Integer> cartMap = new HashMap<>();
+        int total = 0;
+        for(Product product : cart) {
+            if(!cartMap.containsKey(product)){
+                cartMap.put(product, 1);
+            }
+            else {
+                cartMap.put(product, cartMap.get(product) + 1);
+            }
+            total = total + product.getPrice();
+        }
+        model.addAttribute("cartMap", cartMap);
+        model.addAttribute("total", total);
+        return "products/cart";
     }
 
     @GetMapping("/manager/products/")
@@ -23,4 +57,11 @@ public class ProductController {
         model.addAttribute("products", productService.findAll());
         return "/manager/products";
     }
+
+
+
+
+
+
+
 }
