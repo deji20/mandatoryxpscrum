@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" href="/css/background.css" rel="stylesheet">
+    <link type="text/css" href="/css/product.css" rel="stylesheet">
+    <link type="text/css" href="/css/navbar.css" rel="stylesheet">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+</head>
+<body class="w3-row">
+<div class="w3-col s1" style="height:100px">
+    <div class="navbar w3-col s1">
+        <a href="/">
+            <img th:src="@{/images/logo.png}"  class="w3-image" alt="Logo">
+        </a>
+        <div class="subnav">
+            <div class="subnav-content">
+                <a href="/">Home</a>
+                <a href="/booking/bookinginfo">Booking Information</a>
+                <a href="/manager">Manager Frontpage</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="w3-col s11 w3-container w3-cell-row" style="width: 80%">
+    <div th:each="product: ${products}" class="backg w3-col w3-card-4 w3-margin s2 w3-center w3-cell w3-mobile">
+        <img class="w3-image" src="" th:src="@{${'/images/product/' + product.image}}" alt="Missing image">
+        <h3 class="w3-card" style="margin-top: 0" th:unless="${product.name == null}" th:text="${product.name}"></h3>
+        <table class="w3-table w3-bordered">
+            <tr>
+                <td class="tData"><strong>Price:</strong></td>
+                <td class="tData" th:text = "${product.price} ?: 'None' + 'DKK'"></td>
+            </tr>
+        </table>
+        <div class="w3-row">
+            <form method="post" action="/products/addtocart">
+                <input type="number" name="amount">
+                <input type="hidden" th:value="${product.id}" name="id">
+                <input type="hidden" th:value="${product.name}" name="name">
+                <input type="hidden" th:value="${product.image}" name="image">
+                <input type="hidden" th:value="${product.price}" name="price">
+                <input type="submit" value="add to cart">
+            </form>
+        </div>
+    </div>
+</div>
+<a th:href="@{/products/cart}">
+    <div class="w3-card w3-col w3-card-4 w3-margin s2 w3-right w3-cell w3-mobile" style="width: 5%; background-color: #53d0ef">
+        <h3 style="text-align: center; margin: 0; font-weight: 200; font-size: 21px">Cart</h3>
+        <img class="w3-image" th:src="@{/images/product/cart.png}" style="opacity: 50%; padding-left: 10%; padding-right: 15%">
+        <h3 th:text="${cart.size()}" style="text-align: center; margin: 0; font-weight: 200; font-size: 15px; position: relative; top: -50px"></h3>
+    </div>
+</a>
+<!--<div class="w3-col s12 w3-container w3-cell-row">-->
+
+<!--</div>-->
+
+</body>
+</html>
