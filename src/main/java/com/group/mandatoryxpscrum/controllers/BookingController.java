@@ -106,6 +106,7 @@ public class BookingController {
     @GetMapping("/statistics")
     public String viewStatistics(Model model) {
         model.addAttribute("book",bookingService.fetchAll());
+
         LocalDate date = LocalDate.parse("2020-04-11");
         date = date.minusDays(date.getDayOfWeek().getValue()-1);
         String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
