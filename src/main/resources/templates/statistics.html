@@ -56,14 +56,7 @@
     </div>
 
     <div class="w3-container row">
-        <div class="row">
-            <form action="/booking/statistics" method="get">
-                <input type="submit" value="Search" class="w3-button col s2"/>
-                <input type="button" value="clear" onclick="clearFilter()" class="w3-button col s2"/>
-                <input type="text" name="keyword" placeholder="Filter" class="w3-button col w3-rest" required/>
-            </form>
-        </div>
-
+        <title>Monday</title>
         <table class="center row">
 
             <thead>
@@ -71,14 +64,6 @@
                 <!-- Table header with tiles -->
                 <th style="padding:0 15px 0 15px;">ID</th>
                 <th style="padding:0 15px 0 15px;">Amount</th>
-                <th style="padding:0 15px 0 15px;">Name</th>
-                <th style="padding:0 15px 0 15px;">Date</th>
-                <th style="padding:0 15px 0 15px;">Instructor</th>
-                <th style="padding:0 15px 0 15px;">Phone nr.</th>
-                <th style="padding:0 15px 0 15px;">Time</th>
-                <th style="padding:0 15px 0 15px;">Activity name</th>
-                <th></th>
-                <th></th>
             </tr>
             </thead>
             <!-- table content -->
@@ -86,16 +71,133 @@
             <tr th:each="book: ${Monday.keySet()}" style="padding:0 15px 0 15px;">
                 <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
                 <td th:text="${Monday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
-               <!--<form action="/booking/statistics">
-                    <td th:text="${book.getId()}" style="padding:0 15px 0 15px;"></td>
-                    <td th:text="${book.getAmount()}" style="padding:0 15px 0 15px;"></td>
-                    <td th:text="${book.customerName}" style="padding:0 15px 0 15px;"></td>
-                    <td th:text="${book.date}" style="padding:0 15px 0 15px;"></td>
-                    <td th:text="${book.instructor}" style="padding:0 15px 0 15px;"></td>
-                    <td th:text="${book.phoneNumber}" style="padding:0 15px 0 15px;"></td>
-                    <td th:text="${book.time}" style="padding:0 15px 0 15px;"></td>
-                    <td th:text="${book.getActivity().name}" style="padding:0 15px 0 15px;"></td>
-                </form>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="w3-container row">
+        <title>Tuesday</title>
+        <table class="center row">
+
+            <thead>
+            <tr>
+                <!-- Table header with tiles -->
+                <th style="padding:0 15px 0 15px;">ID</th>
+                <th style="padding:0 15px 0 15px;">Amount</th>
+            </tr>
+            </thead>
+            <!-- table content -->
+            <tbody>
+            <tr th:each="book: ${Tuesday.keySet()}" style="padding:0 15px 0 15px;">
+                <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${Tuesday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="w3-container row">
+        <title>Wedensday</title>
+        <table class="center row">
+
+            <thead>
+            <tr>
+                <!-- Table header with tiles -->
+                <th style="padding:0 15px 0 15px;">ID</th>
+                <th style="padding:0 15px 0 15px;">Amount</th>
+            </tr>
+            </thead>
+            <!-- table content -->
+            <tbody>
+            <tr th:each="book: ${Wednesday.keySet()}" style="padding:0 15px 0 15px;">
+                <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${Wednesday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="w3-container row">
+
+        <table class="center row">
+            <title>Thursday</title>
+            <thead>
+            <tr>
+                <!-- Table header with tiles -->
+                <th style="padding:0 15px 0 15px;">ID</th>
+                <th style="padding:0 15px 0 15px;">Amount</th>
+            </tr>
+            </thead>
+            <!-- table content -->
+            <tbody>
+            <tr th:each="book: ${Thursday.keySet()}" style="padding:0 15px 0 15px;">
+                <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${Thursday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="w3-container row">
+
+        <table class="center row">
+            <title>Friday</title>
+            <thead>
+            <tr>
+                <!-- Table header with tiles -->
+                <th style="padding:0 15px 0 15px;">ID</th>
+                <th style="padding:0 15px 0 15px;">Amount</th>
+            </tr>
+            </thead>
+            <!-- table content -->
+            <tbody>
+            <tr th:each="book: ${Friday.keySet()}" style="padding:0 15px 0 15px;">
+                <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${Friday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="w3-container row">
+
+        <table class="center row">
+            <title>Saturday</title>
+            <h1>Saturday</h1>
+            <thead>
+            <tr>
+                <!-- Table header with tiles -->
+                <th style="padding:0 15px 0 15px;">ID</th>
+                <th style="padding:0 15px 0 15px;">Amount</th>
+            </tr>
+            </thead>
+            <!-- table content -->
+            <tbody>
+            <tr th:each="book: ${Saturday.keySet()}" style="padding:0 15px 0 15px;">
+                <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${Saturday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="w3-container row">
+
+        <table class="center row">
+            <title>Sunday</title>
+            <thead>
+            <tr>
+                <!-- Table header with tiles -->
+                <th style="padding:0 15px 0 15px;">ID</th>
+                <th style="padding:0 15px 0 15px;">Amount</th>
+            </tr>
+            </thead>
+            <!-- table content -->
+            <tbody>
+            <tr th:each="book: ${Sunday.keySet()}" style="padding:0 15px 0 15px;">
+                <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${Sunday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
             </tr>
             </tbody>
         </table>
