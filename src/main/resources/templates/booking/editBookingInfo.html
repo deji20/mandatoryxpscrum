@@ -19,7 +19,11 @@
         <label>Date</label>
             <input type="text" class="w3-input" th:field="*{date}">
         <label>Instructor</label>
-        <input type="text" class="w3-input" th:field="*{instructor}">
+        <select name="instructorId" class="w3-select">
+            <th:block th:each="i : ${instructors}">
+                <option th:text="${i.name}" th:value="${i.id}"></option>
+            </th:block>
+        </select>
         <label>Phone Number</label>
         <input type="text" class="w3-input" th:field="*{phoneNumber}">
         <label>Time</label>

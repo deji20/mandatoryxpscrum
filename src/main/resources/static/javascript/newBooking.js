@@ -19,19 +19,27 @@ function getActivity(id){
     });
 }
 
-function getEquipment(){
+function getInstructors(){
 
-    $.post("/booking/returnBookings",
-        {activityId: $("#activityId").text(), date: $("#date"), time: $("#time"), duration: $("#duration")},
-        function(data){
+    var selector = $("#pickInstructor");
 
-            if(data.pricing.availableEquipment != null){
-                $("#availableEquipment").text(data.availableEquipment);
-            }else{
-                $("#availableEquipment").text("None");
-            }
-        }
-        ,"json");
+    var date = $("#date")[0].value;
+    var time = $("#time")[0].value;
+
+    if(date && time){
+
+        $.post("/booking/returninstructors", {date: date, time: time},
+            function (data) {
+
+                for(var i = 0; i < data.length; i++){
+
+                    var option = document.createElement("option");
+                    option.value = data[i].id;
+                    option.innerHTML = data[i].name;
+                }
+            }, "json")
+    }
+
 }
 
 function updateEquipment(){

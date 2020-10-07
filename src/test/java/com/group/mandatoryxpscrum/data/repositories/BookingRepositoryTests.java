@@ -43,7 +43,7 @@ public class BookingRepositoryTests {
         booking.setCustomerName("irene");
         booking.setDate(LocalDate.now());
         booking.setTime(LocalTime.now());
-        booking.setInstructor("Jan Sumo");
+//        booking.setInstructor("Jan Sumo");
         booking.setPhoneNumber("91492089");
         booking.setActivity(activityService.fetchAll().get(0));
 

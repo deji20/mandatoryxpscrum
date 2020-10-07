@@ -55,7 +55,7 @@ public class ModelTest {
        booking.setAmount(amount);
        booking.setDate(date);
        booking.setTime(time);
-       booking.setInstructor(instructor);
+//       booking.setInstructor(instructor);
        booking.setPhoneNumber(phoneNumber);
        booking.setCustomerName(customerName);
        //booking.setActivity(activity);
