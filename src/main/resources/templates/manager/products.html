@@ -21,11 +21,12 @@
             <div class="w3-container w3-round w3-blue">
                 <p th:text="'Product: ' + ${product.name}"></p>
                 <p th:text="'Price: ' + ${product.price} + ' DKK'"></p>
-
                 <div class="w3-center">
                     <div class="w3-bar">
-                        <button class="w3-btn w3-round w3-green">Edit</button>
-                        <a href="#" th:onclick="'javascript:showFunctionModal(\'' + ${product.id} + '\');'" id="deleteButton" class="w3-btn w3-red w3-tiny"><i class="fa fa-trash"></i></a>
+<!--                        <button id="editBtn" class="w3-btn w3-round w3-green">Update</button>-->
+                        <button id="editBtn" th:data-name="${product.name}" th:data-id="${product.id}" th:data-price="${product.price}" th:data-image="${product.image}"
+                                onclick="showEditModal(this.getAttribute('data-name'), this.getAttribute('data-id'), this.getAttribute('data-price'), this.getAttribute('data-image'))" class="w3-btn w3-round w3-green">Edit</button>
+                        <a href="#" th:onclick="'javascript:showDeleteModal(\'' + ${product.id} + '\');'" id="deleteButton" class="w3-btn w3-red w3-tiny"><i class="fa fa-trash"></i></a>
                     </div>
                 </div>
             </div>
@@ -33,7 +34,7 @@
 </div>
 <!--Modal starter her-->
 <div class="w3-modal" id="createModal">
-    <form action="#" th:action="@{/manager/products/new/}" th:object="${product}" method="post" class="w3-container">
+    <form action="#" th:action="@{/manager/products/new}" th:object="${product}" method="post" class="w3-container">
         <div class="w3-modal-content" style="width: 30%">
             <header class="w3-container w3-blue">
                 <h2>Add new product</h2>
@@ -47,6 +48,29 @@
                     <div class="w3-bar">
                         <button type="submit" class="w3-btn w3-green">Save</button>
                         <button type="button" class="w3-btn w3-red" onclick="document.getElementById('createModal').style.display='none'">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="editModal" class="w3-modal">
+    <form action="#" th:action="@{/manager/products/update}" id="editForm" method="post" class="w3-container">
+        <div class="w3-modal-content" style="width: 30%">
+            <header class="w3-container w3-blue">
+                <h2>Update product</h2>
+            </header>
+            <div class="w3-panel">
+                <label>Name</label>
+                <input type="text" class="w3-input w3-border w3-round" id="nameInput" name="name" value="" required >
+                <label>Price</label>
+                <input type="number" class="w3-input w3-border w3-round" id="priceInput" name="price" value="" required>
+                <input type="hidden" id="idInput" name="id" value="">
+                <input type="hidden" id="imageInput" name="image" value="">
+                <div class="w3-center">
+                    <div class="w3-bar">
+                        <button type="submit" id="editRef" class="w3-btn w3-green">Save</button>
+                        <button type="button" class="w3-btn w3-red" onclick="document.getElementById('editModal').style.display='none'">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -70,7 +94,28 @@
 <!--Scripts starter her-->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
 <script>
-    function showFunctionModal(productId) {
+    // $(document).ready(function () {
+    //     $("#editBtn").click(function () {
+    //         document.getElementById('editModal').style.display = "block";
+    //
+    //     })
+    // });
+    function showEditModal(name, id, price, image) {
+            document.getElementById('editModal').style.display = "block";
+            $("#nameInput").attr("value", name);
+            $("#idInput").attr("value", id);
+            $("#imageInput").attr("value", image);
+            $("#priceInput").attr("value", price);
+            //$("#editRef").attr("href", "/manager/products/delete?id=" + productId);
+    }
+    // function showEditModal(productId) {
+    //     $(document).ready(function () {
+    //         document.getElementById('editModal').style.display = "block";
+    //         $("#idInput").attr("value", productId);
+    //         //$("#editRef").attr("href", "/manager/products/delete?id=" + productId);
+    //     });
+    // }
+    function showDeleteModal(productId) {
         $(document).ready(function () {
             document.getElementById('deleteModal').style.display = "block";
             $("#delRef").attr("href", "/manager/products/delete?id=" + productId);

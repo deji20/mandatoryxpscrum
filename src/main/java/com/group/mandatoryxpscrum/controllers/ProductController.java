@@ -41,5 +41,12 @@ public class ProductController {
         productService.delete(product);
         return "redirect:/manager/products/";
     }
+
+    @PostMapping("/manager/products/update")
+    public String updateProduct(Product product) {
+        productService.save(product);
+        return "redirect:/manager/products/";
+    }
+
 }
 
