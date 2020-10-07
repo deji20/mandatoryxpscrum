@@ -57,9 +57,10 @@ class ActivityRepositoryTest {
         int expected = 0;
 
         Activity activity = new Activity();
-        activity.setId(1);
         repository.save(activity);
-        repository.deleteById(1);
+
+        Activity activity1 = repository.findAll().get(0);
+        repository.delete(activity1);
         int actual = repository.findAll().size();
 
         assertEquals(expected, actual);
@@ -84,5 +85,23 @@ class ActivityRepositoryTest {
 
     }
 
+    @Test
+    void activityImageIsUpdatedTest(){
+        String expected = "UpdatedImage";
+
+        //insert new Activity to be updated later
+        Activity activity = new Activity();
+        activity.setName("OldImage");
+        repository.save(activity);
+
+        Activity activity1 = repository.findAll().get(0);
+        activity1.setName("UpdatedImage");
+        repository.save(activity1);
+
+        String actual = repository.findAll().get(0).getName();
+
+        assertEquals(expected, actual);
+
+    }
 
 }
