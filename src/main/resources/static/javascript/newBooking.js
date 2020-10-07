@@ -1,9 +1,9 @@
-var icon;
+var icon = "<i class='fa fa-spinner fa-pulse'></i>";
 
 $(document).ready(function(){
-    icon = document.createElement("i");
-    icon.className = "fa fa-spinner fa-pulse";
     $("#time, #date, #activityId").change(function (){updateEquipment()});
+    $("#time, #date").change(function (){getInstructors()});
+
 })
 
 function getActivity(id){
@@ -20,50 +20,40 @@ function getActivity(id){
 }
 
 function getInstructors(){
-
     var selector = $("#pickInstructor");
 
+    var activity = $("#activityId")[0].value;
     var date = $("#date")[0].value;
     var time = $("#time")[0].value;
 
     if(date && time){
-
-        $.post("/booking/returninstructors", {date: date, time: time},
+        $.post("/booking/returninstructors", {activityId: activity, date: date, time: time},
             function (data) {
-
+                selector.empty();
                 for(var i = 0; i < data.length; i++){
-
                     var option = document.createElement("option");
                     option.value = data[i].id;
                     option.innerHTML = data[i].name;
+                    selector.append(option);
                 }
             }, "json")
     }
 
 }
 
-function updateEquipment(){
-    var shower = $("#avail_container");
+function updateEquipment() {
     var availtext = $("#availableEquipment");
+    availtext[0].innerHTML = "<i class='fa fa-spinner fa-pulse'> </i>";
 
     var activity = $("#activityId")[0].value;
     var date = $("#date")[0].value;
     var time = $("#time")[0].value;
 
-    if(activity && date && time){
-        shower.empty();
-        shower.append(icon)
-
+    if (activity && date && time) {
         $.post("/booking/returnEquipment", {activityId: activity, date: date, time: time},
-            function(data){
-                availtext.text(data.length);
-                shower.empty();
-                shower.append(availtext);
+            function (data) {
+                availtext[0].innerHTML = data.length;
             }
-            ,"json")
-    }
-
-    function validateForm(){
-        $($("#availableEquipment").text() < $("#a"))
+            , "json")
     }
 }

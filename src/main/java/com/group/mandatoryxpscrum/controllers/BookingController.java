@@ -99,7 +99,11 @@ public class BookingController {
 
     @GetMapping("/bookinginfo")
     public String viewBooking(Model model, @Param("keyword") String keyword) {
-        model.addAttribute("booking", bookingService.listAll(keyword));
+        HashMap<String, List<Booking>> bookingsByActivities = new HashMap<>();
+        for(Activity activity: activityService.fetchAll()) {
+                bookingsByActivities.put(activity.getName(), bookingService.fetchBookingsByActivity(activity));
+        }
+        System.out.println(bookingsByActivities);
         return "/booking/bookingInfo";
     }
 
@@ -188,8 +192,8 @@ public class BookingController {
 
     @PostMapping(value="/returninstructors", produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody()
-    public List<Instructor> returnInstructors(@ModelAttribute Booking booking)
-    {
+    public List<Instructor> returnInstructors(@ModelAttribute Booking booking, @RequestParam int activityId) {
+        booking.setActivity(activityService.fetchById(activityId));
         return getAvailInstructors(booking);
     }
 
@@ -213,7 +217,6 @@ public class BookingController {
 
             //removes available instructors from list if bookings overlap
             if(diff < duration){
-
                     if(instructorList.contains(b.getInstructor())){
                         instructorList.remove(b.getInstructor());
                     }

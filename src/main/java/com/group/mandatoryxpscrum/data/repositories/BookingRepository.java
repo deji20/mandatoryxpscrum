@@ -1,5 +1,6 @@
 package com.group.mandatoryxpscrum.data.repositories;
 
+import com.group.mandatoryxpscrum.models.Activity;
 import com.group.mandatoryxpscrum.models.Booking;
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
     @Query(value = "SELECT * FROM Booking b WHERE date LIKE ?1 AND booking_activity_id = ?2", nativeQuery = true)
     List<Booking> findBookingsByDateAndActivity(String date, int activity_id);
+
+    List<Booking> findBookingsByActivity(Activity activity);
 }
 
 

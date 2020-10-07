@@ -54,5 +54,7 @@ public class BookingService {
 
         return bookingRepository.findAll();
     }
-
+    public List<Booking> fetchBookingsByActivity(Activity activity){
+       return bookingRepository.findBookingsByActivity(activity);
+    }
 }
