@@ -59,6 +59,7 @@ public class BookingController {
         List<Equipment> availableEquipment = getAvailEquipment(booking);
         booking.setBookedEquipment(availableEquipment.subList(0, booking.getAmount()));
 
+
         bookingService.save(booking);
         return "redirect:/booking/bookinginfo";
     }
@@ -104,8 +105,8 @@ public class BookingController {
 
     @GetMapping("/statistics")
     public String viewStatistics(Model model) {
+        model.addAttribute("book",bookingService.fetchAll());
         LocalDate date = LocalDate.parse("2020-04-11");
-        System.out.println();
         date = date.minusDays(date.getDayOfWeek().getValue()-1);
         String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
@@ -219,4 +220,5 @@ public class BookingController {
         };
         return instructorList;
     }
+
 }

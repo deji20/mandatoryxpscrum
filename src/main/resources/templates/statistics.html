@@ -43,6 +43,10 @@
         text-decoration: none;
         cursor: pointer;
     }
+
+
+
+
 </style>
 <head>
     <meta charset="UTF-8">
@@ -57,13 +61,14 @@
 
     <div class="w3-container row">
         <title>Monday</title>
-        <table class="center row">
+        <table>
 
             <thead>
             <tr>
                 <!-- Table header with tiles -->
                 <th style="padding:0 15px 0 15px;">ID</th>
                 <th style="padding:0 15px 0 15px;">Amount</th>
+                <th style="padding:0 15px 0 15px;">Availble Equipment</th>
             </tr>
             </thead>
             <!-- table content -->
@@ -71,6 +76,10 @@
             <tr th:each="book: ${Monday.keySet()}" style="padding:0 15px 0 15px;">
                 <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
                 <td th:text="${Monday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${book.availableEquipment()}" style="padding:0 15px 0 15px;"></td>
+
+
+
             </tr>
             </tbody>
         </table>
@@ -85,6 +94,7 @@
                 <!-- Table header with tiles -->
                 <th style="padding:0 15px 0 15px;">ID</th>
                 <th style="padding:0 15px 0 15px;">Amount</th>
+                <th style="padding:0 15px 0 15px;">Availble Equipment</th>
             </tr>
             </thead>
             <!-- table content -->
@@ -92,6 +102,7 @@
             <tr th:each="book: ${Tuesday.keySet()}" style="padding:0 15px 0 15px;">
                 <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
                 <td th:text="${Tuesday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${book.availableEquipment()}" style="padding:0 15px 0 15px;"></td>
             </tr>
             </tbody>
         </table>
@@ -106,6 +117,7 @@
                 <!-- Table header with tiles -->
                 <th style="padding:0 15px 0 15px;">ID</th>
                 <th style="padding:0 15px 0 15px;">Amount</th>
+                <th style="padding:0 15px 0 15px;">Availble Equipment</th>
             </tr>
             </thead>
             <!-- table content -->
@@ -113,6 +125,7 @@
             <tr th:each="book: ${Wednesday.keySet()}" style="padding:0 15px 0 15px;">
                 <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
                 <td th:text="${Wednesday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${book.availableEquipment()}" style="padding:0 15px 0 15px;"></td>
             </tr>
             </tbody>
         </table>
@@ -127,6 +140,7 @@
                 <!-- Table header with tiles -->
                 <th style="padding:0 15px 0 15px;">ID</th>
                 <th style="padding:0 15px 0 15px;">Amount</th>
+                <th style="padding:0 15px 0 15px;">Availble Equipment</th>
             </tr>
             </thead>
             <!-- table content -->
@@ -134,6 +148,7 @@
             <tr th:each="book: ${Thursday.keySet()}" style="padding:0 15px 0 15px;">
                 <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
                 <td th:text="${Thursday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${book.availableEquipment()}" style="padding:0 15px 0 15px;"></td>
             </tr>
             </tbody>
         </table>
@@ -148,6 +163,7 @@
                 <!-- Table header with tiles -->
                 <th style="padding:0 15px 0 15px;">ID</th>
                 <th style="padding:0 15px 0 15px;">Amount</th>
+                <th style="padding:0 15px 0 15px;">Availble Equipment</th>
             </tr>
             </thead>
             <!-- table content -->
@@ -155,6 +171,7 @@
             <tr th:each="book: ${Friday.keySet()}" style="padding:0 15px 0 15px;">
                 <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
                 <td th:text="${Friday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${book.availableEquipment()}" style="padding:0 15px 0 15px;"></td>
             </tr>
             </tbody>
         </table>
@@ -170,6 +187,7 @@
                 <!-- Table header with tiles -->
                 <th style="padding:0 15px 0 15px;">ID</th>
                 <th style="padding:0 15px 0 15px;">Amount</th>
+                <th style="padding:0 15px 0 15px;">Availble Equipment</th>
             </tr>
             </thead>
             <!-- table content -->
@@ -177,6 +195,7 @@
             <tr th:each="book: ${Saturday.keySet()}" style="padding:0 15px 0 15px;">
                 <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
                 <td th:text="${Saturday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${book.availableEquipment()}" style="padding:0 15px 0 15px;"></td>
             </tr>
             </tbody>
         </table>
@@ -191,6 +210,7 @@
                 <!-- Table header with tiles -->
                 <th style="padding:0 15px 0 15px;">ID</th>
                 <th style="padding:0 15px 0 15px;">Amount</th>
+                <th style="padding:0 15px 0 15px;">Availble Equipment</th>
             </tr>
             </thead>
             <!-- table content -->
@@ -198,6 +218,7 @@
             <tr th:each="book: ${Sunday.keySet()}" style="padding:0 15px 0 15px;">
                 <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
                 <td th:text="${Sunday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${book.availableEquipment()}" style="padding:0 15px 0 15px;"></td>
             </tr>
             </tbody>
         </table>

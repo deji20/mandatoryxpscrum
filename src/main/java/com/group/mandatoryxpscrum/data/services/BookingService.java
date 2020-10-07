@@ -39,11 +39,15 @@ public class BookingService {
         bookingRepository.delete(booking);
    }
 
-    public List<Booking> listAll(String keyword){
+
+   public List<Booking> listAll(String keyword){
         if (keyword != null){
             return bookingRepository.findAll(keyword);
         }
         return bookingRepository.findAll();
+    }
+    public List<Booking> findBookingByDateAndActivity(LocalDate date, int activityId){
+        return bookingRepository.findBookingsByDateAndActivity(date.toString(), activityId);
     }
 
     public List<Booking> listStats(){
@@ -51,7 +55,4 @@ public class BookingService {
         return bookingRepository.findAll();
     }
 
-    public List<Booking> findBookingByDateAndActivity(LocalDate date, int activityId){
-       return bookingRepository.findBookingsByDateAndActivity(date.toString(), activityId);
-    }
 }
