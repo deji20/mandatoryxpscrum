@@ -93,7 +93,7 @@
                                 <td th:text="${book.getAmount()}"></td>
                                 <td th:text="${book.customerName}"></td>
                                 <td th:text="${book.date}"></td>
-                                <td th:text="${book.instructor}"></td>
+                                <td th:text="${book.instructor?.getName()}"></td>
                                 <td th:text="${book.phoneNumber}"></td>
                                 <td th:text="${book.time}"></td>
                                 <td th:text="${book.getActivity().name}"></td>
