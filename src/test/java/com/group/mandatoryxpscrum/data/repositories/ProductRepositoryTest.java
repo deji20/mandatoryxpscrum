@@ -34,8 +34,8 @@ class ProductRepositoryTest {
     void findAllProductsIsNullTest(){
         int expected = 0;
 
-        List<Product> products2 = repository.findAll();
-        int actual = products2.size();
+        List<Product> products = repository.findAll();
+        int actual = products.size();
 
         assertEquals(expected, actual);
     }

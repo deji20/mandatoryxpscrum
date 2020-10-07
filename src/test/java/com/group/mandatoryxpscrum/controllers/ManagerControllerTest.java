@@ -1,4 +1,4 @@
-package com.group.mandatoryxpscrum.controllerTests;
+package com.group.mandatoryxpscrum.controllers;
 
 import com.group.mandatoryxpscrum.controllers.ActivityController;
 import com.group.mandatoryxpscrum.controllers.ManagerController;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ManagerTest {
+public class ManagerControllerTest {
 
     @Autowired
     private ActivityService activityService;

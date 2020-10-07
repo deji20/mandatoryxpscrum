@@ -1,6 +1,7 @@
 package com.group.mandatoryxpscrum.data.repositories;
 
 import com.group.mandatoryxpscrum.models.Activity;
+import com.group.mandatoryxpscrum.models.Product;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,62 +20,77 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @DataJpaTest
 class ActivityRepositoryTest {
 
     @Autowired
     ActivityRepository repository;
 
-    MockDatabasePopulator populator;
-
-    @BeforeEach
-    public void init(){
-        populator= new MockDatabasePopulator();
-        repository.save(populator.getNewTestActivity());
+    @Test
+    void injectedComponentsAreNotNull(){
+        assertNotNull(repository);
     }
 
-//    @Test
-//    void testNewActivityIsSaved() throws NoSuchElementException{
-//        Activity a2 = repository.findById(1).get();
-//        assertNotNull(a2);
-//    }
-
-//    @Test
-//    void testActivityNameChangeIsSaved(){
-//        List repository.findAll();
-//    }
-//
     @Test
     void testFetchByNonExistingId(){
         assertThrows(NoSuchElementException.class, () -> repository.findById(1).get());
     }
-//
-//    @Test
-//    void testAllActivitiesChangesAreSaved() {
-//        List<Activity> populationData = populator.getNewTestActivityList();
-//        repository.saveAll(populationData);
-//
-//        List<Activity> a1 = repository.findAll();
-//        Activity activity = a1.get(0);
-//        activity.setName("LOL");
-//        repository.saveAll(a1);
-//
-//        List<Activity> a2 =repository.findAll();
-//
-//        assertEquals(a1.get(0).getName(), a2.get(0).getName());
-//    }
 
     @Test
-    void fetchById() {
+    void findAllActivitiesIsNullTest(){
+        int expected = 0;
+
+        List<Activity> activities = repository.findAll();
+        int actual = activities.size();
+
+        assertEquals(expected, actual);
     }
 
     @Test
-    void fetchAll() {
+    void activityIsSavedTest(){
+        int expected = 1;
+
+        Activity activity = new Activity();
+
+        repository.save(activity);
+
+        int actual = repository.findAll().size();
+
+        assertEquals(expected, actual);
     }
 
     @Test
-    void delete() {
+    void activityIsDeletedTest(){
+        int expected = 0;
+
+        Activity activity = new Activity();
+        activity.setId(1);
+        repository.save(activity);
+        repository.deleteById(1);
+        int actual = repository.findAll().size();
+
+        assertEquals(expected, actual);
     }
+
+    @Test
+    void activityNameIsUpdatedTest(){
+        String expected = "Bowling";
+
+        //insert new Activity to be updated later
+        Activity activity = new Activity();
+        activity.setName("New Activity");
+        repository.save(activity);
+
+        Activity activity1 = repository.findAll().get(0);
+        activity1.setName("Bowling");
+        repository.save(activity1);
+
+        String actual = repository.findAll().get(0).getName();
+
+        assertEquals(expected, actual);
+
+    }
+
 
 }
