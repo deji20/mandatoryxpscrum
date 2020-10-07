@@ -1,142 +1,168 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link type="text/css" href="/css/background.css" rel="stylesheet">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
-<script type="text/javascript">function clearFilter(){window.location = '/booking/bookinginfo'}</script>
-<style>
-    /* The Modal (background) */
-    .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        padding-top: 100px; /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
-
-    /* Modal Content */
-    .modal-content {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-    }
-
-    /* The Close Button */
-    .close {
-        color: #aaaaaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-    }
-</style>
 <head>
     <meta charset="UTF-8">
     <title>Bookings</title>
+    <link type="text/css" href="/css/background.css" rel="stylesheet">
+    <link type="text/css" href="/css/product.css" rel="stylesheet">
+    <link type="text/css" href="/css/navbar.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css"/>
+    <style>
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
-
-<body>
-<div class="w3-auto">
-    <div class="w3-container w3-center">
-        <img src="/images/logo.png" alt="Logo" style="width: 15%; height: 25%">
-    </div>
-    <div class="w3-container row">
-        <div class="row">
-            <form action="/booking/bookinginfo" method="get">
-                <input type="submit" value="Search" class="w3-button col s2"/>
-                <input type="button" value="clear" onclick="clearFilter()" class="w3-button col s2"/>
-                <input type="text" name="keyword" placeholder="Filter" class="w3-button col w3-rest" required/>
-            </form>
+<body class="w3-row">
+    <div class="w3-col s1" style="height:100px">
+        <div class="navbar w3-col s1">
+            <a href="/manager/">
+                <img th:src="@{/images/logo.png}"  class="w3-image" alt="Logo" src="">
+            </a>
+            <div class="subnav">
+                <div class="subnav-content">
+                    <a href="/">Home</a>
+                    <a href="#" onclick="document.getElementById('createModal').style.display='block'">Add new equipment  <i class="fa fa-plus-square"></i></a>
+                </div>
+            </div>
         </div>
-
-        <table class="center row">
-
-            <thead>
-            <tr>
-                <!-- Table header with tiles -->
-                <th style="padding:0 15px 0 15px;">ID</th>
-                <th style="padding:0 15px 0 15px;">Amount</th>
-                <th style="padding:0 15px 0 15px;">Name</th>
-                <th style="padding:0 15px 0 15px;">Date</th>
-                <th style="padding:0 15px 0 15px;">Instructor</th>
-                <th style="padding:0 15px 0 15px;">Phone nr.</th>
-                <th style="padding:0 15px 0 15px;">Time</th>
-                <th style="padding:0 15px 0 15px;">Activity name</th>
-                <th></th>
-                <th></th>
-            </tr>
-            </thead>
-            <!-- table content -->
-            <tbody>
-                <tr th:each="book: ${booking}" style="padding:0 15px 0 15px;">
-                    <form action="/booking/updateBooking">
-                        <td th:text="${book.getId()}" style="padding:0 15px 0 15px;"></td>
-                        <td th:text="${book.getAmount()}" style="padding:0 15px 0 15px;"></td>
-                        <td th:text="${book.customerName}" style="padding:0 15px 0 15px;"></td>
-                        <td th:text="${book.date}" style="padding:0 15px 0 15px;"></td>
-                        <td th:text="${book.instructor?.getName()}" style="padding:0 15px 0 15px;"></td>
-                        <td th:text="${book.phoneNumber}?: '(1)'" style="padding:0 15px 0 15px;"></td>
-                        <td th:text="${book.time}" style="padding:0 15px 0 15px;"></td>
-                        <td th:text="${book.getActivity().name}" style="padding:0 15px 0 15px;"></td>
-                        <td>
-                            <a th:href="@{/booking/editBookingInfo(bookingId=${book.id})}" class="w3-btn w3-green">Update</a>
-<!--                            <button type="submit" href="" class="w3-btn w3-bar w3-blue-grey">Update</button>-->
-                        </td>
-                    </form>
-                    <!--<td>
-                    &lt;!&ndash; Trigger/Open The Modal &ndash;&gt;
-                    <button th:onclick="'javascript:showFunctionModal();'" th:object="${book}"  id="myBtn">Open Modal</button>
-                    &lt;!&ndash; The Modal &ndash;&gt;
-                    <div id="openModal" class="modal">
-                        <form action="#" th:action="@{/booking/updateBooking}" th:object="${book}" id="editForm" method="post">
-                        &lt;!&ndash; Modal content &ndash;&gt;
-                        <div class="modal-content">
-                            <input type="hidden" th:value="*{id}">
-                            <input type="hidden" th:value="*{activity}">
-                            <label>Customer Name</label>
-                                <input type="text" class="w3-input" th:value="*{customerName}">
-                            <label>Date</label>
-                                <input type="text" class="w3-input" th:value="*{date}">
-                            <label>Instructor</label>
-                                <input type="text" class="w3-input" th:value="*{instructor}">
-                            <label>Phone Number</label>
-                                <input type="text" class="w3-input" th:value="*{phoneNumber}">
-                            <label>Time</label>
-                                <input type="text" class="w3-input" th:value="*{time}">
-                            <label>Amount</label>
-                                <input type="text" class="w3-input" th:value="*{amount}">
-                            <input value="Save" type="submit" class="w3-btn w3-bar w3-blue-grey">
-                        </div>
-                        </form>
-                    </div>
-                    </td>-->
-
-                    <td>
-                        <form action="/booking/delete/" method="post">
-                            <input type="hidden" name="bookingId" th:value="${book.getId()}">
-                            <input value="Delete" type="submit" class="w3-btn w3-bar w3-blue-grey">
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
-</div>
-    <script>
+    <div class="w3-col s11 w3-container w3-cell-row">
+        <div class="w3-row">
+            <div class="w3-col w3-container" style="width: 90%">
+            <h3>Booking list</h3>
+                <table id="myTable" class="w3-table w3-striped w3-bordered w3-hoverable w3-opacity-min">
+
+                    <thead>
+                    <tr class="w3-blue">
+                        <!-- Table header with tiles -->
+                        <th>ID</th>
+                        <th>Amount</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Instructor</th>
+                        <th>Phone nr.</th>
+                        <th>Time</th>
+                        <th>Activity name</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <!-- table content -->
+                    <tbody>
+                        <tr th:each="book: ${booking}">
+                            <form action="/booking/updateBooking">
+                                <td th:text="${book.getId()}"></td>
+                                <td th:text="${book.getAmount()}"></td>
+                                <td th:text="${book.customerName}"></td>
+                                <td th:text="${book.date}"></td>
+                                <td th:text="${book.instructor?.getName()}"></td>
+                                <td th:text="${book.phoneNumber}"></td>
+                                <td th:text="${book.time}"></td>
+                                <td th:text="${book.getActivity().name}"></td>
+                                <td>
+                                    <a th:href="@{/booking/editBookingInfo(bookingId=${book.id})}" class="w3-btn w3-green">Update</a>
+        <!--                            <button type="submit" href="" class="w3-btn w3-bar w3-blue-grey">Update</button>-->
+                                </td>
+                            </form>
+                            <!--<td>
+                            &lt;!&ndash; Trigger/Open The Modal &ndash;&gt;
+                            <button th:onclick="'javascript:showFunctionModal();'" th:object="${book}"  id="myBtn">Open Modal</button>
+                            &lt;!&ndash; The Modal &ndash;&gt;
+                            <div id="openModal" class="modal">
+                                <form action="#" th:action="@{/booking/updateBooking}" th:object="${book}" id="editForm" method="post">
+                                &lt;!&ndash; Modal content &ndash;&gt;
+                                <div class="modal-content">
+                                    <input type="hidden" th:value="*{id}">
+                                    <input type="hidden" th:value="*{activity}">
+                                    <label>Customer Name</label>
+                                        <input type="text" class="w3-input" th:value="*{customerName}">
+                                    <label>Date</label>
+                                        <input type="text" class="w3-input" th:value="*{date}">
+                                    <label>Instructor</label>
+                                        <input type="text" class="w3-input" th:value="*{instructor}">
+                                    <label>Phone Number</label>
+                                        <input type="text" class="w3-input" th:value="*{phoneNumber}">
+                                    <label>Time</label>
+                                        <input type="text" class="w3-input" th:value="*{time}">
+                                    <label>Amount</label>
+                                        <input type="text" class="w3-input" th:value="*{amount}">
+                                    <input value="Save" type="submit" class="w3-btn w3-bar w3-blue-grey">
+                                </div>
+                                </form>
+                            </div>
+                            </td>-->
+
+                            <td>
+                                <form action="/booking/delete/" method="post">
+                                    <input type="hidden" name="bookingId" th:value="${book.getId()}">
+                                    <input value="Delete" type="submit" class="w3-btn w3-blue-grey">
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable( {
+            "pagingType": "full_numbers",
+            "createdRow": function( row, data, dataIndex){
+                if( data[7] ==  `Sumo Wrestling` ){
+                    $(row).addClass('w3-yellow');
+                } else if( data[7] ==  `Paintball` ) {
+                    $(row).addClass('w3-light-blue');
+                } else if( data[7] ==  `Minigolf` ) {
+                    $(row).addClass('w3-light-green');
+                } else if( data[7] ==  `GoKart` ) {
+                    $(row).addClass('w3-red');
+                }
+            }
+        });
+    });
+</script>
+<script>
     function showFunctionModal() {
         $(document).ready(function () {
             document.getElementById('openModal').style.display = "block";
