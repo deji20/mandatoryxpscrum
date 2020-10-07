@@ -66,6 +66,7 @@ public class ProductController {
 
     @PostMapping("/manager/products/new")
     public String addProduct(@ModelAttribute Product product) {
+        product.setImage("default.jpg");
         productService.save(product);
         return "redirect:/manager/products/";
     }
