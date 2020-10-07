@@ -25,7 +25,9 @@ public class BookingService {
         Optional<Booking> optional = bookingRepository.findById(id);
         return optional.get();
     }
-    public List<Booking> fetchAllByDay(LocalDate date){ return bookingRepository.findBookingsByDate(date.toString());}
+    public List<Booking> fetchAllByDay(LocalDate date){
+        return bookingRepository.findBookingsByDate(date.toString());
+    }
     public List<Booking> fetchAll(){
         return bookingRepository.findAll();
     }
@@ -36,6 +38,7 @@ public class BookingService {
    public void delete(Booking booking){
         bookingRepository.delete(booking);
    }
+
     public List<Booking> listAll(String keyword){
         if (keyword != null){
             return bookingRepository.findAll(keyword);
@@ -43,4 +46,12 @@ public class BookingService {
         return bookingRepository.findAll();
     }
 
+    public List<Booking> listStats(){
+
+        return bookingRepository.findAll();
+    }
+
+    public List<Booking> findBookingByDateAndActivity(LocalDate date, int activityId){
+       return bookingRepository.findBookingsByDateAndActivity(date.toString(), activityId);
+    }
 }
