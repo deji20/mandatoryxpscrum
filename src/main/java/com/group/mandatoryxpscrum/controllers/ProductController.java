@@ -31,7 +31,7 @@ public class ProductController {
     }
 
     @PostMapping("/products/addtocart")
-    public String addToCart(Product product, int amount){
+    public String addToCart(Product product, Integer amount){
         for(int i = 0; i < amount; i++){
             cart.add(product);
         }
