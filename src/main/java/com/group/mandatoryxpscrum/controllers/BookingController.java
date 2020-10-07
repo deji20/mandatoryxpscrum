@@ -3,10 +3,11 @@ package com.group.mandatoryxpscrum.controllers;
 import com.group.mandatoryxpscrum.data.repositories.BookingRepository;
 import com.group.mandatoryxpscrum.data.services.ActivityService;
 import com.group.mandatoryxpscrum.data.services.BookingService;
+import com.group.mandatoryxpscrum.data.services.InstructorService;
 import com.group.mandatoryxpscrum.models.Activity;
 import com.group.mandatoryxpscrum.models.Booking;
 import com.group.mandatoryxpscrum.models.Equipment;
-import org.apache.tomcat.jni.Local;
+import com.group.mandatoryxpscrum.models.Instructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
@@ -35,6 +36,8 @@ public class BookingController {
     BookingService bookingService;
     @Autowired
     ActivityService activityService;
+    @Autowired
+    InstructorService instructorService;
 
     //returns create booking view and adds activities and ids
     @GetMapping("/book")
@@ -72,12 +75,14 @@ public class BookingController {
     @GetMapping("/editBookingInfo")
     public String editBookingInfo(Model model, @RequestParam ("bookingId") String bookingId){
         Booking booking = bookingService.fetchById(Integer.parseInt(bookingId));
+        model.addAttribute("instructors", instructorService.fetchAll());
         model.addAttribute("book", booking);
         return "/booking/editBookingInfo";
     }
 
     @PostMapping("/updateBooking")
-    public String updateBooking(Model model, @ModelAttribute("book") Booking booking) {
+    public String updateBooking(Model model, @ModelAttribute("book") Booking booking, @RequestParam int instructorId) {
+        booking.setInstructor(instructorService.fetchById(instructorId));
         bookingService.save(booking);
         model.addAttribute("booking", bookingService.fetchAll());
         return "/booking/bookingInfo";
@@ -177,5 +182,41 @@ public class BookingController {
             }
         };
         return equipmentList;
+    }
+
+    @PostMapping(value="/returninstructors", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody()
+    public List<Instructor> returnInstructors(@ModelAttribute Booking booking)
+    {
+        return getAvailInstructors(booking);
+    }
+
+    private List<Instructor> getAvailInstructors(Booking booking){
+        List<Booking> bookings = bookingService.fetchAllByDay(booking.getDate());
+        //get all equipment for this activity
+        List<Instructor> instructorList = instructorService.fetchAll();
+
+        //filter equipment so that no equipment overlaps in time
+        int bookingTime = (booking.getTime().getHour() * 60) + (booking.getTime().getMinute());
+        int duration = booking.getActivity().getRules().getDuration();
+        for (Booking b:bookings) {
+            int bTime = (b.getTime().getHour() * 60) + (b.getTime().getMinute());
+
+            //find time difference between parameter event and iterator event
+            int diff = 0;
+            if(bTime > bookingTime){ diff = bTime - bookingTime;}
+            else if(bTime < bookingTime){ diff = bookingTime - bTime;}
+            System.out.println("diff: " +diff);
+            System.out.println("duration: " + duration);
+
+            //removes available instructors from list if bookings overlap
+            if(diff < duration){
+
+                    if(instructorList.contains(b.getInstructor())){
+                        instructorList.remove(b.getInstructor());
+                    }
+            }
+        };
+        return instructorList;
     }
 }

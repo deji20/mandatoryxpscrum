@@ -88,8 +88,8 @@
                         <td th:text="${book.getAmount()}" style="padding:0 15px 0 15px;"></td>
                         <td th:text="${book.customerName}" style="padding:0 15px 0 15px;"></td>
                         <td th:text="${book.date}" style="padding:0 15px 0 15px;"></td>
-                        <td th:text="${book.instructor}" style="padding:0 15px 0 15px;"></td>
-                        <td th:text="${book.phoneNumber}" style="padding:0 15px 0 15px;"></td>
+                        <td th:text="${book.instructor?.getName()}" style="padding:0 15px 0 15px;"></td>
+                        <td th:text="${book.phoneNumber}?: '(1)'" style="padding:0 15px 0 15px;"></td>
                         <td th:text="${book.time}" style="padding:0 15px 0 15px;"></td>
                         <td th:text="${book.getActivity().name}" style="padding:0 15px 0 15px;"></td>
                         <td>

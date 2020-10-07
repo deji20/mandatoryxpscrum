@@ -27,8 +27,9 @@ public class Booking {
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime time;
 
-    @Column(name="instructor")
-    private String instructor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name= "booking_id_instructor", referencedColumnName = "instructor_id")
+    private Instructor instructor;
 
     @Column(name="phone_number")
     private String phoneNumber;
@@ -44,6 +45,14 @@ public class Booking {
     private Activity activity;
 
     public Booking(){}
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getAmount() {
         return amount;
@@ -69,11 +78,11 @@ public class Booking {
         this.time = time;
     }
 
-    public String getInstructor() {
+    public Instructor getInstructor() {
         return instructor;
     }
 
-    public void setInstructor(String instructor) {
+    public void setInstructor(Instructor instructor) {
         this.instructor = instructor;
     }
 
@@ -93,14 +102,6 @@ public class Booking {
         this.customerName = customerName;
     }
 
-    public Activity getActivity() {
-        return activity;
-    }
-
-    public void setActivity(Activity activity) {
-        this.activity = activity;
-    }
-
     public List<Equipment> getBookedEquipment() {
         return bookedEquipment;
     }
@@ -109,13 +110,11 @@ public class Booking {
         this.bookedEquipment = bookedEquipment;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Activity getActivity() {
+        return activity;
     }
 
-    public Integer getId() {
-        return id;
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
-
-
 }
