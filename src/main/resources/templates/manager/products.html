@@ -23,7 +23,6 @@
                 <p th:text="'Price: ' + ${product.price} + ' DKK'"></p>
                 <div class="w3-center">
                     <div class="w3-bar">
-<!--                        <button id="editBtn" class="w3-btn w3-round w3-green">Update</button>-->
                         <button id="editBtn" th:data-name="${product.name}" th:data-id="${product.id}" th:data-price="${product.price}" th:data-image="${product.image}"
                                 onclick="showEditModal(this.getAttribute('data-name'), this.getAttribute('data-id'), this.getAttribute('data-price'), this.getAttribute('data-image'))" class="w3-btn w3-round w3-green">Edit</button>
                         <a href="#" th:onclick="'javascript:showDeleteModal(\'' + ${product.id} + '\');'" id="deleteButton" class="w3-btn w3-red w3-tiny"><i class="fa fa-trash"></i></a>
@@ -94,27 +93,13 @@
 <!--Scripts starter her-->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
 <script>
-    // $(document).ready(function () {
-    //     $("#editBtn").click(function () {
-    //         document.getElementById('editModal').style.display = "block";
-    //
-    //     })
-    // });
     function showEditModal(name, id, price, image) {
             document.getElementById('editModal').style.display = "block";
             $("#nameInput").attr("value", name);
             $("#idInput").attr("value", id);
             $("#imageInput").attr("value", image);
             $("#priceInput").attr("value", price);
-            //$("#editRef").attr("href", "/manager/products/delete?id=" + productId);
     }
-    // function showEditModal(productId) {
-    //     $(document).ready(function () {
-    //         document.getElementById('editModal').style.display = "block";
-    //         $("#idInput").attr("value", productId);
-    //         //$("#editRef").attr("href", "/manager/products/delete?id=" + productId);
-    //     });
-    // }
     function showDeleteModal(productId) {
         $(document).ready(function () {
             document.getElementById('deleteModal').style.display = "block";
