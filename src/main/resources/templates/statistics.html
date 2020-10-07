@@ -1,34 +1,117 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link type="text/css" href="/css/background.css" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+<script type="text/javascript">function clearFilter(){window.location = '/statistics'}</script>
+<style>
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css" href="../css/background.css" rel="stylesheet">
-    <link type="text/css" href="/css/calendar.css" rel="stylesheet">
-<!--    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">-->
+    <title>Bookings</title>
 </head>
-<body style="font-family: 'Poppins', sans-serif">
-<div class="navbar">
-    <a href="/">
-        <img th:src="@{/images/logo.png}" alt="Logo">
-    </a>
-    <div class="subnav">
-        <div class="subnav-content">
-            <a href="/">Home</a>
-        </div>
+
+<body>
+<div class="w3-auto">
+    <div class="w3-container w3-center">
+        <img src="/images/logo.png" alt="Logo" style="width: 15%; height: 25%">
     </div>
-</div>
-<div class="container">
-    <div class="box" th:each="stat: ${statistics}">
-        <p th:text="${stat.getBooking().getDate()}"></p>
-        <p th:text="${stat.getBooking().getTime()}"></p>
-        <p th:text="${stat.getBooking().getActivity().getName()}"></p>
-        <p th:text="'Equipment used: ' + ${stat.getBooking().getAmount()}"></p>
-        <div class="box" th:each="equipment: ${stat.getBooking().getBookedEquipment()}">
-            <p th:text="${equipment.getName()} + ' ' + ${equipment.getId()}"></p>
+
+    <div class="w3-container row">
+        <div class="row">
+            <form action="/booking/statistics" method="get">
+                <input type="submit" value="Search" class="w3-button col s2"/>
+                <input type="button" value="clear" onclick="clearFilter()" class="w3-button col s2"/>
+                <input type="text" name="keyword" placeholder="Filter" class="w3-button col w3-rest" required/>
+            </form>
         </div>
+
+        <table class="center row">
+
+            <thead>
+            <tr>
+                <!-- Table header with tiles -->
+                <th style="padding:0 15px 0 15px;">ID</th>
+                <th style="padding:0 15px 0 15px;">Amount</th>
+                <th style="padding:0 15px 0 15px;">Name</th>
+                <th style="padding:0 15px 0 15px;">Date</th>
+                <th style="padding:0 15px 0 15px;">Instructor</th>
+                <th style="padding:0 15px 0 15px;">Phone nr.</th>
+                <th style="padding:0 15px 0 15px;">Time</th>
+                <th style="padding:0 15px 0 15px;">Activity name</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <!-- table content -->
+            <tbody>
+            <tr th:each="book: ${Monday.keySet()}" style="padding:0 15px 0 15px;">
+                <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
+                <td th:text="${Monday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
+               <!--<form action="/booking/statistics">
+                    <td th:text="${book.getId()}" style="padding:0 15px 0 15px;"></td>
+                    <td th:text="${book.getAmount()}" style="padding:0 15px 0 15px;"></td>
+                    <td th:text="${book.customerName}" style="padding:0 15px 0 15px;"></td>
+                    <td th:text="${book.date}" style="padding:0 15px 0 15px;"></td>
+                    <td th:text="${book.instructor}" style="padding:0 15px 0 15px;"></td>
+                    <td th:text="${book.phoneNumber}" style="padding:0 15px 0 15px;"></td>
+                    <td th:text="${book.time}" style="padding:0 15px 0 15px;"></td>
+                    <td th:text="${book.getActivity().name}" style="padding:0 15px 0 15px;"></td>
+                </form>-->
+            </tr>
+            </tbody>
+        </table>
     </div>
+
 </div>
+<script>
+    function showFunctionModal() {
+        $(document).ready(function () {
+            document.getElementById('openModal').style.display = "block";
+            var x = $("#myBtn").attr("object");
+            console.log(x.id);
+            $("#editForm").attr("object", x);
+        });
+    }
+</script>
+
 </body>
 </html>

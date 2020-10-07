@@ -6,6 +6,7 @@ import com.group.mandatoryxpscrum.data.services.BookingService;
 import com.group.mandatoryxpscrum.models.Activity;
 import com.group.mandatoryxpscrum.models.Booking;
 import com.group.mandatoryxpscrum.models.Equipment;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
@@ -16,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.awt.print.Book;
 import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -93,6 +95,27 @@ public class BookingController {
     public String viewBooking(Model model, @Param("keyword") String keyword) {
         model.addAttribute("booking", bookingService.listAll(keyword));
         return "/booking/bookingInfo";
+    }
+
+    @GetMapping("/statistics")
+    public String viewStatistics(Model model) {
+        LocalDate date = LocalDate.parse("2020-04-11");
+        System.out.println();
+        date = date.minusDays(date.getDayOfWeek().getValue()-1);
+        String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+
+        for (int i = 0; i < days.length; i++) {
+            model.addAttribute(days[i], getActivityBookingsByDate(date.plusDays(i)));
+        }
+        return "/statistics";
+    }
+
+    private HashMap<Activity, List<Booking>> getActivityBookingsByDate(LocalDate date){
+        HashMap<Activity, List<Booking>> bookingByActivity = new HashMap<>();
+        for(Activity activity : activityService.fetchAll()){
+            bookingByActivity.put(activity, bookingService.findBookingByDateAndActivity(date, activity.getId()));
+        }
+        return bookingByActivity;
     }
 
     //tells the method to seriallize the activity and return it in json

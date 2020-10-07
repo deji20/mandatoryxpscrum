@@ -23,6 +23,9 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
     @Query("SELECT b FROM Booking b WHERE b.phoneNumber LIKE %?1%")
     List<Booking> findAll(String keyword);
+
+    @Query(value = "SELECT * FROM Booking b WHERE date LIKE ?1 AND booking_activity_id = ?2", nativeQuery = true)
+    List<Booking> findBookingsByDateAndActivity(String date, int activity_id);
 }
 
 
