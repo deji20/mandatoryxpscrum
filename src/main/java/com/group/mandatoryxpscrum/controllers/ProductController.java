@@ -32,6 +32,9 @@ public class ProductController {
 
     @PostMapping("/products/addtocart")
     public String addToCart(Product product, Integer amount){
+        if(amount == null){
+            amount = 1;
+        }
         for(int i = 0; i < amount; i++){
             cart.add(product);
         }
@@ -55,6 +58,12 @@ public class ProductController {
         model.addAttribute("cartMap", cartMap);
         model.addAttribute("total", total);
         return "products/cart";
+    }
+
+    @PostMapping("/products/cart/emptyCart")
+    public String emptyCart(){
+        cart = new ArrayList<>();
+        return "redirect:/products";
     }
 
     @GetMapping("/manager/products/")
@@ -85,4 +94,3 @@ public class ProductController {
     }
 
 }
-

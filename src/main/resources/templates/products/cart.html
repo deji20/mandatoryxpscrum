@@ -2,12 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Cart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" href="/css/background.css" rel="stylesheet">
     <link type="text/css" href="/css/product.css" rel="stylesheet">
     <link type="text/css" href="/css/navbar.css" rel="stylesheet">
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#confirm').click(function () {
+                document.getElementById('confirmModal').style.display = "block";
+                setTimeout($('#emptyCart').submit(), 10000);
+            });
+        });
+    </script>
 </head>
 <body class="w3-row">
 <div class="w3-col s1" style="height:100px">
@@ -24,32 +35,46 @@
         </div>
     </div>
 </div>
-<div class="w3-col s11 w3-container w3-cell-row" style="width: 80%;">
-    <div th:each="mapEntry: ${cartMap}" class="w3-col w3-card-4 w3-margin s2 w3-center w3-cell w3-mobile">
-        <table class="w3-table w3-bordered">
-            <tr>
-                <h3 class="w3-card" style="margin-top: 0" th:unless="${mapEntry.getKey().getName() == null}" th:text="${mapEntry.getKey().getName()}"></h3>
-                <img class="w3-image" src="" th:src="@{${'/images/product/' + mapEntry.getKey().getImage()}}" alt="Missing image">
 
-                <td class="tData" style="break-inside: avoid; overflow: hidden"><strong>Amount: </strong></td>
-                <td class="tData" th:text = "${mapEntry.getValue()}"></td>
-
-                <td class="tData" style="break-inside: avoid; overflow: hidden"><strong>Price:</strong></td>
-                <td class="tData" th:text = "${mapEntry.getValue()} * ${mapEntry.getKey().getPrice()} + 'DKK'"></td>
+<div class="w3-col s11 w3-container w3-cell-row" style="display: grid; width: 80%;">
+    <h1>Contents of cart:</h1>
+    <a href="#" onclick="history.go(-1)" class="w3-button w3-btn w3-col w3-round-medium" style="display: inline-block; width: 25%; background-color: rgba(255, 255, 255, 0.5); float:left;">Back</a>
+    <table style="background-color: rgba(255, 255, 255, 0.5); border: none">
+        <thead>
+            <tr class="w3-card-2" style="text-align: left">
+                <th style="width: 5%"></th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Price</th>
             </tr>
-        </table>
-    </div>
-    <div class="w3-col w3-card-4 w3-margin s2 w3-center w3-cell w3-mobile">
-        <h3 class="w3-card" th:unless="${cart.size() == 0}" th:text="'Total: ' + ${total} + 'DKK'"></h3>
-        <h3 class="w3-card" th:if="${cart.size() == 0}">Cart is empty</h3>
+        </thead>
+        <tbody>
+            <tr class="w3-card" th:each="mapEntry: ${cartMap}">
+                <td>
+                    <img src="" th:src="@{${'/images/product/' + mapEntry.getKey().getImage()}}" style="width: 100%; display: block">
+                </td>
+                <td th:unless="${mapEntry.getKey().getName() == null}" th:text="${mapEntry.getKey().getName()} + ' DKK'"></td>
+                <td th:text = "${mapEntry.getValue()}"></td>
+                <td th:text = "${mapEntry.getValue()} * ${mapEntry.getKey().getPrice()} + ' DKK'"></td>
+            </tr>
+            <tr class="w3-card-2" style="margin: 5%">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td th:unless="${cart.size() == 0}" th:text="'Total: ' + ${total} + ' DKK'" style="padding: 2% 0 2% 0; font-weight: bold"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="w3-row" style="margin: 5px">
+        <a href="#" id="confirm" class="w3-button w3-btn w3-col" style="display: inline-block; width: 25%; background-color: rgba(30, 199, 75, 0.7); float:right; padding: 1%">Confirm</a>
     </div>
 </div>
-<a th:href="@{/products/cart}">
-    <div class="w3-card w3-col w3-card-4 w3-margin s2 w3-right w3-cell w3-mobile" style="width: 5%; background-color: #53d0ef">
-        <h3 style="text-align: center; margin: 0; font-weight: 200; font-size: 21px">Cart</h3>
-        <img class="w3-image" th:src="@{/images/product/cart.png}" style="opacity: 50%; padding-left: 10%; padding-right: 15%">
-        <h3 th:text="${cart.size()}" style="text-align: center; margin: 0; font-weight: 200; font-size: 15px"></h3>
+<div id="confirmModal" class="w3-modal">
+    <form id="emptyCart" method="post" action="/products/cart/emptyCart">
+    <div class="w3-modal-content w3-center" style="background-color: rgba(255, 255, 255, 0.7)">
+        <h1 style="margin: 15% 0 15% 0; padding: 15% 0 15% 0">Purchase Confirmed!</h1>
     </div>
-</a>
+    </form>
+</div>
 </body>
 </html>
