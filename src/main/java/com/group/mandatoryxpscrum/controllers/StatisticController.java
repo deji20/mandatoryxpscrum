@@ -29,12 +29,12 @@ public class StatisticController {
     public String viewStatistics(Model model) {
         model.addAttribute("book",bookingService.fetchAll());
         //set random date change to parse() to now() to get current bookings
-        LocalDate date = LocalDate.parse("2020-04-11");
+        LocalDate date = LocalDate.now();
         //get last monday of given date
         date = date.minusDays(date.getDayOfWeek().getValue()-1);
 
         List<Statistic> statistics = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 7; i > 0; i--) {
             Statistic statistic = new Statistic();
             statistic.setDate(date.plusDays(i));
             statistic.setBookingsByActivity(getActivityBookingsByDate(statistic.getDate()));
@@ -52,26 +52,4 @@ public class StatisticController {
         }
         return bookingByActivity;
     }
-
-//    @GetMapping("/statistics")
-//    public String statistics(Model model){
-//
-////        List<Statistic> all = statisticService.findAll();
-////        Statistic statistic = all.get(0);
-////        Booking booking = statistic.getBooking();
-////        System.out.println(booking.getDate());
-//
-//        model.addAttribute("statistics", statisticService.findAll());
-//
-//        return "statistics";
-//    }
-
-//    @GetMapping("/statistics")
-//    public String viewStatistic(Model model, @Param("keyword") String keyword) {
-//        model.addAttribute("booking", statisticService.listAll(keyword));
-//        return "/statistics";
-//    }
-
-
-
 }
