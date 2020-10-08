@@ -1,100 +1,94 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <link type="text/css" href="/css/background.css" rel="stylesheet">
+<link type="text/css" href="/css/navbar.css" rel="stylesheet">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
 <script type="text/javascript">function clearFilter(){window.location = '/statistics'}</script>
-<style>
-    /* The Modal (background) */
-    .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        padding-top: 100px; /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
-
-    /* Modal Content */
-    .modal-content {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-    }
-
-    /* The Close Button */
-    .close {
-        color: #aaaaaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-
-
-
-</style>
 <head>
     <meta charset="UTF-8">
     <title>Bookings</title>
 </head>
 
-<body>
-<div class="w3-auto">
-    <div class="w3-container w3-center">
-        <img src="/images/logo.png" alt="Logo" style="width: 15%; height: 25%">
+<body class="w3-row">
+    <div class="w3-col s1" style="height:100px"></div>
+    <div class="navbar w3-col s1">
+        <a href="/">
+                <img th:src="@{/images/logo.png}" class="w3-image" alt="Logo">
+            </a>
+        <b>
+            <div class="subnav">
+                <div class="subnav-content">
+                    <a href="/">Home</a>
+                    <a href="/manager/">Manager Home</a>
+                    <a href="/booking/bookinginfo">Booking Information</a>
+                    <a href="/manager/products/">Edit Products</a>
+                </div>
+            </div>
+        </b>
     </div>
 
-    <div th:each="dayStatistic : ${statistics}" class="w3-col w3-half w3-container w3-round-largex">
-        <h2 class="w3-card-4 w3-blue w3-container" th:text="${dayStatistic.getDate().getDayOfWeek().toString()}" style="margin-bottom:0"></h2>
-        <table class="w3-table w3-white w3-bordered w3-hoverable">
-            <thead>
-            <tr class="w3-blue">
-                <!-- Table header with tiles -->
-                <th>Activity</th>
-                <th>Bookings</th>
-                <th>Equipment Used</th>
-                <th>Broken Equipment</th>
-                <th>Total Equipment</th>
-            </tr>
-            </thead>
-            <!-- table content -->
-            <tbody>
-            <tr th:each="activity : ${dayStatistic.bookingsByActivity.keySet()}">
-                <td><solid th:text="${activity.name}"></solid></td>
-                <td th:text="${dayStatistic.bookingsByActivity.get(activity).size()}"></td>
-                <td th:text="${dayStatistic.equipmentUsed}"></td>
-                <td th:text="${activity.equipment.size()} - ${activity.availableEquipment()}"></td>
-                <td th:text="${activity.equipment.size()}"></td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="w3-col s11">
+        <div class="w3-container w3-center w3-row">
+            <img src="/images/logo.png" alt="Logo" style="width: 15%; height: 25%">
+        </div>
+        <div class="w3-row">
+            <div th:each="dayStatistic : ${statistics}"  style="margin-bottom: 2vh" class=" w3-half w3-container">
+                <div class="w3-card-4 w3-center w3-round-large">
+                    <h2 class="w3-blue w3-container" th:text="${dayStatistic.getDate().getDayOfWeek().toString()} + '  (' + ${dayStatistic.getDate().getMonth().name()} + ' ' +${dayStatistic.getDate().getDayOfMonth()} +')'" style="margin-bottom:0"></h2>
+                    <table class="w3-table w3-bordered w3-striped w3-white w3-hoverable">
+                        <thead>
+                        <tr class="w3-blue">
+                            <!-- Table header with tiles -->
+                            <th>Activity</th>
+                            <th>Bookings</th>
+                            <th>Equipment Used</th>
+                            <th>Broken Equipment</th>
+                            <th>Total Equipment</th>
+                        </tr>
+                        </thead>
+                        <!-- table content -->
+                        <tbody>
+                            <tr th:each="activity : ${dayStatistic.bookingsByActivity.keySet()}">
+                                <td style="border-right: solid 1px"><b th:text="${activity.name}"></b></td>
+                                <td th:text="${dayStatistic.bookingsByActivity.get(activity).size()}"></td>
+                                <td th:text="${dayStatistic.equipmentUsed}"></td>
+                                <td th:text="${activity.equipment.size()} - ${activity.availableEquipment()}"></td>
+                                <td th:text="${dayStatistic.bookingsByActivity.get(activity).size()} * ${activity.equipment.size()}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="w3-row">
+                <div style="margin-bottom: 2vh" class="w3-container">
+                    <div class="w3-card-4 w3-center w3-round-large">
+                        <h2 class="w3-blue w3-container" style="margin-bottom:0"> Total</h2>
+                        <table class="w3-table w3-bordered w3-striped w3-white w3-hoverable">
+                            <thead>
+                            <tr class="w3-blue">
+                                <!-- Table header with tiles -->
+                                <th>Activity</th>
+                                <th>Bookings</th>
+                                <th>Equipment Used</th>
+                                <th>Broken Equipment</th>
+                                <th>Total Equipment</th>
+                            </tr>
+                            </thead>
+                            <!-- table content -->
+                            <tbody>
+                                <tr th:each="activity : ${total.bookingsByActivity.keySet()}">
+                                    <td style="border-right: solid 1px"><b th:text="${activity.name}"></b></td>
+                                    <td th:text="${total.bookingsByActivity.get(activity).size()}"></td>
+                                    <td th:text="${total.equipmentUsed}"></td>
+                                    <td th:text="${activity.equipment.size()} - ${activity.availableEquipment()}"></td>
+                                    <td th:text="${total.bookingsByActivity.get(activity).size()} * ${activity.equipment.size()}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
     </div>
-</div>
-<script>
-    function showFunctionModal() {
-        $(document).ready(function () {
-            document.getElementById('openModal').style.display = "block";
-            var x = $("#myBtn").attr("object");
-            console.log(x.id);
-            $("#editForm").attr("object", x);
-        });
-    }
-</script>
-
 </body>
 </html>

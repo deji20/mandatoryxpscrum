@@ -34,13 +34,21 @@ public class StatisticController {
         date = date.minusDays(date.getDayOfWeek().getValue()-1);
 
         List<Statistic> statistics = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 7; i > 0; i--) {
             Statistic statistic = new Statistic();
             statistic.setDate(date.plusDays(i));
             statistic.setBookingsByActivity(getActivityBookingsByDate(statistic.getDate()));
             statistic.setEquipmentUsed(bookingService.fetchAllByDay(statistic.getDate()).stream().mapToInt((b) -> b.getBookedEquipment().size()).sum());
             statistics.add(statistic);
         }
+        Statistic total = new Statistic();
+        total.setBookingsByActivity(new HashMap<>());
+        for (Statistic s: statistics) {
+            total.setEquipmentUsed(s.getEquipmentUsed());
+            total.getBookingsByActivity().putAll(s.getBookingsByActivity());
+        }
+        System.out.println(total.getBookingsByActivity());
+        model.addAttribute("total", total);
         model.addAttribute("statistics", statistics);
         return "/statistics";
     }
@@ -52,26 +60,4 @@ public class StatisticController {
         }
         return bookingByActivity;
     }
-
-//    @GetMapping("/statistics")
-//    public String statistics(Model model){
-//
-////        List<Statistic> all = statisticService.findAll();
-////        Statistic statistic = all.get(0);
-////        Booking booking = statistic.getBooking();
-////        System.out.println(booking.getDate());
-//
-//        model.addAttribute("statistics", statisticService.findAll());
-//
-//        return "statistics";
-//    }
-
-//    @GetMapping("/statistics")
-//    public String viewStatistic(Model model, @Param("keyword") String keyword) {
-//        model.addAttribute("booking", statisticService.listAll(keyword));
-//        return "/statistics";
-//    }
-
-
-
 }

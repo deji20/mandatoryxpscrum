@@ -53,6 +53,7 @@ function updateEquipment() {
         $.post("/booking/returnEquipment", {activityId: activity, date: date, time: time},
             function (data) {
                 availtext[0].innerHTML = data.length;
+                $("#amount")[0].max = data.length;
             }
             , "json")
     }
