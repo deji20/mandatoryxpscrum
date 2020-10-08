@@ -29,7 +29,7 @@ public class StatisticController {
     public String viewStatistics(Model model) {
         model.addAttribute("book",bookingService.fetchAll());
         //set random date change to parse() to now() to get current bookings
-        LocalDate date = LocalDate.now();
+        LocalDate date = LocalDate.parse("2020-04-11");
         //get last monday of given date
         date = date.minusDays(date.getDayOfWeek().getValue()-1);
 
@@ -41,6 +41,14 @@ public class StatisticController {
             statistic.setEquipmentUsed(bookingService.fetchAllByDay(statistic.getDate()).stream().mapToInt((b) -> b.getBookedEquipment().size()).sum());
             statistics.add(statistic);
         }
+        Statistic total = new Statistic();
+        total.setBookingsByActivity(new HashMap<>());
+        for (Statistic s: statistics) {
+            total.setEquipmentUsed(s.getEquipmentUsed());
+            total.getBookingsByActivity().putAll(s.getBookingsByActivity());
+        }
+        System.out.println(total.getBookingsByActivity());
+        model.addAttribute("total", total);
         model.addAttribute("statistics", statistics);
         return "/statistics";
     }

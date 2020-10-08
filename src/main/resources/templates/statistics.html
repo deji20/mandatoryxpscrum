@@ -49,17 +49,45 @@
                         </thead>
                         <!-- table content -->
                         <tbody>
-                        <tr th:each="activity : ${dayStatistic.bookingsByActivity.keySet()}">
-                            <td style="border-right: solid 1px"><b th:text="${activity.name}"></b></td>
-                            <td th:text="${dayStatistic.bookingsByActivity.get(activity).size()}"></td>
-                            <td th:text="${dayStatistic.equipmentUsed}"></td>
-                            <td th:text="${activity.equipment.size()} - ${activity.availableEquipment()}"></td>
-                            <td th:text="${dayStatistic.bookingsByActivity.get(activity).size()} * ${activity.equipment.size()}"></td>
-                        </tr>
+                            <tr th:each="activity : ${dayStatistic.bookingsByActivity.keySet()}">
+                                <td style="border-right: solid 1px"><b th:text="${activity.name}"></b></td>
+                                <td th:text="${dayStatistic.bookingsByActivity.get(activity).size()}"></td>
+                                <td th:text="${dayStatistic.equipmentUsed}"></td>
+                                <td th:text="${activity.equipment.size()} - ${activity.availableEquipment()}"></td>
+                                <td th:text="${dayStatistic.bookingsByActivity.get(activity).size()} * ${activity.equipment.size()}"></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+            <div class="w3-row">
+                <div style="margin-bottom: 2vh" class="w3-container">
+                    <div class="w3-card-4 w3-center w3-round-large">
+                        <h2 class="w3-blue w3-container" style="margin-bottom:0"> Total</h2>
+                        <table class="w3-table w3-bordered w3-striped w3-white w3-hoverable">
+                            <thead>
+                            <tr class="w3-blue">
+                                <!-- Table header with tiles -->
+                                <th>Activity</th>
+                                <th>Bookings</th>
+                                <th>Equipment Used</th>
+                                <th>Broken Equipment</th>
+                                <th>Total Equipment</th>
+                            </tr>
+                            </thead>
+                            <!-- table content -->
+                            <tbody>
+                                <tr th:each="activity : ${total.bookingsByActivity.keySet()}">
+                                    <td style="border-right: solid 1px"><b th:text="${activity.name}"></b></td>
+                                    <td th:text="${total.bookingsByActivity.get(activity).size()}"></td>
+                                    <td th:text="${total.equipmentUsed}"></td>
+                                    <td th:text="${activity.equipment.size()} - ${activity.availableEquipment()}"></td>
+                                    <td th:text="${total.bookingsByActivity.get(activity).size()} * ${activity.equipment.size()}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
         </div>
     </div>
 </body>
