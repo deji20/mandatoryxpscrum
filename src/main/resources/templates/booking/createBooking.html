@@ -34,10 +34,10 @@
                     <div class="w3-row w3-section w3-container">
                         <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-user"></i></div>
                         <div class="w3-rest">
-                            <select name="instructor" id="pickInstructor">
-
+                            <select name="instructor" id="pickInstructor" class="w3-select w3-border">
+                                <option selected disabled>Enter Time And Date To See Available Instructors</option>
                             </select>
-                            <input class="w3-input w3-border" name="instructor" type="text" placeholder="instructor" required></div>
+                        </div>
                     </div>
                     <table class="w3-table-all">
                         <h3 class="w3-card w3-center w3-blue" id="name" style="margin: 0px;"></h3>
@@ -68,7 +68,7 @@
                         </tr>
                         <tr class="w3-light-blue">
                             <td><strong style="color: white">Available Equipment: </strong></td>
-                            <td id="avail_container" style="color: white"><u><strong id="availableEquipment"></strong></u></td>
+                            <td id="avail_container" style="color: white"><strong id="availableEquipment"></strong></td>
                         </tr>
                     </table>
                 </div>

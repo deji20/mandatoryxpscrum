@@ -3,39 +3,55 @@ package com.group.mandatoryxpscrum.models;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
 
-@Entity
 public class Statistic {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_statistic")
-    private Integer Id;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "statistic_booking_id", referencedColumnName = "id_booking")
-    private Booking booking;
+    private LocalDate date;
+    private HashMap<Activity, List<Booking>> bookingsByActivity;
+    private int equipmentUsed;
+    private int TotalEquipment;
+    private int brokenEquipment;
 
     public Statistic(){}
 
-    public Statistic(Booking booking) {
-        this.booking = booking;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public Integer getId() {
-        return Id;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
-    public void setId(Integer id) {
-        Id = id;
+    public HashMap<Activity, List<Booking>> getBookingsByActivity() {
+        return bookingsByActivity;
     }
 
-    public Booking getBooking() {
-        return booking;
+    public void setBookingsByActivity(HashMap<Activity, List<Booking>> bookingsByActivity) {
+        this.bookingsByActivity = bookingsByActivity;
     }
 
-    public void setBooking(Booking booking) {
-        this.booking = booking;
+    public int getEquipmentUsed() {
+        return equipmentUsed;
+    }
+
+    public void setEquipmentUsed(int equipmentUsed) {
+        this.equipmentUsed = equipmentUsed;
+    }
+
+    public int getTotalEquipment() {
+        return TotalEquipment;
+    }
+
+    public void setTotalEquipment(int totalEquipment) {
+        TotalEquipment = totalEquipment;
+    }
+
+    public int getBrokenEquipment() {
+        return brokenEquipment;
+    }
+
+    public void setBrokenEquipment(int brokenEquipment) {
+        this.brokenEquipment = brokenEquipment;
     }
 }

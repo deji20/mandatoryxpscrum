@@ -59,6 +59,7 @@ public class BookingController {
         List<Equipment> availableEquipment = getAvailEquipment(booking);
         booking.setBookedEquipment(availableEquipment.subList(0, booking.getAmount()));
 
+
         bookingService.save(booking);
         return "redirect:/booking/bookinginfo";
     }
@@ -98,30 +99,14 @@ public class BookingController {
 
     @GetMapping("/bookinginfo")
     public String viewBooking(Model model, @Param("keyword") String keyword) {
-        model.addAttribute("booking", bookingService.listAll(keyword));
+        HashMap<String, List<Booking>> bookingsByActivities = new HashMap<>();
+        for(Activity activity: activityService.fetchAll()) {
+                bookingsByActivities.put(activity.getName(), bookingService.fetchBookingsByActivity(activity));
+        }
+        System.out.println(bookingsByActivities);
         return "/booking/bookingInfo";
     }
 
-    @GetMapping("/statistics")
-    public String viewStatistics(Model model) {
-        LocalDate date = LocalDate.parse("2020-04-11");
-        System.out.println();
-        date = date.minusDays(date.getDayOfWeek().getValue()-1);
-        String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-
-        for (int i = 0; i < days.length; i++) {
-            model.addAttribute(days[i], getActivityBookingsByDate(date.plusDays(i)));
-        }
-        return "/statistics";
-    }
-
-    private HashMap<Activity, List<Booking>> getActivityBookingsByDate(LocalDate date){
-        HashMap<Activity, List<Booking>> bookingByActivity = new HashMap<>();
-        for(Activity activity : activityService.fetchAll()){
-            bookingByActivity.put(activity, bookingService.findBookingByDateAndActivity(date, activity.getId()));
-        }
-        return bookingByActivity;
-    }
 
     //tells the method to seriallize the activity and return it in json
     @GetMapping(value="/returnActivity", produces=MediaType.APPLICATION_JSON_VALUE)
@@ -186,8 +171,8 @@ public class BookingController {
 
     @PostMapping(value="/returninstructors", produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody()
-    public List<Instructor> returnInstructors(@ModelAttribute Booking booking)
-    {
+    public List<Instructor> returnInstructors(@ModelAttribute Booking booking, @RequestParam int activityId) {
+        booking.setActivity(activityService.fetchById(activityId));
         return getAvailInstructors(booking);
     }
 
@@ -211,7 +196,6 @@ public class BookingController {
 
             //removes available instructors from list if bookings overlap
             if(diff < duration){
-
                     if(instructorList.contains(b.getInstructor())){
                         instructorList.remove(b.getInstructor());
                     }
@@ -219,4 +203,5 @@ public class BookingController {
         };
         return instructorList;
     }
+
 }
