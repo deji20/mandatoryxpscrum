@@ -59,190 +59,31 @@
         <img src="/images/logo.png" alt="Logo" style="width: 15%; height: 25%">
     </div>
 
-
-    <div class="w3-container row">
-        <h2>Monday</h2>
-        <table id="table1" class="w3-table w3-white w3-bordered w3-hoverable">
-
+    <div th:each="dayStatistic : ${statistics}" class="w3-col w3-half w3-container w3-round-largex">
+        <h2 class="w3-card-4 w3-blue w3-container" th:text="${dayStatistic.getDate().getDayOfWeek().toString()}" style="margin-bottom:0"></h2>
+        <table class="w3-table w3-white w3-bordered w3-hoverable">
             <thead>
             <tr class="w3-blue">
                 <!-- Table header with tiles -->
-                <th style="padding:0 15px 0 15px;">ID</th>
-                <th style="padding:0 15px 0 15px;">Amount</th>
-                <th style="padding:0 15px 0 15px;">Availble Equipment</th>
+                <th>Activity</th>
+                <th>Bookings</th>
+                <th>Equipment Used</th>
+                <th>Broken Equipment</th>
+                <th>Total Equipment</th>
             </tr>
             </thead>
             <!-- table content -->
             <tbody>
-            <tr th:each="book: ${Monday.keySet()}" style="padding:0 15px 0 15px;">
-                <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
-                <td th:text="${Monday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
-                <td th:text="${book.availableEquipment()}" style="padding:0 15px 0 15px;"></td>
-
-
-
+            <tr th:each="activity : ${dayStatistic.bookingsByActivity.keySet()}">
+                <td><solid th:text="${activity.name}"></solid></td>
+                <td th:text="${dayStatistic.bookingsByActivity.get(activity).size()}"></td>
+                <td th:text="${dayStatistic.equipmentUsed}"></td>
+                <td th:text="${activity.equipment.size()} - ${activity.availableEquipment()}"></td>
+                <td th:text="${activity.equipment.size()}"></td>
             </tr>
             </tbody>
         </table>
     </div>
-
-    <br>
-    <br>
-
-    <div class="w3-container row">
-
-        <table id="table1" class="w3-table w3-white w3-bordered w3-hoverable">
-            <h2>Tuesday</h2>
-            <thead>
-            <tr class="w3-blue">
-                <!-- Table header with tiles -->
-                <th style="padding:0 15px 0 15px;">ID</th>
-                <th style="padding:0 15px 0 15px;">Amount</th>
-                <th style="padding:0 15px 0 15px;">Availble Equipment</th>
-            </tr>
-            </thead>
-            <!-- table content -->
-            <tbody>
-            <tr th:each="book: ${Tuesday.keySet()}" style="padding:0 15px 0 15px;">
-                <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
-                <td th:text="${Tuesday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
-                <td th:text="${book.availableEquipment()}" style="padding:0 15px 0 15px;"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <br>
-    <br>
-
-    <div class="w3-container row">
-        <h2>Wednesday</h2>
-        <table id="table1" class="w3-table w3-white w3-bordered w3-hoverable">
-
-            <thead>
-            <tr class="w3-blue">
-                <!-- Table header with tiles -->
-                <th style="padding:0 15px 0 15px;">ID</th>
-                <th style="padding:0 15px 0 15px;">Amount</th>
-                <th style="padding:0 15px 0 15px;">Availble Equipment</th>
-            </tr>
-            </thead>
-            <!-- table content -->
-            <tbody>
-            <tr th:each="book: ${Wednesday.keySet()}" style="padding:0 15px 0 15px;">
-                <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
-                <td th:text="${Wednesday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
-                <td th:text="${book.availableEquipment()}" style="padding:0 15px 0 15px;"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <br>
-    <br>
-
-    <div class="w3-container row">
-
-        <table id="table1" class="w3-table w3-white w3-bordered w3-hoverable">
-            <h2>Thursday</h2>
-            <thead>
-            <tr class="w3-blue">
-                <!-- Table header with tiles -->
-                <th style="padding:0 15px 0 15px;">ID</th>
-                <th style="padding:0 15px 0 15px;">Amount</th>
-                <th style="padding:0 15px 0 15px;">Availble Equipment</th>
-            </tr>
-            </thead>
-            <!-- table content -->
-            <tbody>
-            <tr th:each="book: ${Thursday.keySet()}" style="padding:0 15px 0 15px;">
-                <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
-                <td th:text="${Thursday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
-                <td th:text="${book.availableEquipment()}" style="padding:0 15px 0 15px;"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <br>
-    <br>
-
-    <div class="w3-container row">
-
-        <table id="table1" class="w3-table w3-white w3-bordered w3-hoverable">
-            <h2>Friday</h2>
-            <thead>
-            <tr class="w3-blue">
-                <!-- Table header with tiles -->
-                <th style="padding:0 15px 0 15px;">ID</th>
-                <th style="padding:0 15px 0 15px;">Amount</th>
-                <th style="padding:0 15px 0 15px;">Availble Equipment</th>
-            </tr>
-            </thead>
-            <!-- table content -->
-            <tbody>
-            <tr th:each="book: ${Friday.keySet()}" style="padding:0 15px 0 15px;">
-                <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
-                <td th:text="${Friday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
-                <td th:text="${book.availableEquipment()}" style="padding:0 15px 0 15px;"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <br>
-    <br>
-
-    <div class="w3-container row">
-
-        <table id="table1" class="w3-table w3-white w3-bordered w3-hoverable">
-            <title>Saturday</title>
-            <h2>Saturday</h2>
-            <thead>
-            <tr class="w3-blue">
-                <!-- Table header with tiles -->
-                <th style="padding:0 15px 0 15px;">ID</th>
-                <th style="padding:0 15px 0 15px;">Amount</th>
-                <th style="padding:0 15px 0 15px;">Availble Equipment</th>
-            </tr>
-            </thead>
-            <!-- table content -->
-            <tbody>
-            <tr th:each="book: ${Saturday.keySet()}" style="padding:0 15px 0 15px;">
-                <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
-                <td th:text="${Saturday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
-                <td th:text="${book.availableEquipment()}" style="padding:0 15px 0 15px;"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <br>
-    <br>
-
-    <div class="w3-container row">
-
-        <table id="table1" class="w3-table w3-white w3-bordered w3-hoverable">
-            <h2>Sunday</h2>
-            <thead>
-            <tr class="w3-blue">
-                <!-- Table header with tiles -->
-                <th style="padding:0 15px 0 15px;">ID</th>
-                <th style="padding:0 15px 0 15px;">Amount</th>
-                <th style="padding:0 15px 0 15px;">Availble Equipment</th>
-            </tr>
-            </thead>
-            <!-- table content -->
-            <tbody>
-            <tr th:each="book: ${Sunday.keySet()}" style="padding:0 15px 0 15px;">
-                <td th:text="${book.getName()}" style="padding:0 15px 0 15px;"></td>
-                <td th:text="${Sunday.get(book).size()}" style="padding:0 15px 0 15px;"></td>
-                <td th:text="${book.availableEquipment()}" style="padding:0 15px 0 15px;"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
 </div>
 <script>
     function showFunctionModal() {

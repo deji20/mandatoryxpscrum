@@ -107,27 +107,6 @@ public class BookingController {
         return "/booking/bookingInfo";
     }
 
-    @GetMapping("/statistics")
-    public String viewStatistics(Model model) {
-        model.addAttribute("book",bookingService.fetchAll());
-
-        LocalDate date = LocalDate.parse("2020-04-11");
-        date = date.minusDays(date.getDayOfWeek().getValue()-1);
-        String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-
-        for (int i = 0; i < days.length; i++) {
-            model.addAttribute(days[i], getActivityBookingsByDate(date.plusDays(i)));
-        }
-        return "/statistics";
-    }
-
-    private HashMap<Activity, List<Booking>> getActivityBookingsByDate(LocalDate date){
-        HashMap<Activity, List<Booking>> bookingByActivity = new HashMap<>();
-        for(Activity activity : activityService.fetchAll()){
-            bookingByActivity.put(activity, bookingService.findBookingByDateAndActivity(date, activity.getId()));
-        }
-        return bookingByActivity;
-    }
 
     //tells the method to seriallize the activity and return it in json
     @GetMapping(value="/returnActivity", produces=MediaType.APPLICATION_JSON_VALUE)
