@@ -43,7 +43,7 @@
                 <div class="w3-center">
                     <div class="w3-bar">
                         <button id="editBtn" th:data-name="${product.name}" th:data-id="${product.id}" th:data-price="${product.price}" th:data-image="${product.image}"
-                                onclick="showEditModal(this.getAttribute('data-name'), this.getAttribute('data-id'), this.getAttribute('data-price'), this.getAttribute('data-image'))" class="w3-btn w3-round w3-green">Edit</button>
+                                onclick="showEditModal(this.getAttribute('data-name'), this.getAttribute('data-id'), this.getAttribute('data-price'), this.getAttribute('data-image'))" class="w3-btn w3-round w3-green">Update</button>
                         <a href="#" th:onclick="'javascript:showDeleteModal(\'' + ${product.id} + '\');'" id="deleteButton" class="w3-btn w3-round w3-red"><i class="fa fa-trash"></i></a>
                     </div>
                 </div>

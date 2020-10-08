@@ -29,7 +29,7 @@
             <div class="w3-row">
                 <div class="w3-col w3-container" style="width: 80%">
                     <h3 th:text="${activity.name}"></h3>
-                        <table id="table1" class="w3-table w3-striped w3-bordered w3-hoverable">
+                        <table id="table1" class="w3-table w3-striped w3-bordered w3-hoverable w3-opacity-min">
                     <thead>
                     <tr class="w3-blue">
                         <!-- Table header with tiles -->
@@ -53,10 +53,15 @@
                         </td>
                         <td th:text="${equip.comment}"></td>
                         <td>
-                            <a th:href="@{/activity/equipment/updateStatus(activityId=${equip.getActivity().id}, equipmentId=${equip.id})}" class="w3-btn w3-green">Change status</a>
+                            <button th:data-name="${equip.name}" th:data-available="${equip.available}" th:data-comment="${equip.comment}"
+                                    th:data-id="${equip.id}" th:data-activity="${equip.getActivity().id}" class="w3-btn w3-round w3-green"
+                                    onclick="modal(this.getAttribute('data-name'), this.getAttribute('data-available'),
+                                    this.getAttribute('data-comment'), this.getAttribute('data-id'), this.getAttribute('data-activity'))">Update</button>
                         </td>
                         <td>
-                            <a href="#" th:onclick="'javascript:showFunctionModal(\'' + ${equip.id} + '\');'" id="deleteButton" class="w3-btn w3-red w3-tiny"><i class="fa fa-trash"></i></a>
+                            <a href="#" th:data-id="${equip.id}" th:data-activity="${equip.getActivity().id}"
+                               onclick="showFunctionModal(this.getAttribute('data-id'), this.getAttribute('data-activity'))"
+                               id="deleteButton" class="w3-btn w3-red w3-tiny"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                     </tbody>
@@ -104,6 +109,37 @@
             </div>
         </div>
     </div>
+    <div id="editModal" class="w3-modal">
+    <form action="#" id="edit" method="post" class="w3-container">
+        <div class="w3-modal-content" style="width: 30%">
+            <header class="w3-container w3-blue">
+                <h2>Update equipment</h2>
+            </header>
+            <div class="w3-panel">
+                <label>ID</label>
+                <input type="number" class="w3-input w3-border w3-round" readonly id="idInput" name="id" value="">
+                <label>Name</label>
+                <input type="text" class="w3-input w3-border w3-round" id="nameInput" name="name" value="" required>
+                <label for="availableInput">Available</label>
+                <select id="availableInput" name="available">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+<!--                    <input type="checkbox" class="w3-check w3-border w3-round" id="availableInput" name="available">-->
+                <br/>
+                <label>Comment</label>
+                <input type="text" class="w3-input w3-border w3-round" id="commentInput" name="comment" value="">
+                <input type="hidden" id="activityInput" name="activity" value="">
+                <div class="w3-center">
+                    <div class="w3-bar">
+                        <button type="submit" id="editRef" class="w3-btn w3-green">Save</button>
+                        <button type="button" class="w3-btn w3-red" onclick="document.getElementById('editModal').style.display='none'">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
     <!-- end Modals !-->
     <!-- Scripts !-->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
@@ -114,11 +150,20 @@
     } );
     </script>
     <script>
-        function showFunctionModal(equipmentId) {
+        function showFunctionModal(equipmentId, activityId) {
             $(document).ready(function () {
                 document.getElementById('deleteModal').style.display = "block";
-                $("#delRef").attr("href", "/activity/equipment/delete?id=" + equipmentId);
+                $("#delRef").attr("href", "/activity/" + activityId + "/equipment/delete?id=" + equipmentId);
             });
+        }
+        function modal(name, available, comment, id, activity) {
+            document.getElementById('editModal').style.display = "block";
+            $("#nameInput").attr("value", name);
+            $("#availableInput").attr("checked", available);
+            $("#commentInput").attr("value", comment);
+            $("#idInput").attr("value", id);
+            $("#activityInput").attr("value", activity);
+            $("#edit").attr("action", "/activity/" + activity + "/equipment/update")
         }
     </script>
     <!-- end Scripts !-->

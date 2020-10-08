@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/activity")
 public class ActivityController {
@@ -55,11 +57,11 @@ Mapping for viewing equipment of chosen activity
         return "equipment/equipment";
     }
 
-    @GetMapping("/equipment/delete")
+    @GetMapping("{id}/equipment/delete")
     public String deleteEquipment(@RequestParam("id") String equipmentId) {
         Equipment equipment = equipmentService.fetchById(Integer.parseInt(equipmentId));
         equipmentService.delete(equipment);
-        return "redirect:/";
+        return "redirect:/activity/{id}/equipment";
     }
 
 
@@ -84,9 +86,14 @@ Mapping for viewing equipment of chosen activity
     Post mapping responsible for saving changed equipment status.
     In order to use ModelAttribute, one has to pass all attributes through the html form
      -------------------------------------------*/
-    @PostMapping("/equipment/updateStatus")
-    public String changeEquipmentStatus(@ModelAttribute("specificEquipment") Equipment equipment) {
+    @PostMapping("/{id}/equipment/update")
+    public String changeEquipmentStatus(HttpServletRequest request) {
+        Equipment equipment = equipmentService.fetchById(Integer.parseInt(request.getParameter("id")));
+        String s = request.getParameter("available");
+        equipment.setAvailable(Boolean.parseBoolean(request.getParameter("available")));
+        equipment.setComment(request.getParameter("comment"));
+        equipment.setName(request.getParameter("name"));
         equipmentService.save(equipment);
-        return "redirect:/";
+        return "redirect:/activity/{id}/equipment";
     }
 }
