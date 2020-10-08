@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <link type="text/css" href="/css/background.css" rel="stylesheet">
+<link type="text/css" href="/css/navbar.css" rel="stylesheet">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
 <script type="text/javascript">function clearFilter(){window.location = '/statistics'}</script>
@@ -54,35 +55,52 @@
 </head>
 
 <body>
-<div class="w3-auto">
-    <div class="w3-container w3-center">
-        <img src="/images/logo.png" alt="Logo" style="width: 15%; height: 25%">
+<div class="w3-row">
+    <div class="w3-col s1" style="height:100px"></div>
+    <div class="navbar w3-col s1">
+        <a href="/">
+            <img th:src="@{/images/logo.png}" class="w3-image" alt="Logo">
+        </a>
+        <div class="subnav">
+            <div class="subnav-content">
+                <a href="/">Home</a>
+                <a href="/booking/bookinginfo">Booking info</a>
+                <a href="/statistics">Booking statistics</a>
+                <a href="/manager/products/">Products</a>
+            </div>
+        </div>
     </div>
-
-    <div th:each="dayStatistic : ${statistics}" class="w3-col w3-half w3-container w3-round-largex">
-        <h2 class="w3-card-4 w3-blue w3-container" th:text="${dayStatistic.getDate().getDayOfWeek().toString()}" style="margin-bottom:0"></h2>
-        <table class="w3-table w3-white w3-bordered w3-hoverable">
-            <thead>
-            <tr class="w3-blue">
-                <!-- Table header with tiles -->
-                <th>Activity</th>
-                <th>Bookings</th>
-                <th>Equipment Used</th>
-                <th>Broken Equipment</th>
-                <th>Total Equipment</th>
-            </tr>
-            </thead>
-            <!-- table content -->
-            <tbody>
-            <tr th:each="activity : ${dayStatistic.bookingsByActivity.keySet()}">
-                <td><solid th:text="${activity.name}"></solid></td>
-                <td th:text="${dayStatistic.bookingsByActivity.get(activity).size()}"></td>
-                <td th:text="${dayStatistic.equipmentUsed}"></td>
-                <td th:text="${activity.equipment.size()} - ${activity.availableEquipment()}"></td>
-                <td th:text="${activity.equipment.size()}"></td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="w3-col s11">
+        <div class="w3-container w3-center w3-row">
+            <img src="/images/logo.png" alt="Logo" style="width: 15%; height: 25%">
+        </div>
+        <div class="w3-row">
+            <div th:each="dayStatistic : ${statistics}" class="w3-half w3-container w3-round-large">
+                <h2 class="w3-card-4 w3-blue w3-container" th:text="${dayStatistic.getDate().getDayOfWeek().toString()} + '  (' + ${dayStatistic.getDate().getMonth().name()} + ' ' +${dayStatistic.getDate().getDayOfMonth()} +')'" style="margin-bottom:0"></h2>
+                <table class="w3-table w3-white w3-bordered w3-hoverable">
+                    <thead>
+                    <tr class="w3-blue">
+                        <!-- Table header with tiles -->
+                        <th>Activity</th>
+                        <th>Bookings</th>
+                        <th>Equipment Used</th>
+                        <th>Broken Equipment</th>
+                        <th>Total Equipment</th>
+                    </tr>
+                    </thead>
+                    <!-- table content -->
+                    <tbody>
+                    <tr th:each="activity : ${dayStatistic.bookingsByActivity.keySet()}">
+                        <td><solid th:text="${activity.name}"></solid></td>
+                        <td th:text="${dayStatistic.bookingsByActivity.get(activity).size()}"></td>
+                        <td th:text="${dayStatistic.equipmentUsed}"></td>
+                        <td th:text="${activity.equipment.size()} - ${activity.availableEquipment()}"></td>
+                        <td th:text="${dayStatistic.bookingsByActivity.get(activity).size()} * ${activity.equipment.size()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 <script>
