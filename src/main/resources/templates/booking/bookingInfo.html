@@ -74,14 +74,14 @@
         </div>
     </div>
 
-    <div class="w3-modal w3-round-xxlarge" id="modal">
+    <div class="w3-modal w3-card-4 w3-round-xxlarge" id="modal">
         <div class="w3-modal-content w3-center" id="modCont">
             <div class="w3-card w3-pink w3-row">
                 <h1>Are You Sure?</h1>
             </div>
             <div class="w3-row w3-container w3-center">
-                <button class="w3-button w3-red w3-col w3-half" id="confirm" onclick="remove(this.value)">Yes</button>
-                <button class="w3-button w3-blue w3-col w3-half" id="deny" onclick="$('#modal')[0].style.display='none'">No</button>
+                <button style="margin: 20px 0px;" class="w3-button w3-red w3-col w3-half w3-margin" id="confirm" onclick="remove(this.value)">Yes</button>
+                <button class="w3-button w3-blue w3-col w3-half w3-margin" id="deny" onclick="$('#modal')[0].style.display='none'">No</button>
             </div>
             <div class="row">
                 <p class="w3-text-teal">This Change Is Permanent</p>
