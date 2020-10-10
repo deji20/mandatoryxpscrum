@@ -2,36 +2,57 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <link type="text/css" href="/css/background.css" rel="stylesheet">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../javascript/newBooking.js"></script>
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Booking</title>
 </head>
-<body>
-<div class="w3-container">
-    <form action="#" th:action="@{/booking/updateBooking}" th:object="${book}" method="post">
-
+<body class="w3-container">
+    <div class="w3-container w3-center">
+        <a href="/"><img src="/images/logo.png" alt="Logo" style="width: 15%; height: 25%"></a>
+    </div>
+<div class="w3-card-4 w3-center">
+    <div class="w3-container w3-green">
+        <h2>Change Booking</h2>
+    </div>
+    <form class="w3-left-align w3-container w3-white w3-text-teal" action="#" th:action="@{/booking/updateBooking}" th:object="${book}" method="post">
         <input type="hidden" th:field="*{id}">
         <input type="hidden" th:field="*{activity}">
-
-        <label name="custName">Customer Name</label>
-            <input name="custName" type="text" class="w3-input" th:field="*{customerName}">
-        <label>Date</label>
-            <input type="text" class="w3-input" th:field="*{date}">
-        <label>Instructor</label>
-        <select name="instructorId" class="w3-select">
-            <th:block th:each="i : ${instructors}">
-                <option th:text="${i.name}" th:value="${i.id}"></option>
-            </th:block>
-        </select>
-        <label>Phone Number</label>
-        <input type="text" class="w3-input" th:field="*{phoneNumber}">
-        <label>Time</label>
-        <input type="text" class="w3-input" th:field="*{time}">
-        <label>Amount</label>
-        <input type="text" class="w3-input" th:field="*{amount}">
-
-        <input type="submit" value="Submit">
+        <input type="hidden" id="activityId" th:value="${activityId}">
+        <div class="w3-row">
+            <label class="w3-col s2" name="custName">Customer Name</label>
+                <input name="custName" type="text" class="w3-input" th:field="*{customerName}">
+        </div>
+        <div class="w3-row">
+            <label>Date</label>
+                <input type="text" id="date" class="w3-input" th:field="*{date}">
+        </div>
+        <div class="w3-row">
+            <label>Time</label>
+                <input type="text" id="time" class="w3-input" th:field="*{time}">
+        </div>
+        <div class="w3-row">
+            <label>Instructor</label>
+            <select name="instructorId" id="pickInstructor" class="w3-select">
+                <th:block th:each="i : ${instructors}">
+                    <option th:text="${i.name}" th:value="${i.id}"></option>
+                </th:block>
+            </select>
+        </div>
+        <div class="w3-row">
+            <label>Phone Number</label>
+                <input type="text" class="w3-input" th:field="*{phoneNumber}">
+        </div>
+        <div class="w3-row">
+            <label>Amount</label>
+                <input type="text" class="w3-input" th:field="*{amount}">
+        </div>
+        <div class="w3-row">
+            <input type="submit" class="w3-col w3-third w3-margin w3-input w3-green" value="Edit">
+            <a href="/booking/bookinginfo"><button type="button" class="w3-col w3-third w3-margin w3-input w3-red">Back</button></a>
+        </div>
     </form>
 </div>
 </body>

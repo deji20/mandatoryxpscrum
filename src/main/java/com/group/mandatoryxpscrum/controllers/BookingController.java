@@ -59,18 +59,17 @@ public class BookingController {
         List<Equipment> availableEquipment = getAvailEquipment(booking);
         booking.setBookedEquipment(availableEquipment.subList(0, booking.getAmount()));
 
-
         bookingService.save(booking);
         return "redirect:/booking/bookinginfo";
     }
 
 
-    @PostMapping("/delete/")
-    public String deleteBooking(@RequestParam int bookingId, Model model) {
+    @PostMapping("/delete")
+    @ResponseBody()
+    public String deleteBooking(@RequestParam int bookingId) {
         Booking booking = bookingService.fetchById((bookingId));
         bookingService.delete(booking);
-        model.addAttribute("booking", bookingService.fetchAll());
-        return "/booking/bookingInfo";
+        return booking.getCustomerName()+"\n"+booking.getTime()+" / "+booking.getDate()+"\nDeleted";
     }
 
     @GetMapping("/editBookingInfo")
@@ -78,6 +77,7 @@ public class BookingController {
         Booking booking = bookingService.fetchById(Integer.parseInt(bookingId));
         model.addAttribute("instructors", instructorService.fetchAll());
         model.addAttribute("book", booking);
+        model.addAttribute("activityId", booking.getActivity().getId());
         return "/booking/editBookingInfo";
     }
 
@@ -86,24 +86,16 @@ public class BookingController {
         booking.setInstructor(instructorService.fetchById(instructorId));
         bookingService.save(booking);
         model.addAttribute("booking", bookingService.fetchAll());
-        return "/booking/bookingInfo";
+        return "redirect:/booking/bookinginfo";
     }
 
-//    @RequestMapping("/updateBooking/{id}")
-//    public ModelAndView showEditProductPage(@PathVariable(name = "id") int id) {
-//        ModelAndView mav = new ModelAndView("editBookingInfo");
-//        Booking booking = bookingService.fetchById(id);
-//        mav.addObject("book", booking);
-//        return mav;
-//    }
-
     @GetMapping("/bookinginfo")
-    public String viewBooking(Model model, @Param("keyword") String keyword) {
+    public String viewBooking(Model model) {
         HashMap<String, List<Booking>> bookingsByActivities = new HashMap<>();
         for(Activity activity: activityService.fetchAll()) {
-                bookingsByActivities.put(activity.getName(), bookingService.fetchBookingsByActivity(activity));
+            bookingsByActivities.put(activity.getName(), bookingService.fetchBookingsByActivity(activity));
         }
-        System.out.println(bookingsByActivities);
+        model.addAttribute("bookByActiv",bookingsByActivities);
         return "/booking/bookingInfo";
     }
 
@@ -137,7 +129,6 @@ public class BookingController {
         }
 
     private List<Equipment> getAvailEquipment(Booking booking){
-        System.out.println(booking.getTime());
         List<Booking> bookings = bookingService.fetchAllByDay(booking.getDate());
         //get all equipment for this activity
         List<Equipment> equipmentList = booking.getActivity().getEquipment();

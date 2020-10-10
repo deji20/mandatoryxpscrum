@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link type="text/css" href="/css/background.css" rel="stylesheet">
+    <link type="text/css" href="/css/masonry.css" rel="stylesheet">
     <link type="text/css" href="/css/navbar.css" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,48 +29,42 @@
         </div>
     </div>
 </div>
-<div class="w3-col s11 w3-rest">
-    <div class="w3-container">
-        <div class="w3-row-padding">
-            <div th:each="activity: ${activities}" class="w3-col s4 w3-panel">
-                <div class="w3-pale-yellow w3-card w3-round-xlarge w3-ul">
-                    <header class="w3-row">
-                        <img src="" th:src="@{${'/images/' + activity.image}}" class="w3-image" alt="Missing image">
-                    </header>
-                    <div>
-                        <h3 class="w3-card w3-center w3-blue" style="margin-top: 0px;" th:text="${activity.name}"></h3>
-                        <li th:if="${activity.getRules().ageLimit} != null">
-                            <span class="">Min. age:</span>
-                            <span th:text="${activity.getRules().ageLimit}"></span>
-                        </li>
-                        <li th:if="${activity.getRules().heightLimit} != null">
-                            <span>Min. height:</span>
-                            <span th:text="${activity.getRules().heightLimit}"></span>
-                        </li>
-                        <li th:if="${activity.getRules().duration} != null">
-                            <span>Duration:</span>
-                            <span th:text="${activity.getRules().duration}"></span>
-                        </li>
-                        <li  th:if="${activity.getRules().maxCapacity} != null">
-                            <span>Max capacity:</span>
-                            <span th:text="${activity.getRules().maxCapacity}"></span>
-                        </li>
-                        <li th:if="${activity.getPricing()?.standard} != null">
-                            <span>Price 0-10 persons:</span>
-                            <span th:text="${activity.getPricing()?.standard}"></span>
-                        </li>
-                        <li th:if="${activity.getPricing()?.discount} != null">
-                            <span>Price 10+ persons: </span>
-                            <span th:text="${activity.getPricing()?.discount}"></span>
-                        </li>
-                        <li th:if="${activity.availableEquipment()} != null">
-                            <span>Available Equipment</span>
-                            <span th:text="${activity.availableEquipment()} + '/' + ${activity.getEquipment()?.size()}"></span>
-                        </li>
-                        <a th:href="'/manager/edit?id=' + ${activity.getId()}" class="w3-btn w3-bar w3-blue-grey" style="width: 100%;">Edit</a>
-                    </div>
-                </div>
-            </div>
+<div class="w3-col s11 w3-container w3-cell-row">
+    <div th:each="activity: ${activities}" class="backg w3-col w3-card-4 w3-margin s2 w3-center w3-cell w3-mobile">
+        <img class="w3-image" src="" th:src="@{${'/images/' + activity.image}}" alt="Missing image">
+        <h3 class="w3-card" style="margin-top: 0; backdrop-filter: blur(5px);" th:unless="${activity.name} == null" th:text="${activity.name}" ></h3>
+        <table class="w3-table w3-bordered">
+            <tr>
+                <td class="tData"><strong>Age Requirement:</strong></td>
+                <td class="tData" th:text = "${activity.getRules().ageLimit} ?: 'None'"></td>
+            </tr>
+            <tr>
+                <td class="tData"><strong>Height Requirement: </strong></td>
+                <td class="tData" th:text="${activity.getRules().heightLimit} ?: 'None'"></td>
+            </tr>
+            <tr>
+                <td class="tData"><strong>Duration: </strong></td>
+                <td class="tData" th:text="${activity.getRules().duration} ?: 'None'"></td>
+            </tr>
+            <tr>
+                <td class="tData"><strong>Max Capacity: </strong></td>
+                <td class="tData" th:text="${activity.getRules().maxCapacity} ?: 'None'"></td>
+            </tr>
+            <tr>
+                <td class="tData"><strong>Price For 0-10 Persons: </strong></td>
+                <td class="tData" th:text="${activity.getPricing().standard} ?: 'None'"></td>
+            </tr>
+            <tr>
+                <td class="tData"><strong>Price for 10+ Persons: </strong></td>
+                <td class="tData" th:text="${activity.getPricing().discount} ?: 'None'"></td>
+            </tr>
+            <tr>
+                <td class="tData"><strong>Functional Equipment: </strong></td>
+                <td class="tData" th:text="${activity.availableEquipment()} + '/' + ${activity.getEquipment()?.size()}"></td>
+            </tr>
+        </table>
+        <div class="w3-row">
+            <a th:href="'/manager/edit?id=' + ${activity.getId()}" class="w3-btn w3-bar w3-blue-grey" style="width: 100%;">Edit</a>
         </div>
     </div>
 </div>
