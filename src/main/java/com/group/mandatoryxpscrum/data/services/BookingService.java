@@ -49,6 +49,9 @@ public class BookingService {
     public List<Booking> findBookingByDateAndActivity(LocalDate date, int activityId){
         return bookingRepository.findBookingsByDateAndActivity(date.toString(), activityId);
     }
+    public List<Booking> findBookingsByActivityAfterDate(int activityId, LocalDate date){
+        return bookingRepository.findBookingByActivityAfterDate(date.toString(), activityId);
+    }
 
     public List<Booking> listStats(){
 

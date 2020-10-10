@@ -93,7 +93,7 @@ public class BookingController {
     public String viewBooking(Model model) {
         HashMap<String, List<Booking>> bookingsByActivities = new HashMap<>();
         for(Activity activity: activityService.fetchAll()) {
-            bookingsByActivities.put(activity.getName(), bookingService.fetchBookingsByActivity(activity));
+            bookingsByActivities.put(activity.getName(), bookingService.findBookingsByActivityAfterDate(activity.getId(), LocalDate.now()));
         }
         model.addAttribute("bookByActiv",bookingsByActivities);
         return "/booking/bookingInfo";
