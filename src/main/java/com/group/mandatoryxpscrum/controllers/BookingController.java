@@ -145,8 +145,6 @@ public class BookingController {
             int diff = 0;
             if(bTime > bookingTime){ diff = bTime - bookingTime;}
             else if(bTime < bookingTime){ diff = bookingTime - bTime;}
-            System.out.println("diff: " +diff);
-            System.out.println("duration: " + duration);
 
             //removes available equipment from list if bookings overlap
             if(diff < duration){

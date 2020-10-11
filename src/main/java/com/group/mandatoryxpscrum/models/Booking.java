@@ -37,7 +37,7 @@ public class Booking {
     @Column(name="customer_name")
     private String customerName;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Equipment> bookedEquipment;
 
     @ManyToOne(fetch = FetchType.LAZY)
