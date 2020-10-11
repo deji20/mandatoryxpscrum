@@ -68,7 +68,6 @@ Mapping for viewing equipment of chosen activity
     @PostMapping("/{id}/equipment/new")
     public String addEquipment(@ModelAttribute("equipment") Equipment equipment, @PathVariable("id") int id) {
         Activity activity = activityService.fetchById(id);
-        equipment.setActivity(activity);
         activity.addEquipment(equipment);
         activityService.save(activity);
         return "redirect:/activity/{id}/equipment";

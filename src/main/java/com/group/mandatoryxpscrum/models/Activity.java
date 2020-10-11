@@ -51,8 +51,8 @@ public class Activity {
      * og linker denne activity til equipment objektet
      */
     public void addEquipment(Equipment newEquipment){
-        equipment.add(newEquipment);
         newEquipment.setActivity(this);
+        equipment.add(newEquipment);
     }
 
     /** fjerner et Equipment objekt fra listen

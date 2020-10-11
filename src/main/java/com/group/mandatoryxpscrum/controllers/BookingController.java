@@ -58,6 +58,8 @@ public class BookingController {
         booking.setActivity(activityService.fetchById(activityId));
         booking.setInstructor(instructorService.fetchById(instructorId));
         //necessary for some reason cause sql keeps saving it a day earlier
+        //sql saves dates with a time and since we dont pass it a time it starts at 00:00
+        //which then gets interpreted as the previous day when converting back
         booking.setDate(booking.getDate().plusDays(1));
         List<Equipment> availableEquipment = getAvailEquipment(booking);
         booking.setBookedEquipment(availableEquipment.subList(0, booking.getAmount()));
