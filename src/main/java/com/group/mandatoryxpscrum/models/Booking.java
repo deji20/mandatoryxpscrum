@@ -27,7 +27,7 @@ public class Booking {
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime time;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name= "booking_id_instructor", referencedColumnName = "instructor_id")
     private Instructor instructor;
 

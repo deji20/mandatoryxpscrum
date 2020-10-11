@@ -34,7 +34,7 @@
             <button th:each="activity: ${bookByActiv.keySet()}" class="w3-bar-item w3-button" th:text="${activity}" onclick="showTable(this)"></button>
         </nav>
         <div class="w3-row" th:each="activity: ${bookByActiv.keySet()}">
-            <div class="w3-card-4 w3-blue w3-container table" style="display: none" th:id="${activity}">
+            <div class="w3-card-4 w3-blue w3-container table w3-animate-left" style="display: none" th:id="${activity}">
                 <h3 th:text="${activity}"></h3>
                 <table style="width:100%" class="datatable w3-table w3-striped w3-white w3-bordered w3-hoverable w3-opacity-min">
                     <thead>

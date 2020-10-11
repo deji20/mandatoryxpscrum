@@ -54,8 +54,11 @@ public class BookingController {
 
     //saves new booking to database adding activity and equipment
     @PostMapping("/create")
-    public String create(Model model, @ModelAttribute Booking booking, @RequestParam int activityId){
+    public String create(@ModelAttribute Booking booking, @RequestParam int activityId, @RequestParam int instructorId){
         booking.setActivity(activityService.fetchById(activityId));
+        booking.setInstructor(instructorService.fetchById(instructorId));
+        //necessary for some reason cause sql keeps saving it a day earlier
+        booking.setDate(booking.getDate().plusDays(1));
         List<Equipment> availableEquipment = getAvailEquipment(booking);
         booking.setBookedEquipment(availableEquipment.subList(0, booking.getAmount()));
 
@@ -89,6 +92,7 @@ public class BookingController {
         return "redirect:/booking/bookinginfo";
     }
 
+    //finds bookings sorted by activity. after todays date and displays them in bookinginfo html page
     @GetMapping("/bookinginfo")
     public String viewBooking(Model model) {
         HashMap<String, List<Booking>> bookingsByActivities = new HashMap<>();
@@ -117,7 +121,6 @@ public class BookingController {
     @PostMapping(value="/returnEquipment", produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody()
     public List<Equipment> returnEquipment(@RequestParam int activityId, @ModelAttribute Booking booking){
-        System.out.println(booking);
         booking.setActivity(activityService.fetchById(activityId));
         List<Equipment> list = getAvailEquipment(booking);
 
@@ -180,9 +183,6 @@ public class BookingController {
             int diff = 0;
             if(bTime > bookingTime){ diff = bTime - bookingTime;}
             else if(bTime < bookingTime){ diff = bookingTime - bTime;}
-            System.out.println("diff: " +diff);
-            System.out.println("duration: " + duration);
-
             //removes available instructors from list if bookings overlap
             if(diff < duration){
                     if(instructorList.contains(b.getInstructor())){

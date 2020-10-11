@@ -38,15 +38,27 @@ public class StatisticController {
             Statistic statistic = new Statistic();
             statistic.setDate(date.plusDays(i));
             statistic.setBookingsByActivity(getActivityBookingsByDate(statistic.getDate()));
-            statistic.setEquipmentUsed(bookingService.fetchAllByDay(statistic.getDate()).stream().mapToInt((b) -> b.getBookedEquipment().size()).sum());
+            HashMap<Activity, Integer> equipment = new HashMap<>();
+            for(Activity activity: activityService.fetchAll()) {
+                equipment.put(activity, statistic.getBookingsByActivity().get(activity).stream().mapToInt(Booking::getAmount).sum());
+            }
+            statistic.setEquipmentUsed(equipment);
             statistics.add(statistic);
         }
         Statistic total = new Statistic();
-        total.setBookingsByActivity(new HashMap<>());
+        HashMap<Activity, Integer> equipment = new HashMap<>();
+        HashMap<Activity, List<Booking>> bookings = new HashMap<>();
         for (Statistic s: statistics) {
-            total.setEquipmentUsed(total.getEquipmentUsed() + s.getEquipmentUsed());
-            total.getBookingsByActivity().putAll(s.getBookingsByActivity());
+            for(Activity activity: activityService.fetchAll()){
+                bookings.putIfAbsent(activity, new ArrayList<Booking>());
+                bookings.get(activity).addAll(s.getBookingsByActivity().get(activity));
+
+                equipment.putIfAbsent(activity, 0);
+                equipment.put(activity, bookings.get(activity).stream().mapToInt(Booking::getAmount).sum());
+            }
         }
+        total.setBookingsByActivity(bookings);
+        total.setEquipmentUsed(equipment);
 
         model.addAttribute("total", total);
         model.addAttribute("statistics", statistics);

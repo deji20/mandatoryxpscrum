@@ -9,7 +9,7 @@ import java.util.List;
 public class Statistic {
     private LocalDate date;
     private HashMap<Activity, List<Booking>> bookingsByActivity;
-    private int equipmentUsed;
+    private HashMap<Activity, Integer> equipmentUsed;
     private int TotalEquipment;
     private int brokenEquipment;
 
@@ -31,11 +31,11 @@ public class Statistic {
         this.bookingsByActivity = bookingsByActivity;
     }
 
-    public int getEquipmentUsed() {
+    public HashMap<Activity, Integer> getEquipmentUsed() {
         return equipmentUsed;
     }
 
-    public void setEquipmentUsed(int equipmentUsed) {
+    public void setEquipmentUsed(HashMap<Activity, Integer> equipmentUsed) {
         this.equipmentUsed = equipmentUsed;
     }
 
