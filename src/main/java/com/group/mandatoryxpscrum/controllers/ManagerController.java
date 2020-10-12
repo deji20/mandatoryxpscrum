@@ -32,7 +32,7 @@ public class ManagerController {
         activity.setPricing(pricing);
         activity.setRules(rules);
         activityService.save(activity);
-        return "redirect:/";
+        return "redirect:/manager/";
     }
 
     @PostMapping("/update")
@@ -55,7 +55,7 @@ public class ManagerController {
         activity.setDescription(description);
 
         activityService.save(activity);
-        return "redirect:/manager";
+        return "redirect:/manager/";
     }
 
     /*------------------------------------------
